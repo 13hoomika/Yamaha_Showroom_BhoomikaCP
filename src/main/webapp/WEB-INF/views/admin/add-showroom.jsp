@@ -1,0 +1,85 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page isELIgnored="false" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Showroom | Yamaha Motors</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
+</head>
+<body>
+<div class="wrapper">
+    <!-- Include the same sidebar as dashboard.jsp -->
+    <jsp:include page="../fragments/admin-sidebar.jsp" />
+
+    <!-- Page Content -->
+    <div id="content" class="content">
+        <!-- Top Header -->
+        <jsp:include page="../fragments/admin-header.jsp" />
+
+        <div class="container-fluid mt-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4><i class="fas fa-store me-2"></i>Add New Showroom</h4>
+                <a href="${pageContext.request.contextPath}/admin/manage-showrooms" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-1"></i> Back to List
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form id="showroomForm" action="${pageContext.request.contextPath}/admin/add-showroom" method="post">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="showroomName" class="form-label">Showroom Name</label>
+                                <input type="text" class="form-control" id="showroomName" name="showroomName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="showroomLocation" class="form-label">Location</label>
+                                <select class="form-select" id="showroomLocation" name="showroomLocation" required>
+                                    <option value="">Select Location</option>
+                                    <c:forEach var="type" items="${showroomList}">
+                                        <option value="${type}">${type.displayName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="showroomAddress" class="form-label">Full Address</label>
+                                <textarea class="form-control" id="showroomAddress" name="showroomAddress" rows="2" required></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="showroomPhone" class="form-label">Contact Phone</label>
+                                <input type="tel" class="form-control" id="showroomPhone" name="showroomPhone" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="showroomEmail" class="form-label">Contact Email</label>
+                                <input type="email" class="form-control" id="showroomEmail" name="showroomEmail" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="showroomManager" class="form-label">Manager</label>
+                                <input type="text" class="form-control" id="showroomManager" name="showroomManager" required>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-primary me-2">
+                                    <i class="fas fa-save me-1"></i> Save Showroom
+                                </button>
+                                <button type="reset" class="btn btn-outline-secondary">
+                                    <i class="fas fa-undo me-1"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
+</body>
+</html>

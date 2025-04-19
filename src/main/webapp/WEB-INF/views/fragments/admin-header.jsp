@@ -1,0 +1,11 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container-fluid">
+        <button type="button" id="sidebarToggle" class="btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="user-profile ms-auto">
+            <span class="me-2">${admin.adminName}</span>
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="rounded-circle" alt="Admin" width="45" height="45">
+        </div>
+    </div>
+</nav>
