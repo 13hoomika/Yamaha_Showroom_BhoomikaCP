@@ -12,6 +12,7 @@ public interface BikeService {
     Long getTotalBikeCount();
 
     List<BikeDto> getBikesByShowroomLocation(ShowroomEnum showroomLocation);
+//    List<BikeDto> getBikesByShowroomName(String showroomName);
     List<BikeEntity> getUnassignedBikes();
 
     Boolean assignBikeToShowroom(Integer bikeId, Integer showroomId);

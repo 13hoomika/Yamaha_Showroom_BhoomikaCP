@@ -66,6 +66,4 @@ public class UserDto {
 
     private Integer showroomId;
     private String showroomName;
-
-//    private String otp;
 }

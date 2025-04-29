@@ -24,6 +24,6 @@
     <h1>Welcome to Yamaha Motors</h1>
     <p>Your destination for premium Yamaha bikes</p>
     <a href="${pageContext.request.contextPath}/user/logout">Logout</a>
-    
+
 </body>
 </html>

@@ -15,11 +15,11 @@ import java.util.List;
 @Table(name = "yamaha_bikes")
 @NamedQueries({
 //        @NamedQuery(name = "findAllBikes", query = "FROM BikeEntity"),
-        @NamedQuery(name = "findAllBikes", query = "SELECT DISTINCT b FROM BikeEntity b LEFT JOIN FETCH b.availableShowroom LEFT JOIN FETCH b.bikeImages"),
+        @NamedQuery(name = "findAllBikes", query = "SELECT DISTINCT b FROM BikeEntity b LEFT JOIN FETCH b.availableInShowroom LEFT JOIN FETCH b.bikeImages"),
         @NamedQuery(name = "countAllBikes", query = "SELECT COUNT(bikes) FROM BikeEntity bikes"),
-        @NamedQuery(name = "findByShowroomLocation",query = "SELECT b FROM BikeEntity b WHERE b.availableShowroom.showroomLocation = :location"),
-        @NamedQuery(name = "findUnassignedBikes",query = "SELECT b FROM BikeEntity b WHERE b.availableShowroom IS NULL"),
-        @NamedQuery(name = "countByShowroomId",query = "SELECT COUNT(b) FROM BikeEntity b WHERE b.availableShowroom.showroomId = :showroomId")
+        @NamedQuery(name = "findByShowroomLocation",query = "SELECT b FROM BikeEntity b WHERE b.availableInShowroom.showroomLocation = :location"),
+        @NamedQuery(name = "findUnassignedBikes",query = "SELECT b FROM BikeEntity b WHERE b.availableInShowroom IS NULL"),
+        @NamedQuery(name = "countByShowroomId",query = "SELECT COUNT(b) FROM BikeEntity b WHERE b.availableInShowroom.showroomId = :showroomId")
 })
 
 
@@ -39,11 +39,16 @@ public class BikeEntity {
     @Column(name = "bikeDescription", length = 2000)
     private String bikeDescription;
 
+    private String mileage;
+    private String fuelTankCapacity;
+    private int engineCapacity;
+
     @OneToMany(mappedBy = "bike", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BikeImageEntity> bikeImages;
 
     @ManyToOne
-    @JoinColumn(name = "showroom_id")
-    private ShowroomEntity availableShowroom;
+    @JoinColumn(name = "showroom_Name")
+    private ShowroomEntity availableInShowroom;
+
 
 }

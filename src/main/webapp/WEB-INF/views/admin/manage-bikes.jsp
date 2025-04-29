@@ -67,7 +67,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Model</th>
-                                    <th>Showroom Location</th>
+                                    <th>Showroom Name</th>
                                     <th>Price</th>
                                     <th>Type</th>
                                     <th>Year</th>
@@ -79,7 +79,7 @@
                                     <tr>
                                         <td>${status.count}</td>
                                         <td>${bike.bikeModel}</td>
-                                        <td>${bike.showroomLocation.displayName}</td>
+                                        <td>${bike.availableInShowroom}</td>
                                         <td>Rs.${bike.bikePrice}</td>
                                         <td>${bike.bikeType.displayName}</td>
                                         <td>${bike.bikeYear}</td>

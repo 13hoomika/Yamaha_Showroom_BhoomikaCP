@@ -21,9 +21,12 @@ public class BikeDto {
     private String bikeColor;
     private String bikeDescription;
 
+    private String mileage;
+    private String fuelTankCapacity;
+    private int engineCapacity;
+
     private List<MultipartFile> bikeImages;
 
     private int showroomId;
-    private ShowroomEnum showroomLocation;
-
+    private String availableInShowroom;
 }

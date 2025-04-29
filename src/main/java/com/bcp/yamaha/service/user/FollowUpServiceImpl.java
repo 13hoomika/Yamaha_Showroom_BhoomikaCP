@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +33,7 @@ public class FollowUpServiceImpl implements FollowUpService {
     public boolean saveFollowUp(FollowUpDto dto) {
         FollowUpEntity entity = new FollowUpEntity();
         //converting STo to entity
-        entity.setFollowupDate(dto.getFollowupDate() != null ? dto.getFollowupDate():LocalDateTime.now());
+        entity.setFollowupDate(dto.getFollowupDate() != null ? dto.getFollowupDate(): LocalDate.now());
         entity.setCallStatus(dto.getCallStatus());
         entity.setNotes(dto.getNotes());
 //        entity.setRescheduleDate(dto.getRescheduleDate());
@@ -86,7 +86,7 @@ public class FollowUpServiceImpl implements FollowUpService {
                     dto.setUserName(entity.getUser().getUserName());
                 }
                 dtoList.add(dto);
-                System.out.println("followup details: " + dtoList);
+                log.debug("followup details: {}", dtoList);
             }
         }
         return  dtoList;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Random;
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -25,14 +26,17 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public String generateRandomPassword() {
-        int length = 6;
-        String characters = "0123456789";
+//        int length = 6;
+//        String characters = "0123456789";
+//        Random random = new Random();
+//        StringBuilder sb = new StringBuilder(length);
+//        for (int i = 0; i < length; i++) {
+//            sb.append(characters.charAt(random.nextInt(characters.length())));
+//        }
+//        return sb.toString();
         Random random = new Random();
-        StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            sb.append(characters.charAt(random.nextInt(characters.length())));
-        }
-        return sb.toString();
+        int otp = 100000 + random.nextInt(900000);
+        return String.valueOf(otp);
     }
 
     @Transactional
@@ -51,7 +55,7 @@ public class AdminServiceImpl implements AdminService {
         return adminRepository.adminSave(adminEntity);
     }
 
-    @Override
+    /*@Override
     public boolean sendOtpToAdmin(String email) {
         AdminEntity admin = adminRepository.findByEmail(email);
         if (admin == null) {
@@ -79,24 +83,52 @@ public class AdminServiceImpl implements AdminService {
             System.out.println("❌ Email sending failed.");
             return false;
         }
+    }*/
+    @Override
+    public boolean sendOtpToAdmin(String email) {
+        Optional<AdminEntity> admin = adminRepository.findByEmail(email);
+        if (admin.isPresent()){
+            String otp = generateRandomPassword();
+            adminRepository.updateOtp(email, otp, LocalDateTime.now());
+            boolean emailSent = emailService.sendEmail(email, otp);
+            if (emailSent) {
+                System.out.println("✅ OTP sent to email: " + email);
+                System.out.println("otp: " + otp);
+                return true;
+            } else {
+                System.out.println("❌ Email sending failed.");
+                return false;
+            }
+        }
+        return false;
     }
 
     @Override
-    public boolean validateAdminOtp(String otp) {
-        if (otpDetails == null) {
-            return false;
+    public boolean verifyOtp(String email, String otp) {
+        Optional<AdminEntity> admin = adminRepository.findByEmail(email);
+
+        if (admin.isPresent() && admin.get().getAdminOtp().equals(otp)) {
+            return true;
         }
-
-        boolean isValid = otpDetails.getOtp().equals(otp)
-                && LocalDateTime.now().isBefore(otpDetails.getExpiry());
-
-        // Clear OTP after successful validation
-        if (isValid) {
-            otpDetails = null; // Clear after successful validation
-        }
-
-        return isValid;
+        return false;
     }
+
+//    @Override
+//    public boolean validateAdminOtp(String otp) {
+//        if (otpDetails == null) {
+//            return false;
+//        }
+//
+//        boolean isValid = otpDetails.getOtp().equals(otp)
+//                && LocalDateTime.now().isBefore(otpDetails.getExpiry());
+//
+//        // Clear OTP after successful validation
+//        if (isValid) {
+//            otpDetails = null; // Clear after successful validation
+//        }
+//
+//        return isValid;
+//    }
 
     @Override
     public AdminEntity findByName(String adminName) {
@@ -104,7 +136,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public AdminEntity findByEmail(String email) {
+    public Optional<AdminEntity> findByEmail(String email) {
         return adminRepository.findByEmail(email);
     }
 

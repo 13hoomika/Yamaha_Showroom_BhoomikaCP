@@ -34,7 +34,7 @@ public class UserController {
     @Autowired
     ShowroomService showroomService;
 
-    @GetMapping("/register")
+    /*@GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("userDto", new UserDto());
 
@@ -69,5 +69,5 @@ public class UserController {
 
         }
         return "redirect:/user/register";
-    }
+    }*/
 }

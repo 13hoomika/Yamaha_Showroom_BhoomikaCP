@@ -4,5 +4,6 @@ public class AdminDto {
     private int adminId;
     private String adminName;
     private String adminEmail;
-    private String adminPassword;
+//    private String adminPassword;
+    private String adminOtp;
 }

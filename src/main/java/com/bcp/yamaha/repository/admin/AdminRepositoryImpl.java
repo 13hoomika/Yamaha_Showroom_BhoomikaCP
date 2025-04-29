@@ -4,6 +4,9 @@ import com.bcp.yamaha.entity.AdminEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Repository
 public class AdminRepositoryImpl implements AdminRepository {
@@ -45,20 +48,28 @@ public class AdminRepositoryImpl implements AdminRepository {
     }
 
     @Override
-    public AdminEntity findByEmail(String email) {
+    public Optional<AdminEntity> findByEmail(String email) {
         try {
-            return em.createNamedQuery("findByEmail", AdminEntity.class)
+            return Optional.of(em.createNamedQuery("findByEmail", AdminEntity.class)
                     .setParameter("adminEmail", email)
-                    .getSingleResult();
+                    .getSingleResult());
         } catch (NoResultException e) {
-            return null;
+            return Optional.empty();
         }
     }
 
-
-
-
-
-
-
+    @Transactional
+    @Override
+    public void updateOtp(String email, String otp, LocalDateTime currentTime) {
+        try {
+            em.createQuery(
+                            "UPDATE AdminEntity a SET a.adminOtp = :otp, a.otpGeneratedTime = :currentTime WHERE a.adminEmail = :email")
+                    .setParameter("otp", otp)
+                    .setParameter("currentTime", currentTime)
+                    .setParameter("email", email)
+                    .executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

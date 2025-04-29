@@ -9,32 +9,48 @@
     <ul class="sidebar-menu">
         <li>
             <a href="${pageContext.request.contextPath}/admin/dashboard">
-                <i class="fas fa-tachometer-alt"></i> Dashboard
+                <i class="fas fa-gauge-high"></i> Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="${pageContext.request.contextPath}/admin/manage-bikes">
+                <i class="fas fa-screwdriver-wrench"></i> Manage Bikes
             </a>
         </li>
         <li>
             <a href="${pageContext.request.contextPath}/admin/manage-bikes">
-                <i class="fas fa-motorcycle"></i> Manage Bikes
+                <i class="fas fa-motorcycle"></i> View All Bikes
             </a>
         </li>
         <li>
             <a href="${pageContext.request.contextPath}/admin/manage-showrooms">
-                <i class="fas fa-store"></i> Manage Showrooms
+                <i class="fas fa-warehouse"></i> Manage Showrooms
+            </a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/admin/manage-showrooms">
+                <i class="fas fa-store"></i> View All Showrooms
+            </a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/admin/userRegister">
+                <i class="fas fa-user"></i> Register user
             </a>
         </li>
         <li>
             <a href="${pageContext.request.contextPath}/admin/manage-users">
-                <i class="fas fa-users"></i> Manage Users
+                <i class="fas fa-user-gear"></i> Manage Users
             </a>
         </li>
-        <li>
+        <!--<li>
             <a href="${pageContext.request.contextPath}/admin/manage-followup">
-                <i class="fas fa-calendar-alt"></i> Follow Up
+                <i class="fas fa-calendar-check"></i> Follow Up
             </a>
-        </li>
+        </li>-->
         <li>
             <a href="${pageContext.request.contextPath}/admin/logout">
-                <i class="fas fa-sign-out-alt"></i> Logout
+                <i class="fas fa-arrow-right-from-bracket"></i> Logout
             </a>
         </li>
     </ul>

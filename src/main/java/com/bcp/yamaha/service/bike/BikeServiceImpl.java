@@ -78,8 +78,11 @@ public class BikeServiceImpl implements BikeService{
         for (BikeEntity entity : bikeEntityList){
             BikeDto dto = new BikeDto();
             BeanUtils.copyProperties(entity,dto);
-            if (entity.getAvailableShowroom() != null) {
+            /*if (entity.getAvailableShowroom() != null) {
                 dto.setShowroomLocation(entity.getAvailableShowroom().getShowroomLocation());
+            }*/
+            if (entity.getAvailableInShowroom() != null) {
+                dto.setAvailableInShowroom(entity.getAvailableInShowroom().getShowroomName());
             }
             bikeDtoList.add(dto);
         }
@@ -101,8 +104,12 @@ public class BikeServiceImpl implements BikeService{
             BikeDto dto = new BikeDto();
             BeanUtils.copyProperties(entity, dto);
             // Manually copy any nested/complex properties
-            if (entity.getAvailableShowroom() != null) {
+            /*if (entity.getAvailableShowroom() != null) {
                 dto.setShowroomLocation(entity.getAvailableShowroom().getShowroomLocation());
+            }*/
+
+            if (entity.getAvailableInShowroom() != null) {
+                dto.setAvailableInShowroom(entity.getAvailableInShowroom().getShowroomName());
             }
             bikeDtoList.add(dto);
         }
@@ -163,7 +170,8 @@ public class BikeServiceImpl implements BikeService{
             }
 
             // Assign bike to showroom
-            bike.setAvailableShowroom(showroom);
+//            bike.setAvailableShowroom(showroom);
+            bike.setAvailableInShowroom(showroom);
             bikeRepository.addBike(bike);
 
             // Update and save bike count

@@ -89,7 +89,7 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="form-label">Follow-Up Date</label>
-                                <input type="datetime-local" class="form-control" name="followupDate"
+                                <input type="date" class="form-control" name="followupDate"
                                        value="${param.followupDate}" required>
                             </div>
                             <div class="col-md-6">
@@ -171,9 +171,8 @@
     // Set default datetime to now
     document.addEventListener('DOMContentLoaded', function() {
         const now = new Date();
-        const timezoneOffset = now.getTimezoneOffset() * 60000;
-        const localISOTime = (new Date(now - timezoneOffset)).toISOString().slice(0, 16);
-        document.querySelector('input[type="datetime-local"]').value = localISOTime;
+        const localDate = now.toISOString().slice(0, 10); // Format: yyyy-MM-dd
+                document.querySelector('input[type="date"]').value = localDate;
     });
 </script>
 </body>

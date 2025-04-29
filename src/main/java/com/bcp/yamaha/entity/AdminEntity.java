@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -16,10 +17,15 @@ import javax.persistence.*;
         @NamedQuery(name = "findByEmail", query = "SELECT a FROM AdminEntity a WHERE a.adminEmail = :adminEmail"),
 })
 
-public class AdminEntity {
+public class AdminEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int adminId;
     private String adminName;
     private String adminEmail;
+
+    private String  adminOtp;
+    @Column(nullable = true)
+    private LocalDateTime otpGeneratedTime;
+
 }

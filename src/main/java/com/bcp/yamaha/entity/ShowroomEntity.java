@@ -32,7 +32,10 @@ public class ShowroomEntity {
     private String showroomEmail;
     private String showroomManager;
 
-    @OneToMany(mappedBy = "availableShowroom")
+    /*@OneToMany(mappedBy = "availableShowroom")
+    private List<BikeEntity> bikes = new ArrayList<>();*/
+
+    @OneToMany(mappedBy = "availableInShowroom")
     private List<BikeEntity> bikes = new ArrayList<>();
 
     @Column(nullable = false)

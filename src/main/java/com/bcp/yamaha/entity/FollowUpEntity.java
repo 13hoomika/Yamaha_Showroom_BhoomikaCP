@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -31,7 +32,7 @@ public class FollowUpEntity extends AuditEntity{
 
     @Column(name = "followup_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime followupDate;
+    private LocalDate followupDate;
 
     @Column(name = "call_status")
     private String callStatus;
@@ -40,5 +41,7 @@ public class FollowUpEntity extends AuditEntity{
     private String notes;
 
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @Column(name = "reschedule_date")
 //    private LocalDateTime rescheduleDate;
+
 }

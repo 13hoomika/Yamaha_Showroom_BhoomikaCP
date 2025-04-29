@@ -63,11 +63,31 @@
                                 <input type="number" class="form-control" id="bikeYear" name="bikeYear" min="2000" max="2025" required>
                             </div>
 
+                            <!-- Engine Capacity -->
+                            <div class="col-md-4">
+                                <label for="engineCapacity" class="form-label">Engine Capacity(CC)</label>
+                                <input type="number" class="form-control" id="engineCapacity" name="engineCapacity" required>
+                            </div>
+
+                            <!-- Mileage -->
+                            <div class="col-md-4">
+                                <label for="mileage" class="form-label">Mileage(kmpl)</label>
+                                <input type="text" inputmode="decimal" class="form-control" id="mileage" name="mileage" required>
+                            </div>
+
+                            <!-- Fuel Tank Capacity -->
+                            <div class="col-md-4">
+                                <label for="fuelTankCapacity" class="form-label">Fuel Tank Capacity (ltr)</label>
+                                <input type="number" class="form-control" id="fuelTankCapacity" name="fuelTankCapacity" required>
+                            </div>
+
                             <!-- Color -->
                             <div class="col-md-4">
                                 <label for="bikeColor" class="form-label">Color</label>
                                 <input type="text" class="form-control" id="bikeColor" name="bikeColor" required>
                             </div>
+
+
 
                             <!-- Description -->
                             <div class="col-12">
