@@ -29,7 +29,7 @@
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/admin/manage-showrooms">
+            <a href="${pageContext.request.contextPath}/admin/view-showrooms">
                 <i class="fas fa-store"></i> View All Showrooms
             </a>
         </li>

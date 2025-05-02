@@ -1,5 +1,6 @@
 package com.bcp.yamaha.service.user;
 
+import com.bcp.yamaha.constants.ScheduleType;
 import com.bcp.yamaha.dto.ShowroomDto;
 import com.bcp.yamaha.dto.UserDto;
 import com.bcp.yamaha.entity.UserEntity;
@@ -107,6 +108,20 @@ public class UserServiceImpl implements UserService{
     @Override
     public Long getTotalUserCount() {
         return userRepository.countAllUsers();
+    }
+
+    @Override
+    public List<UserDto> getUsersByScheduleType(ScheduleType scheduleType) {
+        List<UserEntity> userEntityList = userRepository.findByScheduleType(scheduleType);
+        List<UserDto> userDtoList = new ArrayList<>();
+
+        for (UserEntity entity : userEntityList){
+            UserDto dto = new UserDto();
+            BeanUtils.copyProperties(entity,dto);
+
+            userDtoList.add(dto);
+        }
+        return userDtoList;
     }
 
 

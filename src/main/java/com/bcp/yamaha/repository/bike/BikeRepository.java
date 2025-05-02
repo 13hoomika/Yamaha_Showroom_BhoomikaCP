@@ -1,5 +1,6 @@
 package com.bcp.yamaha.repository.bike;
 
+import com.bcp.yamaha.constants.BikeType;
 import com.bcp.yamaha.constants.ShowroomEnum;
 import com.bcp.yamaha.entity.BikeEntity;
 
@@ -11,7 +12,8 @@ public interface BikeRepository {
     List<BikeEntity> findAllBikes();
     Long countAllBikes();
 
-    List<BikeEntity> findByShowroomLocation(ShowroomEnum location);
+//    List<BikeEntity> findByShowroomLocation(ShowroomEnum location);
+    List<BikeEntity> findByBikeType(BikeType bikeType);
 
     List<BikeEntity> findUnassignedBikes();
     long countByShowroomId(Integer showroomId);

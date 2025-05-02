@@ -1,5 +1,7 @@
 package com.bcp.yamaha.repository.user;
 
+import com.bcp.yamaha.constants.ScheduleType;
+import com.bcp.yamaha.entity.BikeEntity;
 import com.bcp.yamaha.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
@@ -56,6 +58,14 @@ public class UserRepositoryImpl implements UserRepository{
     public Long countAllUsers() {
         return em.createNamedQuery("countAllUsers", Long.class)
                 .getSingleResult();
+    }
+
+    @Override
+    public List<UserEntity> findByScheduleType(ScheduleType scheduleType) {
+        return em.createNamedQuery(
+                        "findByScheduleType", UserEntity.class)
+                .setParameter("scheduleType", scheduleType)
+                .getResultList();
     }
 
     @Override

@@ -1,11 +1,13 @@
 package com.bcp.yamaha.repository.bike;
 
+import com.bcp.yamaha.constants.BikeType;
 import com.bcp.yamaha.constants.ShowroomEnum;
 import com.bcp.yamaha.entity.BikeEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -35,11 +37,19 @@ public class BikeRepositoryImpl implements BikeRepository {
                 .getSingleResult();
     }
 
-    @Override
+    /*@Override
     public List<BikeEntity> findByShowroomLocation(ShowroomEnum location) {
         return em.createNamedQuery(
                         "findByShowroomLocation", BikeEntity.class)
                 .setParameter("location", location)
+                .getResultList();
+    }*/
+
+    @Override
+    public List<BikeEntity> findByBikeType(BikeType bikeType) {
+        return em.createNamedQuery(
+                        "findByBikeType", BikeEntity.class)
+                .setParameter("type", bikeType)
                 .getResultList();
     }
 

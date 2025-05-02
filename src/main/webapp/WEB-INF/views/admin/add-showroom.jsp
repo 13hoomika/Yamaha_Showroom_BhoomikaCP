@@ -32,7 +32,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <form id="showroomForm" action="${pageContext.request.contextPath}/admin/add-showroom" method="post">
+                    <form id="showroomForm" action="${pageContext.request.contextPath}/admin/add-showroom" method="post" enctype="multipart/form-data">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="showroomName" class="form-label">Showroom Name</label>
@@ -63,6 +63,14 @@
                                 <label for="showroomManager" class="form-label">Manager</label>
                                 <input type="text" class="form-control" id="showroomManager" name="showroomManager" required>
                             </div>
+                            <div class="col-md-12">
+                                <label for="multipartFile" class="form-label">Upload Showroom Image</label>
+                                <input type="file" class="form-control" name="multipartFile" accept="image/*" id="imageInput" required />
+                                <!-- Image preview container -->
+                                <div id="previewContainer" style="margin-top: 10px;">
+                                    <img id="previewImage" src="#" alt="Image Preview" class="img-thumbnail" style="display:none; max-width: 300px;" />
+                                </div>
+                            </div>
                             <div class="col-12 mt-4">
                                 <button type="submit" class="btn btn-primary me-2">
                                     <i class="fas fa-save me-1"></i> Save Showroom
@@ -81,5 +89,32 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
+<script>
+    const imageInput = document.getElementById("imageInput");
+    const preview = document.getElementById("previewImage");
+
+    imageInput.addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "#";
+            preview.style.display = "none";
+            alert("Please select a valid image file.");
+        }
+    });
+
+    // Reset image preview on form reset
+    document.getElementById("showroomForm").addEventListener("reset", function() {
+        preview.src = "#";
+        preview.style.display = "none";
+    });
+</script>
+
 </body>
 </html>

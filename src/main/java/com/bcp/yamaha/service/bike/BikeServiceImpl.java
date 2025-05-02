@@ -1,13 +1,12 @@
 package com.bcp.yamaha.service.bike;
 
-import com.bcp.yamaha.constants.ShowroomEnum;
+import com.bcp.yamaha.constants.BikeType;
 import com.bcp.yamaha.dto.BikeDto;
 import com.bcp.yamaha.entity.BikeEntity;
 import com.bcp.yamaha.entity.BikeImageEntity;
 import com.bcp.yamaha.entity.ShowroomEntity;
 import com.bcp.yamaha.repository.bike.BikeRepository;
 import com.bcp.yamaha.repository.showroom.ShowroomRepository;
-import com.bcp.yamaha.repository.user.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +19,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BikeServiceImpl implements BikeService{
+    private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
+
     @Autowired
     ShowroomRepository showroomRepository;
 
@@ -33,6 +35,11 @@ public class BikeServiceImpl implements BikeService{
     @Override
     public Boolean addBike(BikeDto bikeDto) {
         try {
+            // Validating before processing
+            if (bikeDto.getBikeImages() == null || bikeDto.getBikeImages().isEmpty()) {
+                throw new IllegalArgumentException("At least one bike image is required");
+            }
+
             BikeEntity bikeEntity = new BikeEntity();
             BeanUtils.copyProperties(bikeDto, bikeEntity);
 
@@ -45,8 +52,8 @@ public class BikeServiceImpl implements BikeService{
                 imageEntities.add(image);
             }
             bikeEntity.setBikeImages(imageEntities);
-
             return bikeRepository.addBike(bikeEntity);
+
         } catch (Exception e) {
             System.out.println("Error adding bike: " + e.getMessage());
             throw new RuntimeException("Failed to add bike", e);
@@ -55,13 +62,14 @@ public class BikeServiceImpl implements BikeService{
 
     private String saveImageToDisk(MultipartFile file, String modelName) {
         try {
-            String uploadFolder = "D:/06 GO19ROM Aug19/Project Phase/BikeShowroom Project draft/Yamaha_Showroom_BhoomikaCP/src/main/webapp/static/upload/";
+//            String uploadFolder = "D:/06 GO19ROM Aug19/Project Phase/BikeShowroom Project draft/Yamaha_Showroom_BhoomikaCP/src/main/webapp/static/upload/";
+            Files.createDirectories(Paths.get(UPLOAD_FOLDER));
             String extension = file.getOriginalFilename()
                     .substring(file.getOriginalFilename().lastIndexOf('.'));
             String cleanModelName = modelName.replaceAll("\\s+", "_");
             String fileName = cleanModelName + "_" + System.currentTimeMillis() + extension;
 
-            Path filePath = Paths.get(uploadFolder + fileName);
+            Path filePath = Paths.get(UPLOAD_FOLDER + fileName);
             Files.write(filePath, file.getBytes());
 
             return "/uploads/" + fileName; // relative path stored in DB
@@ -71,6 +79,22 @@ public class BikeServiceImpl implements BikeService{
         }
     }
 
+//    private void deleteImageFromDisk(String imageUrl) {
+//        try {
+//            String fileName = imageUrl.replace("/uploads/", "");
+//            Path filePath = Paths.get(uploadFolder + fileName);
+//            Files.deleteIfExists(filePath);
+//        } catch (IOException e) {
+//            System.err.println("Failed to delete image: " + imageUrl);
+//            // Consider whether to throw or just log the error
+//        }
+//    }
+
+    @Override
+    public BikeEntity getBikeById(Integer bikeId) {
+        return bikeRepository.findById(bikeId);
+    }
+
     @Override
     public List<BikeDto> getAllBikes() {
         List<BikeEntity> bikeEntityList = bikeRepository.findAllBikes();
@@ -78,24 +102,24 @@ public class BikeServiceImpl implements BikeService{
         for (BikeEntity entity : bikeEntityList){
             BikeDto dto = new BikeDto();
             BeanUtils.copyProperties(entity,dto);
-            /*if (entity.getAvailableShowroom() != null) {
-                dto.setShowroomLocation(entity.getAvailableShowroom().getShowroomLocation());
-            }*/
-            if (entity.getAvailableInShowroom() != null) {
-                dto.setAvailableInShowroom(entity.getAvailableInShowroom().getShowroomName());
+
+            if (entity.getAvailableShowroomId() != null) {
+                dto.setAvailableInShowroom(entity.getAvailableShowroomId().getShowroomName());
             }
+            // Convert BikeImageEntity to image URLs
+            if (entity.getBikeImages() != null) {
+                List<String> imageUrls = entity.getBikeImages().stream()
+                        .map(BikeImageEntity::getImageUrl)
+                        .collect(Collectors.toList());
+                dto.setBikeImageUrls(imageUrls); // Using the new field
+            }
+            System.out.println("dto: " + dto);
             bikeDtoList.add(dto);
         }
         return bikeDtoList;
     }
 
-    public Long getTotalBikeCount() {
-        return bikeRepository.countAllBikes();
-    }
-
-
-
-    @Override
+    /*@Override
     public List<BikeDto> getBikesByShowroomLocation(ShowroomEnum location) {
         List<BikeEntity> bikeEntityList = bikeRepository.findByShowroomLocation(location);
         List<BikeDto> bikeDtoList = new ArrayList<>();
@@ -103,13 +127,35 @@ public class BikeServiceImpl implements BikeService{
         for (BikeEntity entity : bikeEntityList) {
             BikeDto dto = new BikeDto();
             BeanUtils.copyProperties(entity, dto);
-            // Manually copy any nested/complex properties
-            /*if (entity.getAvailableShowroom() != null) {
-                dto.setShowroomLocation(entity.getAvailableShowroom().getShowroomLocation());
-            }*/
 
-            if (entity.getAvailableInShowroom() != null) {
-                dto.setAvailableInShowroom(entity.getAvailableInShowroom().getShowroomName());
+            if (entity.getAvailableShowroomId() != null) {
+                dto.setAvailableInShowroom(entity.getAvailableShowroomId().getShowroomName());
+            }
+            // Add image URL conversion
+            *//*if (entity.getBikeImages() != null) {
+                List<String> imageUrls = entity.getBikeImages().stream()
+                        .map(BikeImageEntity::getImageUrl)
+                        .collect(Collectors.toList());
+                dto.setBikeImageUrls(imageUrls);
+            }*//*
+
+            bikeDtoList.add(dto);
+        }
+
+        return bikeDtoList;
+    }*/
+
+    @Override
+    public List<BikeDto> getBikesByBikeType(BikeType bikeType) {
+        List<BikeEntity> bikeEntityList = bikeRepository.findByBikeType(bikeType);
+        List<BikeDto> bikeDtoList = new ArrayList<>();
+
+        for (BikeEntity entity : bikeEntityList) {
+            BikeDto dto = new BikeDto();
+            BeanUtils.copyProperties(entity, dto);
+
+            if (entity.getAvailableShowroomId() != null) {
+                dto.setAvailableInShowroom(entity.getAvailableShowroomId().getShowroomName());
             }
             bikeDtoList.add(dto);
         }
@@ -117,19 +163,6 @@ public class BikeServiceImpl implements BikeService{
         return bikeDtoList;
     }
 
-   /* @Override
-    public List<BikeDto> getBikesByShowroomLocation(ShowroomEnum location) {
-        return bikeRepository.findByShowroomLocation(location).stream()
-                .map(entity -> {
-                    BikeDto dto = new BikeDto();
-                    // Manual property mapping
-                    dto.setBikeId(entity.getBikeId());
-                    dto.setBikeModel(entity.getBikeModel());
-                    // ... other properties
-                    return dto;
-                })
-                .collect(Collectors.toList());
-    }*/
 
     @Override
     public List<BikeEntity> getUnassignedBikes() {
@@ -171,7 +204,7 @@ public class BikeServiceImpl implements BikeService{
 
             // Assign bike to showroom
 //            bike.setAvailableShowroom(showroom);
-            bike.setAvailableInShowroom(showroom);
+            bike.setAvailableShowroomId(showroom);
             bikeRepository.addBike(bike);
 
             // Update and save bike count
@@ -187,5 +220,9 @@ public class BikeServiceImpl implements BikeService{
             e.printStackTrace();
             return false;
         }
+    }
+
+    public Long getTotalBikeCount() {
+        return bikeRepository.countAllBikes();
     }
 }

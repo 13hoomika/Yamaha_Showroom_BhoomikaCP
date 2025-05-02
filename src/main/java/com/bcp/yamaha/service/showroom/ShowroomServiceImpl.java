@@ -48,6 +48,7 @@ public class ShowroomServiceImpl implements ShowroomService {
             dto.setShowroomEmail(entity.getShowroomEmail());
             dto.setShowroomManager(entity.getShowroomManager());
             dto.setBikeCount(entity.getBikeCount());
+            dto.setShowroomImg(entity.getShowroomImg());
             // OR Calculate bike count from the relationship
             //dto.setBikeCount(entity.getBikes() != null ? entity.getBikes().size() : 0);
             dtoList.add(dto);

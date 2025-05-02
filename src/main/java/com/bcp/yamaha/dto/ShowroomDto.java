@@ -17,4 +17,6 @@ public class ShowroomDto {
     private String showroomEmail;
     private String showroomManager;
     private int bikeCount;
+
+    private String showroomImg;
 }

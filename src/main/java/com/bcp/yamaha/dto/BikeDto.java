@@ -22,10 +22,11 @@ public class BikeDto {
     private String bikeDescription;
 
     private String mileage;
-    private String fuelTankCapacity;
+    private Double fuelTankCapacity;
     private int engineCapacity;
 
     private List<MultipartFile> bikeImages;
+    private List<String> bikeImageUrls;
 
     private int showroomId;
     private String availableInShowroom;

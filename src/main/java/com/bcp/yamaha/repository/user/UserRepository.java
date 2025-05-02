@@ -1,5 +1,6 @@
 package com.bcp.yamaha.repository.user;
 
+import com.bcp.yamaha.constants.ScheduleType;
 import com.bcp.yamaha.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +16,8 @@ public interface UserRepository{
 
     List<UserEntity> findAllUser();
     Long countAllUsers();
+
+    List<UserEntity> findByScheduleType(ScheduleType scheduleType);
 
 //    void updateUser(UserEntity user);
 

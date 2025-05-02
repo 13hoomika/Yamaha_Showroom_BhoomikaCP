@@ -19,12 +19,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -265,7 +267,7 @@ public class AdminController {
     }
 
     @GetMapping("/manage-bikes")
-    public String manageBikes(@RequestParam(required = false) String showroomLocation,
+    public String manageBikes(@RequestParam(required = false) String bikeType,
                               Model model,
                               HttpSession session) {
         /*if (session.getAttribute("loggedInAdminId") == null) {
@@ -275,14 +277,14 @@ public class AdminController {
             return "redirect:/admin/login";
         }
 
-        model.addAttribute("allShowroomLocations", Arrays.asList(ShowroomEnum.values()));
+        model.addAttribute("allBikeTypes", Arrays.asList(BikeType.values()));
 
         // Get bikes filtered by showroom if specified
         List<BikeDto> bikes;
-        if (showroomLocation != null && !showroomLocation.isEmpty()) {
-            ShowroomEnum locationEnum = ShowroomEnum.valueOf(showroomLocation);
-            bikes = bikeService.getBikesByShowroomLocation(locationEnum);
-            model.addAttribute("selectedShowroomId", showroomLocation);
+        if (bikeType != null && !bikeType.isEmpty()) {
+            BikeType type = BikeType.valueOf(bikeType);
+            bikes = bikeService.getBikesByBikeType(type);
+            model.addAttribute("selectedBikeType", bikeType);
         } else {
             bikes = bikeService.getAllBikes();
         }
@@ -292,7 +294,7 @@ public class AdminController {
     }
 
     @GetMapping("/view-allBikes")
-    public String viewAllBikes(@RequestParam(required = false) String showroomLocation,
+    public String viewAllBikes(@RequestParam(required = false) String bikeType,
                               Model model,
                               HttpSession session) {
         /*if (session.getAttribute("loggedInAdminId") == null) {
@@ -302,14 +304,14 @@ public class AdminController {
             return "redirect:/admin/login";
         }
 
-        model.addAttribute("allShowroomLocations", Arrays.asList(ShowroomEnum.values()));
+        model.addAttribute("allBikeTypes", Arrays.asList(BikeType.values()));
 
         // Get bikes filtered by showroom if specified
         List<BikeDto> bikes;
-        if (showroomLocation != null && !showroomLocation.isEmpty()) {
-            ShowroomEnum locationEnum = ShowroomEnum.valueOf(showroomLocation);
-            bikes = bikeService.getBikesByShowroomLocation(locationEnum);
-            model.addAttribute("selectedShowroomId", showroomLocation);
+        if (bikeType != null && !bikeType.isEmpty()) {
+            BikeType type = BikeType.valueOf(bikeType);
+            bikes = bikeService.getBikesByBikeType(type);
+            model.addAttribute("selectedBikeType", bikeType);
         } else {
             bikes = bikeService.getAllBikes();
         }
@@ -389,12 +391,38 @@ public class AdminController {
     @PostMapping("/add-showroom")
     public String addShowroom(@ModelAttribute ShowroomDto showroomDto,
                               RedirectAttributes redirectAttributes,
-                              HttpSession session) {
-        /*if (session.getAttribute("loggedInAdminId") == null) {
-            return "redirect:/admin/login";
-        }*/
+                              HttpSession session,
+                              @RequestParam("multipartFile") MultipartFile multipartFile) throws IOException {
+
         if (!isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
+        }
+
+//        String uploadDir = "src" + File.separator + "main" + File.separator + "webapp" +
+//                File.separator + "static" + File.separator + "images" +
+//                File.separator + "showroom-Images" + File.separator;
+
+        String uploadDir = "D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP- upload and download multiple images\\src\\main\\webapp\\static\\images\\showroom-Images\\";
+
+
+        Files.createDirectories(Paths.get(uploadDir)); // Ensure upload dir exists
+
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+            String originalFilename = multipartFile.getOriginalFilename();
+
+            if (originalFilename != null && originalFilename.contains(".")) {
+                String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                String newFileName = showroomDto.getShowroomName().replaceAll("[^a-zA-Z0-9]", "_") +
+                        "_" + System.currentTimeMillis() + extension;
+                Path path = Paths.get(uploadDir + newFileName);
+                Files.write(path, multipartFile.getBytes());
+                showroomDto.setShowroomImg(newFileName);
+                System.out.println("✔️ Image uploaded: " + newFileName);
+            } else {
+                System.out.println("❌ Invalid image file.");
+            }
+        } else {
+            System.out.println("❌ Image not provided.");
         }
 
         boolean isAdded = showroomService.addShowroom(showroomDto);
@@ -406,6 +434,7 @@ public class AdminController {
             return "redirect:/admin/add-showroom";
         }
     }
+
 
     @GetMapping("/manage-showrooms")
     public String manageShowrooms(Model model, HttpSession session) {
@@ -419,6 +448,16 @@ public class AdminController {
         model.addAttribute("activePage", "showrooms");
         model.addAttribute("showroomLocationList", showroomService.getAllShowroom());
         return "admin/manage-showrooms";
+    }
+
+    @GetMapping("/view-showrooms")
+    public String viewAllShowrooms(Model model, HttpSession session) {
+        if (!isAdminLoggedIn(session)) {
+            return "redirect:/admin/login";
+        }
+
+        model.addAttribute("showroomList", showroomService.getAllShowroom());
+        return "admin/view-allShowroom";
     }
 
     // ========== USER MANAGEMENT ==========

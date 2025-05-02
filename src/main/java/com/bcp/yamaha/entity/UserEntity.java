@@ -21,7 +21,8 @@ import java.util.List;
         @NamedQuery(name = "findAllUsers", query = "FROM UserEntity"),
         @NamedQuery(name = "countAllUsers", query = "SELECT COUNT(users) FROM UserEntity users"),
         @NamedQuery(name = "findUserByName", query = "SELECT u FROM UserEntity u WHERE u.userName =: userName"),
-        @NamedQuery(name = "findUserByEmail", query = "SELECT u FROM UserEntity u WHERE u.userEmail =: userEmail")
+        @NamedQuery(name = "findUserByEmail", query = "SELECT u FROM UserEntity u WHERE u.userEmail =: userEmail"),
+        @NamedQuery(name = "findByScheduleType", query = "SELECT u FROM UserEntity u WHERE u.scheduleType =: scheduleType")
 })
 public class UserEntity {
     @Id

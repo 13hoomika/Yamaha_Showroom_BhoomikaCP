@@ -28,15 +28,15 @@
             </div>
 
             <div class="row mb-2">
-                <div class="col-auto">
+                <div class="col-md-2">
                     <form method="get" action="${pageContext.request.contextPath}/admin/manage-bikes" class="d-inline">
                         <div class="input-group">
-                            <select name="showroomLocation" class="form-select" onchange="this.form.submit()">
-                                <option value="">All Locations</option>
-                                <c:forEach items="${allShowroomLocations}" var="location">
-                                    <option value="${location.name()}"
-                                        ${param.showroomLocation eq location.name() ? 'selected' : ''}>
-                                        ${location.displayName}
+                            <select name="bikeType" class="form-select" onchange="this.form.submit()">
+                                <option value="">All Types</option>
+                                <c:forEach items="${allBikeTypes}" var="bikeTypes">
+                                    <option value="${bikeTypes.name()}"
+                                        ${param.bikeType eq bikeTypes.name() ? 'selected' : ''}>
+                                        ${bikeTypes.displayName}
                                     </option>
                                 </c:forEach>
                             </select>
@@ -65,7 +65,7 @@
                         <table class="table table-hover">
                             <thead class="table-light">
                                 <tr>
-                                    <th>ID</th>
+                                    <th>Sl.No</th>
                                     <th>Model</th>
                                     <th>Showroom Name</th>
                                     <th>Price</th>

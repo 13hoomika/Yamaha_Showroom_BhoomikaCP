@@ -35,10 +35,12 @@ public class ShowroomEntity {
     /*@OneToMany(mappedBy = "availableShowroom")
     private List<BikeEntity> bikes = new ArrayList<>();*/
 
-    @OneToMany(mappedBy = "availableInShowroom")
+    @OneToMany(mappedBy = "availableShowroomId")
     private List<BikeEntity> bikes = new ArrayList<>();
 
     @Column(nullable = false)
     private int bikeCount;
+
+    private String showroomImg;
 
 }

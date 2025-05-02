@@ -24,6 +24,23 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4><i class="fas fa-users me-2"></i>Manage Users</h4>
             </div>
+            <div class="row mb-2">
+                <div class="col-md-2">
+                    <form method="get" action="${pageContext.request.contextPath}/admin/manage-users" class="d-inline">
+                        <div class="input-group">
+                            <select name="scheduleType" class="form-select" onchange="this.form.submit()">
+                                <option value="">All Schedules</option>
+                                <c:forEach items="${SelectScheduleType}" var="schedule">
+                                    <option value="${schedule.name()}"
+                                        ${param.ScheduleType eq schedule.name() ? 'selected' : ''}>
+                                        ${schedule.displayName}
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
             <!-- User List Table -->
             <div class="card">
@@ -45,7 +62,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${users}" var="user" varStatus="status">
+                                <c:forEach items="${usersList}" var="user" varStatus="status">
                                     <tr>
                                         <td>${status.count}</td>
                                         <td>${user.userName}</td>
@@ -70,7 +87,7 @@
                                         </td>
                                         <td>
                                             <a href="${pageContext.request.contextPath}/admin/followup-user?id=${user.userId}"
-                                               class="btn btn-sm btn-info">
+                                               class="btn btn-sm btn-primary">
                                                <i class="fas fa-phone"></i> Follow Up
                                             </a>
                                         </td>
