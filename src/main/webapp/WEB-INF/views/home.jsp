@@ -20,47 +20,33 @@
     <section class="hero-slider section-space">
         <div class="swiper">
             <div class="swiper-wrapper">
-                <!-- Slide 1 - Sport Bikes -->
+                <!-- Slide 1 - video -->
                 <div class="swiper-slide">
-                    <img src="https://images.unsplash.com/photo-1473040675625-5278279001d7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sport Bikes" class="hero-image">
-                    <div class="hero-overlay"></div>
-                    <div class="hero-content">
-                        <h1 class="hero-title">Racing DNA Unleashed</h1>
-                        <p class="hero-subtitle">Experience the thrill of Yamaha’s sport bike legacy.</p>
-                        <div class="btn-group">
-                            <a href="/inventory?type=sport" class="btn btn-red">Explore Sport Bikes</a>
-                            <a href="${pageContext.request.contextPath}/user/register" class="btn btn-outline">Join the Ride</a>
-                        </div>
-                    </div>
+                    <video class="hero-video" autoplay muted loop playsinline>
+                        <source src="${pageContext.request.contextPath}/static/videos/The%20Call%20of%20the%20Blue%20Version%204.0.mp4" type="video/mp4">
+                        <!-- Fallback if needed -->
+                        <img src="${pageContext.request.contextPath}/static/images/fallback.jpg" alt="Video Preview">
+                    </video>
                 </div>
 
-                <!-- Slide 2 - Cruiser Bikes -->
+                <!-- Slide 2 - YouTube Video -->
+                <div class="swiper-slide">
+                    <video class="hero-video" autoplay muted loop playsinline>
+                        <source src="https://videos.pexels.com/video-files/30384343/13021441_1920_1080_60fps.mp4" type="video/mp4">
+                        <!-- Fallback image if video doesn't load -->
+                        <img src="https://images.unsplash.com/photo-1473040675625-5278279001d7?q=80&w=2070&auto=format&fit=crop" alt="Sport Bikes">
+                    </video>
+                </div>
+
+                <!-- Slide 3 -->
                 <div class="swiper-slide">
                     <img src="https://images.unsplash.com/photo-1601795313997-9734fed2b3ef?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cruiser Bikes" class="hero-image">
-                    <div class="hero-overlay"></div>
-                    <div class="hero-content">
-                        <h1 class="hero-title">Cruise in Style</h1>
-                        <p class="hero-subtitle">Ride long. Ride bold. Yamaha cruisers for every road.</p>
-                        <div class="btn-group">
-                            <a href="/inventory?type=street" class="btn btn-red">Explore Cruisers</a>
-                            <a href="${pageContext.request.contextPath}/user/register" class="btn btn-outline">Become a Rider</a>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Slide 3 - Adventure Bikes -->
+                <!-- Slide 4
                 <div class="swiper-slide">
                     <img src="https://advanywhere.com/wp-content/uploads/2022/12/Recenzja-motocykla-Tenere-700-1920x1044.jpg" alt="Adventure Bikes" class="hero-image">
-                    <div class="hero-overlay"></div>
-                    <div class="hero-content">
-                        <h1 class="hero-title">Ready for Adventure</h1>
-                        <p class="hero-subtitle">Unleash your wild side with Yamaha’s rugged explorers.</p>
-                        <div class="btn-group">
-                            <a href="/inventory?type=adventure" class="btn btn-red">Explore Adventure</a>
-                            <a href="${pageContext.request.contextPath}/user/register" class="btn btn-outline">Get Started</a>
-                        </div>
-                    </div>
-                </div>
+                </div>-->
             </div>
             <!-- Navigation Arrows -->
             <div class="swiper-button-next"></div>

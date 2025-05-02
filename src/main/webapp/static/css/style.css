@@ -1,9 +1,8 @@
 :root {
     --black: #121212;
-    --red: #e30613;
+    --blue: #03008a; /* #003399 */
     --gray: #2d2d2d;
     --light: #f8f8f8;
-    --chrome: #cccccc;
 }
 
 * {
@@ -16,7 +15,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     color: var(--black);
     line-height: 1.6;
-    background-color: #f8f8f8;
+    background-color: var(--light);
     overflow-x: hidden;
 }
 
@@ -54,6 +53,13 @@ h1, h2, h3 {
 
 .swiper-slide {
     position: relative;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* maintains aspect ratio while covering container */
+    display: block;
 }
 
 .hero-image {
@@ -113,7 +119,7 @@ h1, h2, h3 {
 }
 
 .btn-red {
-    background-color: var(--red);
+    background-color: var(--blue);
     color: white;
 }
 
@@ -137,16 +143,17 @@ h1, h2, h3 {
 .swiper-button-next,
 .swiper-button-prev {
     color: white;
-    width: 60px;
-    height: 60px;
-    background: rgba(0,0,0,0.3);
+    width: 40px;
+    height: 40px;
+    /* background: rgba(0,0,0,0.3); */
     border-radius: 50%;
     transition: all 0.3s ease;
 }
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-    background: var(--red);
+    /* background: var(--blue); */
+     transform: translateY(-3px) scale(1.2); /* 20% size increase + lift */
 }
 
 .swiper-button-next::after,
@@ -155,16 +162,21 @@ h1, h2, h3 {
 }
 
 /* Pagination */
+/* Replace bullet pagination with line style */
 .swiper-pagination-bullet {
-    width: 12px;
-    height: 12px;
+    width: 70px;
+    height: 3px;
+    border-radius: 0; /* Remove circular shape */
     background: white;
     opacity: 0.6;
+    margin: 0 4px !important; /* Spacing between lines */
+    transition: all 0.3s ease; /* Smooth transition */
 }
 
 .swiper-pagination-bullet-active {
-    background: var(--red);
+    background: var(--blue);
     opacity: 1;
+    height: 4px;    /* Slightly thicker for active state */
 }
 
 /* Featured Bikes */
@@ -191,7 +203,7 @@ h1, h2, h3 {
     position: absolute;
     width: 80px;
     height: 4px;
-    background-color: var(--red);
+    background-color: var(--blue);
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
@@ -228,7 +240,7 @@ h1, h2, h3 {
     position: absolute;
     top: 15px;
     right: 15px;
-    background-color: var(--red);
+    background-color: var(--blue);
     color: white;
     padding: 5px 15px;
     border-radius: 3px;
@@ -282,7 +294,7 @@ h1, h2, h3 {
 .bike-price {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--red);
+    color: var(--blue);
     margin-bottom: 15px;
 }
 
