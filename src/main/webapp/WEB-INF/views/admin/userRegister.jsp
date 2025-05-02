@@ -12,22 +12,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
     <style>
-
-            .btn-red {
-                background-color: #e30613;
-                color: white;
-            }
-
-            .btn-red:hover {
-                background-color: #c00511;
-                color: white;
-            }
-
-            .error {
-                font-size: 0.85rem;
-                color: #e30613;
-            }
-        </style>
+        .error {
+            font-size: 0.85rem;
+            color: #e30613;
+        }
+    </style>
 </head>
 <body>
 <div class="wrapper">
@@ -138,7 +127,7 @@
                         </div>
 
                         <div class="d-grid mt-4">
-                            <button type="submit"  id="submitBtn" class="btn btn-red btn-lg">Register</button>
+                            <button type="submit"  id="submitBtn" class="btn btn-primary">Register</button>
                         </div>
                     </form>
                 </div>
