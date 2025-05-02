@@ -43,7 +43,6 @@
                                     <strong>Manager:</strong> ${showroom.showroomManager}<br>
                                     <strong>Phone:</strong> ${showroom.showroomPhone}<br>
                                     <strong>Email:</strong> ${showroom.showroomEmail}<br>
-                                    <strong>Location:</strong> ${showroom.showroomLocation}<br>
                                     <strong>Address:</strong> ${showroom.showroomAddress}
                                 </p>
                                 <!-- Optional Action Buttons -->

@@ -1,6 +1,5 @@
 package com.bcp.yamaha.entity;
 import com.bcp.yamaha.constants.BikeType;
-import com.bcp.yamaha.constants.ShowroomEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

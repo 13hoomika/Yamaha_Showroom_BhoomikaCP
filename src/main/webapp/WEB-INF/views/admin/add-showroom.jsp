@@ -38,15 +38,6 @@
                                 <label for="showroomName" class="form-label">Showroom Name</label>
                                 <input type="text" class="form-control" id="showroomName" name="showroomName" required>
                             </div>
-                            <div class="col-md-6">
-                                <label for="showroomLocation" class="form-label">Location</label>
-                                <select class="form-select" id="showroomLocation" name="showroomLocation" required>
-                                    <option value="">Select Location</option>
-                                    <c:forEach var="type" items="${showroomList}">
-                                        <option value="${type}">${type.displayName}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
                             <div class="col-12">
                                 <label for="showroomAddress" class="form-label">Full Address</label>
                                 <textarea class="form-control" id="showroomAddress" name="showroomAddress" rows="2" required></textarea>

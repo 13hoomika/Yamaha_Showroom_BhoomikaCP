@@ -96,7 +96,7 @@
                                     <option value="">Select Showroom</option>
                                     <c:forEach items="${showrooms}" var="showroom">
                                         <option value="${showroom.showroomId}"> <!-- Store ID -->
-                                            ${showroom.showroomName} (${showroom.showroomLocation.displayName}) <!-- Display name -->
+                                            ${showroom.showroomName}<!-- Display name -->
                                         </option>
                                     </c:forEach>
                                 </select>

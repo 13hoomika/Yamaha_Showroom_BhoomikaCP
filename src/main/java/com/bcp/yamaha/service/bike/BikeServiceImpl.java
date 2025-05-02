@@ -119,32 +119,6 @@ public class BikeServiceImpl implements BikeService{
         return bikeDtoList;
     }
 
-    /*@Override
-    public List<BikeDto> getBikesByShowroomLocation(ShowroomEnum location) {
-        List<BikeEntity> bikeEntityList = bikeRepository.findByShowroomLocation(location);
-        List<BikeDto> bikeDtoList = new ArrayList<>();
-
-        for (BikeEntity entity : bikeEntityList) {
-            BikeDto dto = new BikeDto();
-            BeanUtils.copyProperties(entity, dto);
-
-            if (entity.getAvailableShowroomId() != null) {
-                dto.setAvailableInShowroom(entity.getAvailableShowroomId().getShowroomName());
-            }
-            // Add image URL conversion
-            *//*if (entity.getBikeImages() != null) {
-                List<String> imageUrls = entity.getBikeImages().stream()
-                        .map(BikeImageEntity::getImageUrl)
-                        .collect(Collectors.toList());
-                dto.setBikeImageUrls(imageUrls);
-            }*//*
-
-            bikeDtoList.add(dto);
-        }
-
-        return bikeDtoList;
-    }*/
-
     @Override
     public List<BikeDto> getBikesByBikeType(BikeType bikeType) {
         List<BikeEntity> bikeEntityList = bikeRepository.findByBikeType(bikeType);
@@ -159,7 +133,6 @@ public class BikeServiceImpl implements BikeService{
             }
             bikeDtoList.add(dto);
         }
-
         return bikeDtoList;
     }
 

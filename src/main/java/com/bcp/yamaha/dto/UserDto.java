@@ -3,20 +3,15 @@ package com.bcp.yamaha.dto;
 
 import com.bcp.yamaha.constants.BikeType;
 import com.bcp.yamaha.constants.ScheduleType;
-import com.bcp.yamaha.constants.ShowroomEnum;
-import com.bcp.yamaha.entity.ShowroomEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.*;
-import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -54,9 +49,6 @@ public class UserDto {
 
     @Enumerated(EnumType.STRING)
     private ScheduleType scheduleType;
-
-    @Enumerated(EnumType.STRING)
-    private ShowroomEnum showroomLocation;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate scheduleDate;

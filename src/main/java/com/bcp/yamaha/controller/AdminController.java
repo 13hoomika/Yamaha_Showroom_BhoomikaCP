@@ -2,7 +2,6 @@ package com.bcp.yamaha.controller;
 
 import com.bcp.yamaha.constants.BikeType;
 import com.bcp.yamaha.constants.ScheduleType;
-import com.bcp.yamaha.constants.ShowroomEnum;
 import com.bcp.yamaha.dto.BikeDto;
 import com.bcp.yamaha.dto.FollowUpDto;
 import com.bcp.yamaha.dto.ShowroomDto;
@@ -26,7 +25,6 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -157,7 +155,6 @@ public class AdminController {
         Integer adminId = (Integer) session.getAttribute("loggedInAdminId");
         if (adminId == null) return "redirect:/";
 
-        model.addAttribute("showroomList", Arrays.asList(ShowroomEnum.values()));
         model.addAttribute("showroomLocationList", showroomService.getAllShowroom());
         model.addAttribute("bikeCount", bikeService.getTotalBikeCount());
         model.addAttribute("showroomCount", showroomService.getTotalShowroomCount());
@@ -182,12 +179,6 @@ public class AdminController {
 
         List<ScheduleType> scheduleTypeList = Arrays.asList(ScheduleType.values());
         model.addAttribute("scheduleTypeList", scheduleTypeList);
-
-        List<ShowroomEnum> showroomEnumList = Arrays.asList(ShowroomEnum.values());
-        model.addAttribute("showroomEnum", showroomEnumList);
-
-        List<ShowroomDto> showrooms = showroomService.getAllShowroom();
-        model.addAttribute("showrooms", showrooms);
 
         return "admin/userRegister"; // JSP page name
     }
@@ -382,7 +373,6 @@ public class AdminController {
             return "redirect:/admin/login";
         }
 
-        model.addAttribute("showroomList", Arrays.asList(ShowroomEnum.values()));
         model.addAttribute("showroomDto", new ShowroomDto());
 
         return "admin/add-showroom";
@@ -446,7 +436,7 @@ public class AdminController {
         }
 
         model.addAttribute("activePage", "showrooms");
-        model.addAttribute("showroomLocationList", showroomService.getAllShowroom());
+        model.addAttribute("showroomsList", showroomService.getAllShowroom());
         return "admin/manage-showrooms";
     }
 

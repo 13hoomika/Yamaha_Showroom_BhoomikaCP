@@ -42,7 +42,6 @@ public class ShowroomServiceImpl implements ShowroomService {
             // Manual copy to ensure all fields are set
             dto.setShowroomId(entity.getShowroomId());
             dto.setShowroomName(entity.getShowroomName());
-            dto.setShowroomLocation(entity.getShowroomLocation());
             dto.setShowroomAddress(entity.getShowroomAddress());
             dto.setShowroomPhone(entity.getShowroomPhone());
             dto.setShowroomEmail(entity.getShowroomEmail());

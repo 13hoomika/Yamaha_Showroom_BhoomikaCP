@@ -131,11 +131,6 @@ public class AdminServiceImpl implements AdminService {
 //    }
 
     @Override
-    public AdminEntity findByName(String adminName) {
-        return adminRepository.findByName(adminName);
-    }
-
-    @Override
     public Optional<AdminEntity> findByEmail(String email) {
         return adminRepository.findByEmail(email);
     }

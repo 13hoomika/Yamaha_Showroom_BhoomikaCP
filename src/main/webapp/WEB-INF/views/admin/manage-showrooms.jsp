@@ -39,20 +39,20 @@
                                 <tr>
                                     <th>Sl.No</th>
                                     <th>Name</th>
-                                    <th>Location</th>
-                                    <th>Contact</th>
                                     <th>Manager</th>
+                                    <th>Contact</th>
+                                    <th>Bike Count</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${showroomLocationList}" var="showroom" varStatus="status">
+                                <c:forEach items="${showroomsList}" var="showroom" varStatus="status">
                                     <tr>
                                         <td>${status.count}</td>
                                         <td>${showroom.showroomName}</td>
-                                        <td>${showroom.showroomLocation.displayName}</td>
-                                        <td>${showroom.showroomPhone}</td>
                                         <td>${showroom.showroomManager}</td>
+                                        <td>${showroom.showroomPhone}</td>
+                                        <td>${showroom.bikeCount}</td>
                                         <td>
                                             <a href="#" class="btn btn-sm btn-outline-primary me-1">
                                                 <i class="fas fa-edit"></i>

@@ -1,6 +1,5 @@
 package com.bcp.yamaha.dto;
 
-import com.bcp.yamaha.constants.ShowroomEnum;
 import lombok.*;
 
 @Getter
@@ -11,7 +10,6 @@ import lombok.*;
 public class ShowroomDto {
     private Integer showroomId;
     private String showroomName;
-    private ShowroomEnum showroomLocation;
     private String showroomAddress;
     private String showroomPhone;
     private String showroomEmail;

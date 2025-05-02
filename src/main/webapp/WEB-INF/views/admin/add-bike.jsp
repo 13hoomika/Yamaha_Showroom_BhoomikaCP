@@ -87,8 +87,6 @@
                                 <input type="text" class="form-control" id="bikeColor" name="bikeColor" required>
                             </div>
 
-
-
                             <!-- Description -->
                             <div class="col-12">
                                 <label for="bikeDescription" class="form-label">Description</label>
