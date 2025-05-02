@@ -1,7 +1,7 @@
 :root {
     --black: #121212;
-    --blue: #030088;       /* Dark Yamaha blue */
-    --blue-hover: #003399; /* Standard Yamaha blue */
+    --blue: #003399;       /* Dark Yamaha blue */
+    --blue-hover: #030088; /* Standard Yamaha blue */
     --gray: #2d2d2d;
     --light: #f8f8f8;
 }
