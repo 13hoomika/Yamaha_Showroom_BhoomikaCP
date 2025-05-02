@@ -19,7 +19,7 @@
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/admin/manage-bikes">
+            <a href="${pageContext.request.contextPath}/admin/view-allBikes">
                 <i class="fas fa-motorcycle"></i> View All Bikes
             </a>
         </li>

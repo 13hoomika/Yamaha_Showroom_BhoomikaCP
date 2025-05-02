@@ -22,11 +22,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -58,153 +61,93 @@ public class AdminController {
     // ========== ADMIN LOGIN & OTP ==========
     @GetMapping("/login")
     public String showLoginForm() {
-        return "redirect:/";
+        return "admin/admin-login";
     }
-
-    // Step 1: Handle login form submit (admin name only)
-    /*@PostMapping("/login")
-    public String handleLogin(@RequestParam String adminName,
-                              RedirectAttributes redirectAttributes,
-                              HttpSession session) {
-        AdminEntity adminEntity = adminService.findByName(adminName);
-
-        if (adminEntity == null || !adminEntity.getAdminName().equals(adminName)) {
-            redirectAttributes.addFlashAttribute("adminLoginError", "Admin not found. Please check your credentials.");
-            redirectAttributes.addFlashAttribute("showAdminModal", true);
-            redirectAttributes.addFlashAttribute("adminName", adminName);
-            return "redirect:/?adminLoginError=Admin+not+found&showAdminModal=true&adminName=" + adminName;
-        }
-
-        boolean otpSent = adminService.sendOtpToAdmin(adminEntity.getAdminEmail());
-
-        if (otpSent) {
-            session.setAttribute("adminEmail", adminEntity.getAdminEmail());
-            return "redirect:/admin/otp";
-        } else {
-            redirectAttributes.addFlashAttribute("adminLoginError", "Failed to send OTP. Please try again.");
-            return "redirect:/";
-        }
-    }
-
-    @GetMapping("/otp")
-    public String showOtpForm(HttpSession session, Model model) {
-        model.addAttribute("otpRequestTime", LocalDateTime.now());
-        return "admin/admin-otp";
-    }
-
-    @PostMapping("/verify")
-    public String verifyOtp(@RequestParam String otp,
-                            HttpSession session,
-                            RedirectAttributes redirectAttributes) {
-        String adminEmail = (String) session.getAttribute("adminEmail");
-
-        if (adminEmail == null) {
-            redirectAttributes.addFlashAttribute("otpError", "Session expired. Please login again.");
-            return "redirect:/";
-        }
-
-        boolean isValid = adminService.validateAdminOtp(otp);
-
-        if (isValid) {
-            AdminEntity admin = adminService.findByEmail(adminEmail);
-            session.setAttribute("loggedInAdminId", admin.getAdminId());
-            redirectAttributes.addFlashAttribute("adminName", admin.getAdminName());
-            return "redirect:/admin/dashboard";
-        } else {
-            redirectAttributes.addFlashAttribute("otpError", "Invalid or expired OTP. Please try again.");
-            return "redirect:/admin/otp";
-        }
-    }*/
 
     private boolean isValidEmail(String email) {
         return email != null && email.matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
     }
 
     @PostMapping("/sendOtp")
-    public String sendOtp(@RequestParam("adminEmail") String email,
-                          HttpSession session,
-                          RedirectAttributes redirectAttributes) {
-
+    public String sendOtp(
+            @RequestParam("adminEmail") String email,
+            HttpSession session,
+            RedirectAttributes redirectAttributes
+    ) {
         // Validate email format
         if (!isValidEmail(email)) {
             redirectAttributes.addFlashAttribute("error", "Invalid email format");
-            return "redirect:/?showAdminModal=true";
+            return "redirect:/admin/login";
         }
 
         Optional<AdminEntity> admin = adminService.findByEmail(email);
         if (!admin.isPresent()) {
             redirectAttributes.addFlashAttribute("error", "Email not registered");
-            return "redirect:/?showAdminModal=true";
+            return "redirect:/admin/login";
         }
 
         try {
-            boolean otpSent  = adminService.sendOtpToAdmin(email);
-            if (otpSent ) {
+            boolean otpSent = adminService.sendOtpToAdmin(email);
+            if (otpSent) {
                 session.setAttribute("otpSent", true);
                 session.setAttribute("otpStartTime", System.currentTimeMillis());
-                session.setAttribute("adminEmail", email);// To prefill input if needed
+                session.setAttribute("adminEmail", email);
                 redirectAttributes.addFlashAttribute("message", "OTP sent successfully!");
             } else {
                 redirectAttributes.addFlashAttribute("error", "Failed to send OTP");
             }
         } catch (Exception e) {
-            log.error("OTP sending failed for email: {}", email, e);
+            log.error("OTP sending failed: {}", e.getMessage());
             redirectAttributes.addFlashAttribute("error", "System error. Please try again.");
         }
-        return "redirect:/?showAdminModal=true";
+        return "redirect:/admin/login";
     }
 
     @PostMapping("/verifyOtp")
-    public String verifyOtp(@RequestParam("otp") String otp,
-                            HttpSession session,
-                            RedirectAttributes redirectAttributes) {
-
-        // Validate OTP format (6 digits)
+    public String verifyOtp(
+            @RequestParam("otp") String otp,
+            HttpSession session,
+            RedirectAttributes redirectAttributes
+    ) {
+        // Validate OTP format
         if (otp == null || !otp.matches("\\d{6}")) {
             redirectAttributes.addFlashAttribute("error", "Invalid OTP format");
-            return "redirect:/?showAdminModal=true";
+            return "redirect:/admin/login";
         }
 
         String email = (String) session.getAttribute("adminEmail");
         Long otpStartTime = (Long) session.getAttribute("otpStartTime");
 
-        // Session validation
         if (email == null || otpStartTime == null) {
             redirectAttributes.addFlashAttribute("error", "Session expired! Please try again.");
-//            redirectAttributes.addFlashAttribute("showAdminModal", true);
-            return "redirect:/?showAdminModal=true";
+            return "redirect:/admin/login";
         }
 
-        // OTP expiry check
+        // Calculate elapsed time (in milliseconds)
         long elapsed = System.currentTimeMillis() - otpStartTime;
+        // Check if OTP has expired (2 minutes limit)
         if (elapsed > 2 * 60 * 1000) { // 2 minutes
             session.removeAttribute("otpSent");
             redirectAttributes.addFlashAttribute("error", "OTP expired. Please request a new one.");
-//            redirectAttributes.addFlashAttribute("showAdminModal", true);
-            return "redirect:/?showAdminModal=true";
+            return "redirect:/admin/login";
         }
 
         try {
             if (adminService.verifyOtp(email, otp)) {
                 AdminEntity admin = adminService.findByEmail(email)
                         .orElseThrow(() -> new RuntimeException("Admin not found"));
-
-
-                // Set session attributes
                 session.setAttribute("loggedInAdminId", admin.getAdminId());
                 session.setAttribute("adminName", admin.getAdminName());
-//                session.removeAttribute("otpSent");
-//                session.removeAttribute("otpStartTime");
-
                 return "redirect:/admin/dashboard";
             } else {
                 redirectAttributes.addFlashAttribute("error", "Invalid OTP");
             }
         } catch (Exception e) {
-            log.error("OTP verification failed for email: {}", email, e);
+            log.error("OTP verification failed: {}", e.getMessage());
             redirectAttributes.addFlashAttribute("error", "Verification failed");
         }
-        return "redirect:/?showAdminModal=true";
+
+        return "redirect:/admin/login";
     }
 
     @GetMapping("/dashboard")
@@ -250,8 +193,7 @@ public class AdminController {
     @PostMapping("/registerUser")//form action
     public String processUserRegister( @Valid
                                        @ModelAttribute("userDto") UserDto userDto,
-                                       Model model, RedirectAttributes redirectAttributes) {
-
+                                       RedirectAttributes redirectAttributes) {
         // Save user to database
         try {
             userService.registerUser(userDto);
@@ -349,6 +291,55 @@ public class AdminController {
         return "admin/manage-bikes";
     }
 
+    @GetMapping("/view-allBikes")
+    public String viewAllBikes(@RequestParam(required = false) String showroomLocation,
+                              Model model,
+                              HttpSession session) {
+        /*if (session.getAttribute("loggedInAdminId") == null) {
+            return "redirect:/admin/login";
+        }*/
+        if (!isAdminLoggedIn(session)) {
+            return "redirect:/admin/login";
+        }
+
+        model.addAttribute("allShowroomLocations", Arrays.asList(ShowroomEnum.values()));
+
+        // Get bikes filtered by showroom if specified
+        List<BikeDto> bikes;
+        if (showroomLocation != null && !showroomLocation.isEmpty()) {
+            ShowroomEnum locationEnum = ShowroomEnum.valueOf(showroomLocation);
+            bikes = bikeService.getBikesByShowroomLocation(locationEnum);
+            model.addAttribute("selectedShowroomId", showroomLocation);
+        } else {
+            bikes = bikeService.getAllBikes();
+        }
+        model.addAttribute("bikeList", bikes);
+
+        return "admin/view-allBikes";
+    }
+    @GetMapping("/bikes/image/{bikeId}/{imageIndex}")
+    public void getBikeImage(@PathVariable Integer bikeId,
+                             @PathVariable int imageIndex,
+                             HttpServletResponse response) throws IOException {
+        BikeEntity bike = bikeService.getBikeById(bikeId);
+        if (bike != null && bike.getBikeImages() != null && bike.getBikeImages().size() > imageIndex)
+        {
+            String imagePath = bike.getBikeImages().get(imageIndex).getImageUrl();
+//            Path filePath = Paths.get("src/main/webapp/static/upload/" + imagePath.replace("/uploads/", ""));
+            Path filePath = Paths.get("src/main/webapp/static" + imagePath);
+            System.out.println("imagePath: "+imagePath);
+            System.out.println("filePath : "+filePath);
+
+            if (Files.exists(filePath)) {
+                response.setContentType(Files.probeContentType(filePath));
+                Files.copy(filePath, response.getOutputStream());
+                return;
+            }
+        }
+        response.sendError(HttpServletResponse.SC_NOT_FOUND);
+
+    }
+
     @GetMapping("/assign-bikes")
     public String showAssignmentForm(Model model) {
         List<BikeEntity> unassignedBikes = bikeService.getUnassignedBikes();
@@ -432,13 +423,25 @@ public class AdminController {
 
     // ========== USER MANAGEMENT ==========
     @GetMapping("/manage-users")
-    public String manageUsers(Model model, HttpSession session) {
+    public String manageUsers(@RequestParam(value = "scheduleType",required = false) String scheduleType, Model model, HttpSession session) {
         /*if (session.getAttribute("loggedInAdminId") == null) {
             return "redirect:/admin/login";
         }*/
         if (!isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
         }
+
+        model.addAttribute("SelectScheduleType", Arrays.asList(ScheduleType.values()));
+        // Get user filtered by scheduleType if specified
+        List<UserDto> users;
+        if (scheduleType != null && !scheduleType.isEmpty()) {
+            ScheduleType scheduleTypeEnum = ScheduleType.valueOf(scheduleType);
+            users = userService.getUsersByScheduleType(scheduleTypeEnum);
+            model.addAttribute("selectedSchedule", scheduleType);
+        } else {
+            users = userService.getAllUsers();
+        }
+        model.addAttribute("usersList", users);
 
         model.addAttribute("users", userService.getAllUsers());
         return "admin/manage-users";

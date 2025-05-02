@@ -84,17 +84,6 @@ header {
     background-color: #c00510;
 }
 
-.btn-user {
-    background-color: white;
-    color: #e30613;
-    border: 1px solid #e30613;
-}
-
-.btn-user:hover {
-    background-color: #e30613;
-    color: white;
-}
-
 /* Navbar Toggle Button (for Mobile) */
 .navbar-toggle {
     display: none;
@@ -189,34 +178,4 @@ header {
     .auth-buttons.active {
         display: flex;
     }
-/* OTP Specific Styles */
-#adminOtpStep {
-    display: none;
-}
-
-.resend-link {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.resend-link a {
-    color: #4a6bff;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.resend-link a:hover {
-    text-decoration: underline;
-}
-
-#otpTimer {
-    font-weight: bold;
-    color: #4a6bff;
-}
-
-/* Transition effects */
-.modal-content {
-    transition: all 0.3s ease;
-}
 }
