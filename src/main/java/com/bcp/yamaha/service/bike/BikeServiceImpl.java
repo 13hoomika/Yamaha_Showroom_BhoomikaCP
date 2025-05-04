@@ -20,13 +20,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class BikeServiceImpl implements BikeService{
     private static final String UPLOAD_FOLDER = "uploads/bikes/";
 
