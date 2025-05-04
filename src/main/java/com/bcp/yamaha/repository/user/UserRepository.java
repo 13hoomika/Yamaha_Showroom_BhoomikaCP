@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 public interface UserRepository{
     Boolean saveUser(UserEntity userEntity);
-    UserEntity findUserByEmail(String email);
-    UserEntity findUserByName(String name);
+    Optional<UserEntity> findUserByEmail(String email);
+//    UserEntity findUserByName(String name);
     UserEntity findById(int userId);
 
     List<UserEntity> findAllUser();

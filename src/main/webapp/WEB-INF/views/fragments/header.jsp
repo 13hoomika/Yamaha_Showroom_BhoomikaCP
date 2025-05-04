@@ -14,7 +14,8 @@
             <li><a href="${pageContext.request.contextPath}/">Contact</a></li>
         </ul>
         <div class="auth-buttons" id="authButtons">
-            <a href="${pageContext.request.contextPath}/admin/login" class="btn-admin">Admin Login</a>
+            <a href="${pageContext.request.contextPath}/admin/login" class="btn-login">Admin Login</a>
+            <a href="${pageContext.request.contextPath}/user/login" class="btn-login">User Login</a>
         </div>
     </nav>
 </header>

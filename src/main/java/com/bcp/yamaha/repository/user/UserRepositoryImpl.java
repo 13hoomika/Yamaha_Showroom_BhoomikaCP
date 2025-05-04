@@ -1,13 +1,12 @@
 package com.bcp.yamaha.repository.user;
 
 import com.bcp.yamaha.constants.ScheduleType;
-import com.bcp.yamaha.entity.BikeEntity;
 import com.bcp.yamaha.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository{
@@ -26,18 +25,21 @@ public class UserRepositoryImpl implements UserRepository{
         }
     }
     @Override
-    public UserEntity findUserByEmail(String email) {
+    public Optional<UserEntity> findUserByEmail(String email) {
         try {
-            return (UserEntity) em.createNamedQuery("findUserByEmail")
+            UserEntity user = (UserEntity) em.createNamedQuery("findUserByEmail")
                     .setParameter("userEmail", email)
                     .getSingleResult();
+
+            return Optional.of(user);
+
         } catch (NoResultException e) {
             System.out.println("no user found with email: " + email);
-            return null;
+            return Optional.empty();
         }
     }
 
-    @Override
+    /*@Override
     public UserEntity findUserByName(String name) {
         try {
             return (UserEntity) em.createNamedQuery("findUserByName")
@@ -47,7 +49,7 @@ public class UserRepositoryImpl implements UserRepository{
             System.out.println("no user found with userName: " + name);
             return null;
         }
-    }
+    }*/
 
     @Override
     public List<UserEntity> findAllUser() {

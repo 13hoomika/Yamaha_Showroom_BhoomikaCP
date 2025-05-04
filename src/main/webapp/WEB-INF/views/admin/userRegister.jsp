@@ -95,8 +95,8 @@
                                 <select class="form-select" id="showroom" name="showroomId" required>
                                     <option value="">Select Showroom</option>
                                     <c:forEach items="${showrooms}" var="showroom">
-                                        <option value="${showroom.showroomId}"> <!-- Store ID -->
-                                            ${showroom.showroomName}<!-- Display name -->
+                                        <option value="${showroom.showroomId}">
+                                            ${showroom.showroomName}
                                         </option>
                                     </c:forEach>
                                 </select>

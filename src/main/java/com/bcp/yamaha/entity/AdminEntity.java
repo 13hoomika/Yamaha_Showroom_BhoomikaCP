@@ -24,8 +24,8 @@ public class AdminEntity{
     private String adminName;
     private String adminEmail;
 
-    private String  adminOtp;
-    @Column(nullable = true)
+    private String adminOtp;
+//    @Column(nullable = true)
     private LocalDateTime otpGeneratedTime;
 
 }

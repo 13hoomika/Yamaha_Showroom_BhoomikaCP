@@ -49,4 +49,6 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user")
     private List<FollowUpEntity> followUpLogs = new ArrayList<>();
+
+    private String otp;
 }

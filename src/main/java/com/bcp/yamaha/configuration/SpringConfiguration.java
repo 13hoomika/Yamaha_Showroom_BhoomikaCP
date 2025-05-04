@@ -1,6 +1,5 @@
 package com.bcp.yamaha.configuration;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -38,16 +37,10 @@ public class SpringConfiguration implements WebMvcConfigurer {
         return resolver;
     }
 
-    @Value("${app.upload.dir}")
-    private String uploadDir;
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("/static/");
-
-        registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:" + uploadDir);
     }
 
     @Bean

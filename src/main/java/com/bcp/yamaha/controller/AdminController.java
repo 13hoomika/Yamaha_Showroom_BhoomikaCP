@@ -15,7 +15,6 @@ import com.bcp.yamaha.service.user.FollowUpService;
 import com.bcp.yamaha.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -35,7 +33,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -110,8 +107,7 @@ public class AdminController {
     public String verifyOtp(
             @RequestParam("otp") String otp,
             HttpSession session,
-            RedirectAttributes redirectAttributes
-    ) {
+            RedirectAttributes redirectAttributes) {
         // Validate OTP format
         if (otp == null || !otp.matches("\\d{6}")) {
             redirectAttributes.addFlashAttribute("error", "Invalid OTP format");
@@ -169,7 +165,7 @@ public class AdminController {
 
 
     private boolean isAdminLoggedIn(HttpSession session) {
-        return session.getAttribute("loggedInAdminId") != null;
+        return session.getAttribute("loggedInAdminId") == null;
     }
 
     // ========== USER REGISTER ==========
@@ -182,6 +178,8 @@ public class AdminController {
 
         List<ScheduleType> scheduleTypeList = Arrays.asList(ScheduleType.values());
         model.addAttribute("scheduleTypeList", scheduleTypeList);
+
+        model.addAttribute("showrooms", showroomService.getAllShowroom());
 
         return "admin/userRegister"; // JSP page name
     }
@@ -209,7 +207,7 @@ public class AdminController {
         /*if (session.getAttribute("loggedInAdminId") == null) {
             return "redirect:/admin/login";
         }*/
-        if (!isAdminLoggedIn(session)) {
+        if (isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
         }
         model.addAttribute("bikeTypes", Arrays.asList(BikeType.values()));
@@ -252,7 +250,7 @@ public class AdminController {
         /*if (session.getAttribute("loggedInAdminId") == null) {
             return "redirect:/admin/login";
         }*/
-        if (!isAdminLoggedIn(session)) {
+        if (isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
         }
 
@@ -279,7 +277,7 @@ public class AdminController {
         /*if (session.getAttribute("loggedInAdminId") == null) {
             return "redirect:/admin/login";
         }*/
-        if (!isAdminLoggedIn(session)) {
+        if (isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
         }
 
@@ -376,7 +374,7 @@ private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
         /*if (session.getAttribute("loggedInAdminId") == null) {
             return "redirect:/admin/login";
         }*/
-        if (!isAdminLoggedIn(session)) {
+        if (isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
         }
 
@@ -391,7 +389,7 @@ private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
                               HttpSession session,
                               @RequestParam("multipartFile") MultipartFile multipartFile) throws IOException {
 
-        if (!isAdminLoggedIn(session)) {
+        if (isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
         }
 
@@ -438,7 +436,7 @@ private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
         /*if (session.getAttribute("loggedInAdminId") == null) {
             return "redirect:/admin/login";
         }*/
-        if (!isAdminLoggedIn(session)) {
+        if (isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
         }
 
@@ -449,7 +447,7 @@ private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
 
     @GetMapping("/view-showrooms")
     public String viewAllShowrooms(Model model, HttpSession session) {
-        if (!isAdminLoggedIn(session)) {
+        if (isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
         }
 
@@ -463,7 +461,7 @@ private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
         /*if (session.getAttribute("loggedInAdminId") == null) {
             return "redirect:/admin/login";
         }*/
-        if (!isAdminLoggedIn(session)) {
+        if (isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
         }
 
@@ -487,7 +485,6 @@ private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
     // Show follow-up page for a specific user
     @GetMapping("/followup-user")
     public String showFollowUpPage(@RequestParam("id") int userId, Model model) {
-        // Get user details
         UserDto user = userService.getUserById(userId);
         model.addAttribute("user", user);
 
@@ -522,19 +519,6 @@ private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
 
         return "redirect:/admin/followup-user?id=" + userId;
     }
-
-    /*@GetMapping("/manage-followup")
-    public String manageFollowup(Model model, HttpSession session) {
-        *//*if (session.getAttribute("loggedInAdminId") == null) {
-            return "redirect:/admin/login";
-        }*//*
-        if (!isAdminLoggedIn(session)) {
-            return "redirect:/admin/login";
-        }
-
-        model.addAttribute("allFollowUps", followUpService.getAllFollowups());
-        return "admin/manage-followup";
-    }*/
 
     @GetMapping("/logout")
     public String logout(HttpSession session,RedirectAttributes redirectAttributes) {

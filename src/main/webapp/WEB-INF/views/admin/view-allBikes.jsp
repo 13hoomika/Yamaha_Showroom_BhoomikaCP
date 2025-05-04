@@ -90,12 +90,12 @@
                                                         <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
                                                             <img src="${pageContext.request.contextPath}/bikes/image/${url}" class="d-block w-100" alt="${bike.bikeModel}">                                                        </div>
                                                     </c:forEach>
-                                                    <!--<c:forEach var="url" items="${bike.bikeImageUrls}" varStatus="status">
+                                                    <c:forEach var="url" items="${bike.bikeImageUrls}" varStatus="status">
                                                         <div>DEBUG: Image URL: ${url}</div>
                                                         <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
                                                             <img src="/bikes/image/${url}" class="d-block w-100" alt="${bike.bikeModel}">
                                                         </div>
-                                                    </c:forEach>-->
+                                                    </c:forEach>
 
                                                 </div>
                                                 <button class="carousel-control-prev" type="button" data-bs-target="#carousel-${bike.bikeId}" data-bs-slide="prev">

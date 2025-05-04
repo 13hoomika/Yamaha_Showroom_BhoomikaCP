@@ -83,14 +83,16 @@ header {
     transition: all 0.3s ease;
 }
 
-.btn-admin {
+.btn-login {
     background-color: var(--blue);
     color: white;
 }
 
-.btn-admin:hover {
+.btn-login:hover {
     background-color: var(--blue-hover);
+    transform: scale(1.1);
 }
+
 
 /* Navbar Toggle Button (for Mobile) */
 .navbar-toggle {
