@@ -16,12 +16,13 @@ public class BikeImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String imageUrl; // Store path like "/uploads/modelname_timestamp.jpg"
+    private String side; // "front", "back", "left", "right"
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bike_id")
     private BikeEntity bike;
+
 }
 
 /* stack overflow

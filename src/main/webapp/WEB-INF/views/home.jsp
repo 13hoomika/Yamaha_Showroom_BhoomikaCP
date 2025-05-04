@@ -66,8 +66,8 @@
                 <h2 class="cta-title">Ready to Own the Road?</h2>
                 <p class="cta-text">Visit our showroom to experience these machines in person. Our experts will help you find the perfect motorcycle for your riding style.</p>
                 <div class="btn-group">
-                    <a href="${pageContext.request.contextPath}/user/register" class="btn btn-red" id="userLoginBtn">Schedule a Visit</a>
-                    <a href="${pageContext.request.contextPath}/user/register" class="btn btn-outline">Book a Test Ride</a>
+                    <a href="${pageContext.request.contextPath}/" class="btn btn-red" id="userLoginBtn">Schedule a Visit</a>
+                    <a href="${pageContext.request.contextPath}/" class="btn btn-outline">Book a Test Ride</a>
                 </div>
             </div>
         </div>

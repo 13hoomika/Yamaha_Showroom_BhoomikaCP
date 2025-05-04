@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -42,12 +43,21 @@ public class BikeEntity {
     private Double fuelTankCapacity;
     private int engineCapacity;
 
-    @OneToMany(mappedBy = "bike", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BikeImageEntity> bikeImages;
+    /*@OneToMany(mappedBy = "bike", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BikeImageEntity> bikeImages;*/
 
     @ManyToOne
     @JoinColumn(name = "showroom_id")
     private ShowroomEntity availableShowroomId;
+
+    @OneToMany(mappedBy = "bike", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BikeImageEntity> bikeImages = new ArrayList<>();
+
+    // Helper method to add images
+    public void addImage(BikeImageEntity image) {
+        bikeImages.add(image);
+        image.setBike(this);
+    }
 
 
 }

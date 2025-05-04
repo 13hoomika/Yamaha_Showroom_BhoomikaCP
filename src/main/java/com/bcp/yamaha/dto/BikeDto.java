@@ -24,9 +24,14 @@ public class BikeDto {
     private Double fuelTankCapacity;
     private int engineCapacity;
 
-    private List<MultipartFile> bikeImages;
-    private List<String> bikeImageUrls;
+    /*private List<MultipartFile> bikeImages;
+    private List<String> bikeImageUrls;*/
 
     private int showroomId;
     private String availableInShowroom;
+
+    private MultipartFile frontImage;
+    private MultipartFile backImage;
+    private MultipartFile leftImage;
+    private MultipartFile rightImage;
 }

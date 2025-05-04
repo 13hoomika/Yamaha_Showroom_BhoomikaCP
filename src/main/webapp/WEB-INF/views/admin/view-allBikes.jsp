@@ -81,34 +81,39 @@
                         <c:forEach items="${bikeList}" var="bike">
                             <div class="col-md-4 col-lg-3">
                                 <div class="card bike-card">
-                                    <!-- Bike Image-->
-                                    <!--<c:choose>
-                                        <c:when test="${not empty bike.bikeImageUrls}">
-                                             <img src="${bike.bikeImageUrls[0]}"
-                                                 class="card-img-top"
-                                                 alt="${bike.bikeModel}"
-                                                 onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="https://via.placeholder.com/300x200?text=No+Image"
-                                                 class="card-img-top"
-                                                 alt="No Image Available">
-                                        </c:otherwise>
-                                    </c:choose>-->
+                                    <!-- Bike Image Carousel -->
                                     <c:choose>
                                         <c:when test="${not empty bike.bikeImageUrls}">
-                                            <img src="${bike.bikeImageUrls[0]}"
-                                                 class="card-img-top"
-                                                 alt="${bike.bikeModel}"
-                                                 onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23f0f0f0\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' fill=\'%23666\' font-family=\'sans-serif\' font-size=\'16\' text-anchor=\'middle\' dominant-baseline=\'middle\'%3ENo Image%3C/text%3E%3C/svg%3E'" />
+                                            <div id="carousel-${bike.bikeId}" class="carousel slide" data-bs-ride="carousel">
+                                                <div class="carousel-inner">
+                                                    <c:forEach var="url" items="${bike.bikeImageUrls}" varStatus="status">
+                                                        <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+                                                            <img src="${pageContext.request.contextPath}/bikes/image/${url}" class="d-block w-100" alt="${bike.bikeModel}">                                                        </div>
+                                                    </c:forEach>
+                                                    <!--<c:forEach var="url" items="${bike.bikeImageUrls}" varStatus="status">
+                                                        <div>DEBUG: Image URL: ${url}</div>
+                                                        <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+                                                            <img src="/bikes/image/${url}" class="d-block w-100" alt="${bike.bikeModel}">
+                                                        </div>
+                                                    </c:forEach>-->
+
+                                                </div>
+                                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-${bike.bikeId}" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next" type="button" data-bs-target="#carousel-${bike.bikeId}" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            </div>
                                         </c:when>
                                         <c:otherwise>
-                                            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-family='sans-serif' font-size='16' text-anchor='middle' dominant-baseline='middle'%3ENo Image%3C/text%3E%3C/svg%3E"
+                                            <img src="data:image/svg+xml,...No Image"
                                                  class="card-img-top"
                                                  alt="No Image Available">
                                         </c:otherwise>
                                     </c:choose>
-
 
                                     <!-- Bike Type Badge -->
                                     <span class="badge bike-type-badge">${bike.bikeType}</span>
@@ -140,12 +145,8 @@
                                             </li>
                                         </ul>
 
-                                        <!--<p class="card-text">${bike.bikeDescription}</p>-->
-
                                         <div class="d-flex justify-content-between">
-                                            <!--<a href="/admin/edit-bike/${bike.bikeId}" class="btn btn-sm btn-outline-primary">Edit</a>-->
                                             <span class="badge bg-light text-dark">${bike.availableInShowroom}</span>
-
                                         </div>
                                     </div>
                                 </div>

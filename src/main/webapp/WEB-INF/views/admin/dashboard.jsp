@@ -31,7 +31,7 @@
                         </div>
                         <div class="card-body">
                             <h2 class="card-text">${bikeCount}</h2>
-                            <a href="${pageContext.request.contextPath}/admin/manage-bikes" class="btn btn-sm btn-outline-primary">View All</a>
+                            <a href="${pageContext.request.contextPath}/admin/manage-bikes" class="btn btn-sm btn-outline-primary">Manage</a>
                         </div>
                     </div>
                 </div>

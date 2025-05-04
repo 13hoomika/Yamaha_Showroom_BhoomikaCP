@@ -7,6 +7,8 @@ import com.bcp.yamaha.entity.BikeImageEntity;
 import com.bcp.yamaha.entity.ShowroomEntity;
 import com.bcp.yamaha.repository.bike.BikeRepository;
 import com.bcp.yamaha.repository.showroom.ShowroomRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +20,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class BikeServiceImpl implements BikeService{
-    private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
+    private static final String UPLOAD_FOLDER = "uploads/bikes/";
 
     @Autowired
     ShowroomRepository showroomRepository;
@@ -35,47 +40,59 @@ public class BikeServiceImpl implements BikeService{
     @Override
     public Boolean addBike(BikeDto bikeDto) {
         try {
-            // Validating before processing
-            if (bikeDto.getBikeImages() == null || bikeDto.getBikeImages().isEmpty()) {
-                throw new IllegalArgumentException("At least one bike image is required");
+            // Validate required images
+            if (bikeDto.getFrontImage() == null || bikeDto.getFrontImage().isEmpty() ||
+                    bikeDto.getBackImage() == null || bikeDto.getBackImage().isEmpty()) {
+                throw new IllegalArgumentException("Front and back images are required");
             }
 
+            // Convert DTO to Entity
             BikeEntity bikeEntity = new BikeEntity();
             BeanUtils.copyProperties(bikeDto, bikeEntity);
 
-            List<BikeImageEntity> imageEntities = new ArrayList<>();
-            for (MultipartFile file : bikeDto.getBikeImages()) {
-                String imagePath = saveImageToDisk(file, bikeDto.getBikeModel());
-                BikeImageEntity image = new BikeImageEntity();
-                image.setImageUrl(imagePath);
-                image.setBike(bikeEntity);
-                imageEntities.add(image);
+            // Save required images
+            if (bikeDto.getFrontImage() != null &&
+                    bikeDto.getBackImage() != null &&
+                    bikeDto.getRightImage() != null &&
+                    bikeDto.getLeftImage() != null) {
+                bikeEntity.addImage(createImageEntity(bikeDto.getFrontImage(), "front"));
+                bikeEntity.addImage(createImageEntity(bikeDto.getBackImage(), "back"));
+                bikeEntity.addImage(createImageEntity(bikeDto.getLeftImage(), "left"));
+                bikeEntity.addImage(createImageEntity(bikeDto.getRightImage(), "right"));
             }
-            bikeEntity.setBikeImages(imageEntities);
-            return bikeRepository.addBike(bikeEntity);
+
+            // Save to database
+            bikeRepository.addBike(bikeEntity);
+            return true;
 
         } catch (Exception e) {
-            System.out.println("Error adding bike: " + e.getMessage());
+            log.error("Error adding bike: {}", e.getMessage());
             throw new RuntimeException("Failed to add bike", e);
         }
     }
 
-    private String saveImageToDisk(MultipartFile file, String modelName) {
+    private BikeImageEntity createImageEntity(MultipartFile file, String side) {
+        String fileName = saveImageToDisk(file, side);
+        BikeImageEntity image = new BikeImageEntity();
+        image.setImageUrl(fileName);
+        image.setSide(side);
+        return image;
+    }
+
+    private String saveImageToDisk(MultipartFile file, String side) {
         try {
-//            String uploadFolder = "D:/06 GO19ROM Aug19/Project Phase/BikeShowroom Project draft/Yamaha_Showroom_BhoomikaCP/src/main/webapp/static/upload/";
-            Files.createDirectories(Paths.get(UPLOAD_FOLDER));
             String extension = file.getOriginalFilename()
                     .substring(file.getOriginalFilename().lastIndexOf('.'));
-            String cleanModelName = modelName.replaceAll("\\s+", "_");
-            String fileName = cleanModelName + "_" + System.currentTimeMillis() + extension;
+            String fileName = String.format("%s_%d%s",
+                    side.toLowerCase(),
+                    System.nanoTime(),
+                    extension);
 
-            Path filePath = Paths.get(UPLOAD_FOLDER + fileName);
+            Path filePath = Paths.get(UPLOAD_FOLDER, fileName);
             Files.write(filePath, file.getBytes());
-
-            return "/uploads/" + fileName; // relative path stored in DB
+            return fileName;
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to save image: " + file.getOriginalFilename());
+            throw new RuntimeException("Failed to save image", e);
         }
     }
 
@@ -99,6 +116,7 @@ public class BikeServiceImpl implements BikeService{
     public List<BikeDto> getAllBikes() {
         List<BikeEntity> bikeEntityList = bikeRepository.findAllBikes();
         List<BikeDto> bikeDtoList = new ArrayList<>();
+
         for (BikeEntity entity : bikeEntityList){
             BikeDto dto = new BikeDto();
             BeanUtils.copyProperties(entity,dto);
@@ -106,13 +124,13 @@ public class BikeServiceImpl implements BikeService{
             if (entity.getAvailableShowroomId() != null) {
                 dto.setAvailableInShowroom(entity.getAvailableShowroomId().getShowroomName());
             }
-            // Convert BikeImageEntity to image URLs
+            /*// Convert BikeImageEntity to image URLs
             if (entity.getBikeImages() != null) {
                 List<String> imageUrls = entity.getBikeImages().stream()
                         .map(BikeImageEntity::getImageUrl)
                         .collect(Collectors.toList());
                 dto.setBikeImageUrls(imageUrls); // Using the new field
-            }
+            }*/
             System.out.println("dto: " + dto);
             bikeDtoList.add(dto);
         }
