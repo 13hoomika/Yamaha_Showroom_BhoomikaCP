@@ -16,7 +16,6 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-//@ToString(exclude = "followUpLogs")
 @Table(name = "yamaha_user")
 @NamedQueries({
         @NamedQuery(name = "findAllUsers", query = "FROM UserEntity"),
@@ -24,7 +23,7 @@ import java.util.List;
         @NamedQuery(name = "findUserByName", query = "SELECT u FROM UserEntity u WHERE u.userName =: userName"),
         @NamedQuery(name = "findUserByEmail", query = "SELECT u FROM UserEntity u WHERE u.userEmail =: userEmail"),
         @NamedQuery(name = "findByScheduleType", query = "SELECT u FROM UserEntity u WHERE u.scheduleType =: scheduleType"),
-        @NamedQuery(name = "updateOtp", query = "UPDATE UserEntity u SET u.password = :password WHERE u.userEmail = :email")
+        @NamedQuery(name = "updatePassword", query = "UPDATE UserEntity u SET u.password = :password WHERE u.userEmail = :email"),
 })
 public class UserEntity {
     @Id

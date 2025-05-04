@@ -15,8 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.*;
+import java.util.regex.Pattern;
 
 @Service
 @Slf4j
@@ -51,15 +51,13 @@ public class UserServiceImpl implements UserService{
 
         if (isSaved){
             String otp = otpGeneratorService.generateRandomPassword();
-            userRepository.updateOtp(userEntity.getUserEmail(), otp, LocalDateTime.now());
+            userRepository.updatePassword(userEntity.getUserEmail(), otp);
             boolean emailSent = emailService.sendEmail(userEntity.getUserEmail(), otp);
             if (emailSent) {
                 System.out.println("✅ OTP sent to email: " + userEntity.getUserEmail());
                 System.out.println("otp: " + otp);
-//                return true;
             } else {
                 System.out.println("❌ Email sending failed.");
-//                return false;
             }
         }
     }
@@ -138,11 +136,47 @@ public class UserServiceImpl implements UserService{
         //improved readability and avoided redundant calls to user.get()
         if (user.isPresent()) {
             UserEntity u = user.get();
-            if (u.getPassword().equals(password)) {
-                System.out.println("user found: " + u.getUserEmail());
+
+            if (passwordEncoder.matches(password,u.getPassword())) {
+                System.out.println("User authenticated: " + u.getUserEmail());
                 return true;
+            }else {
+                System.out.println("Invalid password for user: " + u.getUserEmail());
             }
+        }else {
+            System.out.println("No user found with email: " + email);
         }
         return false;
+    }
+
+    @Override
+    public boolean resetPassword(String email, String newPassword) {
+        UserEntity user = userRepository.findUserByEmail(email).get();
+        if (user == null) {
+            log.warn("User not found with email: {}", email);
+            return false; // User not found
+        }
+        // Validate the new password
+        String PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        if (newPassword == null || !Pattern.matches(PASSWORD_REGEX, newPassword)) {
+            log.warn("Invalid New Password: {}", newPassword);
+            log.warn("Invalid Password. Must be at least 8 characters long, include one uppercase letter, one lowercase letter, one digit, and one special character.");
+            return false;
+        }
+
+        String hashedPassword = passwordEncoder.encode(newPassword);
+
+        try {
+            boolean isUpdated = userRepository.updatePassword(email, hashedPassword);
+            if (!isUpdated) {
+                log.error("Failed to update user for email: {}", email);
+                return false;
+            }
+            log.info("Password successfully reset for user with email: {}", email);
+            return true;
+        } catch (Exception e) {
+            log.error("Error updating user profile for email: {}", email, e);
+            return false;
+        }
     }
 }

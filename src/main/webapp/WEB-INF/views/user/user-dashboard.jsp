@@ -2,28 +2,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome to Yamaha Motors</title>
+    <title>User Dashboard - Yamaha Motors</title>
     <style>
         body {
+            margin: 0;
             font-family: 'Segoe UI', sans-serif;
-            background-color: #f4f4f4;
+            background-color: #eef2f5;
+        }
+
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
             text-align: center;
-            padding-top: 100px;
         }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
         h1 {
-            color: #2c3e50;
-            font-size: 36px;
+            margin: 0;
+            font-size: 32px;
         }
+
         p {
-            color: #555;
             font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
         }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .button {
+            padding: 12px 24px;
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
     </style>
 </head>
 <body>
-    <h1>Welcome to Yamaha Motors</h1>
-    <p>Your destination for premium Yamaha bikes</p>
-    <a href="${pageContext.request.contextPath}/user/logout">Logout</a>
+<div class="header">
+    <h1>Welcome to Yamaha Motors Dashboard</h1>
+</div>
 
+<div class="content">
+    <p>Your destination for premium Yamaha bikes. What would you like to do today?</p>
+
+    <div class="buttons">
+        <a class="button" href="${pageContext.request.contextPath}/user/resetPassword">Reset Password</a>
+        <a class="button" href="${pageContext.request.contextPath}/user/logout">Logout</a>
+    </div>
+</div>
 </body>
 </html>

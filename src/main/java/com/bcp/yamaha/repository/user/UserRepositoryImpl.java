@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,17 +73,19 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Transactional
     @Override
-    public void updateOtp(String email, String password, LocalDateTime currentTime) {
+    public boolean updatePassword(String email, String hashedPassword) {
         try {
-            em.createNamedQuery(
-                            "updateOtp")
-                    .setParameter("password", password)
+            int updated = em.createNamedQuery("updatePassword")
+                    .setParameter("password", hashedPassword)
                     .setParameter("email", email)
                     .executeUpdate();
+            return updated > 0;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
+
 
     @Override
     public UserEntity findById(int userId) {

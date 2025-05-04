@@ -4,7 +4,6 @@ import com.bcp.yamaha.constants.ScheduleType;
 import com.bcp.yamaha.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +18,5 @@ public interface UserRepository{
     Long countAllUsers();
 
     List<UserEntity> findByScheduleType(ScheduleType scheduleType);
-    void updateOtp(String email, String password, LocalDateTime currentTime);
-
+    boolean updatePassword(String email, String hashedPassword);
 }

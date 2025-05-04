@@ -111,7 +111,7 @@
         </form>
 
         <div class="forgot-password">
-            <a href="resetPassword.jsp">Forgot Password?</a>
+            <a href="${pageContext.request.contextPath}/user/resetPassword">Forgot Password?</a>
         </div>
         <div class="back-home">
             <a href="${pageContext.request.contextPath}/" class="back-link">Back to Home</a>
