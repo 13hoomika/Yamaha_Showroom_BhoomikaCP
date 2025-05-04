@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Admin Login - Yamaha Showroom</title>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-login.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">

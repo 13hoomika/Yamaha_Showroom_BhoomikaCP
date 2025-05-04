@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/header.css">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
 
 <header>
     <nav class="navbar">

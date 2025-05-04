@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
     <title>User Login - Yamaha Showroom</title>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-login.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
