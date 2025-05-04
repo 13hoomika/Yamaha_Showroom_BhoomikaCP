@@ -23,7 +23,9 @@ public class ShowroomServiceImpl implements ShowroomService {
     public Boolean addShowroom(ShowroomDto showroomDto) {
         ShowroomEntity showroomEntity = new ShowroomEntity();
         BeanUtils.copyProperties(showroomDto,showroomEntity);
-        return showroomRepository.addShowroom(showroomEntity);
+        Boolean addedShowroom = showroomRepository.addShowroom(showroomEntity);
+        System.out.println("added showroom entity: " + showroomEntity);
+        return addedShowroom;
     }
 
 

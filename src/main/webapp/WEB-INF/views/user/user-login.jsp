@@ -54,13 +54,18 @@
             background: none;
             border: none;
             cursor: pointer;
-            color: #f46523;
+            color: blue;
             font-size: 2rem;
             transition: color 0.3s ease;
         }
 
+        .captcha-refresh button i {
+            -webkit-text-stroke: 1px;
+            font-weight: bold;
+        }
+
         .captcha-refresh button:hover {
-            color: blue;
+            transform: scale(1.1);
         }
 
         .error {
@@ -99,7 +104,7 @@
                 </div>
                 <div class="captcha-refresh">
                     <button type="button" id="refreshCaptcha" title="Refresh CAPTCHA">
-                        <i class="bi bi-arrow-repeat"></i>
+                        <i class="bi bi-arrow-clockwise"></i>
                     </button>
                 </div>
             </div>

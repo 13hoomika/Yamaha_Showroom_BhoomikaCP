@@ -6,7 +6,6 @@ import com.bcp.yamaha.dto.UserDto;
 import com.bcp.yamaha.entity.UserEntity;
 import com.bcp.yamaha.repository.user.UserRepository;
 import com.bcp.yamaha.service.EmailService;
-import com.bcp.yamaha.service.OtpGeneratorService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -27,13 +26,18 @@ public class UserServiceImpl implements UserService{
     @Autowired
     ShowroomService showroomService;
 
-    @Autowired
-    OtpGeneratorService otpGeneratorService;
+//    @Autowired
+//    OtpGeneratorService otpGeneratorService;
 
     @Autowired
     EmailService emailService;
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    public String generateRandomPassword() {
+        int otp =  new Random().nextInt(900000) + 100000;
+        return String.valueOf(otp);
+    }
 
     @Transactional
     @Override
@@ -50,7 +54,7 @@ public class UserServiceImpl implements UserService{
         log.info("User registered: {}", userEntity.getUserEmail());
 
         if (isSaved){
-            String otp = otpGeneratorService.generateRandomPassword();
+            String otp = generateRandomPassword();
             userRepository.updatePassword(userEntity.getUserEmail(), otp);
             boolean emailSent = emailService.sendEmail(userEntity.getUserEmail(), otp);
             if (emailSent) {
@@ -78,7 +82,7 @@ public class UserServiceImpl implements UserService{
         return  dtoList;
     }
 
-    /*@Override
+    @Override
     public UserDto getUserByEmail(String email) {
         UserDto userDto = new UserDto();
         Optional<UserEntity> userByEmail = userRepository.findUserByEmail(email);
@@ -90,7 +94,7 @@ public class UserServiceImpl implements UserService{
             BeanUtils.copyProperties(userByEmail,userDto);
             return userDto;
         }
-    }*/
+    }
 
     @Override
     public UserDto getUserById(int userId) {

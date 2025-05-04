@@ -397,7 +397,7 @@ private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
 //                File.separator + "static" + File.separator + "images" +
 //                File.separator + "showroom-Images" + File.separator;
 
-        String uploadDir = "D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP- upload and download multiple images\\src\\main\\webapp\\static\\images\\showroom-Images\\";
+        String uploadDir = "D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP\\src\\main\\webapp\\static\\images\\showroom-Images\\";
 
 
         Files.createDirectories(Paths.get(uploadDir)); // Ensure upload dir exists
@@ -422,6 +422,7 @@ private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
 
         boolean isAdded = showroomService.addShowroom(showroomDto);
         if (isAdded) {
+            System.out.println("added showroom dto: " + showroomDto);
             redirectAttributes.addFlashAttribute("showroomSuccessMessage", "Showroom added successfully!");
             return "redirect:/admin/manage-showrooms";
         } else {
@@ -450,8 +451,9 @@ private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
         if (isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
         }
-
-        model.addAttribute("showroomList", showroomService.getAllShowroom());
+        List<ShowroomDto> showroomList = showroomService.getAllShowroom();
+        System.out.println("All showroom list: " + showroomList); // Just once
+        model.addAttribute("showroomList", showroomList);
         return "admin/view-allShowroom";
     }
 

@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -52,4 +53,11 @@ public class UserEntity {
     private List<FollowUpEntity> followUpLogs = new ArrayList<>();
 
     private String password;
+
+    /*@Column(name = "invalid_logInCount")
+    private int invalidLogInCount;
+    @Column(name = "account_locked")
+    private boolean accountLocked = false;
+    @Column(name="last_logIn", columnDefinition = "TIMESTAMP(6)")
+    private Instant lastLogIn;*/
 }

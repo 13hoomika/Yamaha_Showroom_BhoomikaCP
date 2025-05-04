@@ -1,5 +1,6 @@
 package com.bcp.yamaha.controller;
 
+import com.bcp.yamaha.dto.UserDto;
 import com.bcp.yamaha.service.showroom.ShowroomService;
 import com.bcp.yamaha.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -48,9 +49,25 @@ public class UserController {
         // You can store the user in session if needed
         session.setAttribute("userEmail", email);
 
-        return "user/user-dashboard";
+        // Redirect to dashboard
+        return "redirect:/user/dashboard";
     }
 
+    @GetMapping("/dashboard")
+    public String userDashboard(HttpSession session, Model model) {
+        String email = (String) session.getAttribute("userEmail");
+
+        if (email == null) {
+            model.addAttribute("error", "Session expired. Please log in again.");
+            return "user/user-login";
+        }
+
+        // Optionally load user details for the dashboard
+        UserDto user = userService.getUserByEmail(email);
+        model.addAttribute("user", user);
+
+        return "user/user-dashboard";
+    }
 
     @GetMapping("/resetPassword")
     public String showResetPasswordForm() {
@@ -81,6 +98,12 @@ public class UserController {
             redirectAttributes.addFlashAttribute("error", "An error occurred: " + e.getMessage());
         }
         return "redirect:/user/resetPassword";
+    }
+
+    @GetMapping("/showrooms")
+    public String viewAllShowrooms(Model model, HttpSession session) {
+        model.addAttribute("showroomList", showroomService.getAllShowroom());
+        return "user/view-showrooms";
     }
 
     @GetMapping("/logout")

@@ -9,7 +9,7 @@ public interface UserService {
     void registerUser(UserDto userDto);
     List<UserDto> getAllUsers();
 
-//    UserDto getUserByEmail(String email);
+    UserDto getUserByEmail(String email);
     UserDto getUserById(int userId);
     Long getTotalUserCount();
 

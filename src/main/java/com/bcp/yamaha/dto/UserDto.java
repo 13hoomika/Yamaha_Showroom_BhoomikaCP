@@ -60,4 +60,6 @@ public class UserDto {
     private String showroomName;
 
     private String confirmPwd;
+//    private boolean accountLocked;
+
 }
