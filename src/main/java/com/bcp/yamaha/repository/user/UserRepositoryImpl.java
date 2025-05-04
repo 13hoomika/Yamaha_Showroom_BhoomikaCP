@@ -86,6 +86,60 @@ public class UserRepositoryImpl implements UserRepository{
         }
     }
 
+    /*@Transactional
+    @Override
+    public void updateAccountLockStatus(UserEntity user) {
+        em.createNamedQuery("updateAccountLockStatus")
+                .setParameter("accountLocked", user.getAccountLocked())  // true to lock the account
+                .setParameter("userEmail", user.getUserEmail())
+                .executeUpdate();
+        System.out.println("🔒 Account lock status updated for user: " + user.getUserEmail());
+    }
+
+    @Transactional
+    @Override
+    public void updateLoginAttemptData(UserEntity user) {
+        em.createNamedQuery("updateLoginAttemptData")
+                .setParameter("invalidLogInCount", user.getInvalidLogInCount())
+                .setParameter("lastLogIn", user.getLastLogIn())
+                .setParameter("userEmail", user.getUserEmail())
+                .executeUpdate();
+        System.out.println("🔄 Login attempt data updated for user: " + user.getUserEmail());
+    }
+
+    @Override
+    public boolean updateAccountLockData(UserEntity u) {
+        boolean isUpdated = false;
+        try {
+            em.getTransaction().begin();
+            // Fetch the existing entity
+            UserEntity existingEntity = em.find(UserEntity.class, u.getUserId());
+            if (existingEntity != null) {
+                existingEntity.setInvalidLogInCount(u.getInvalidLogInCount());
+                existingEntity.setAccountLocked(u.getAccountLocked());
+                existingEntity.setLastLogIn(u.getLastLogIn());
+
+                em.merge(existingEntity);
+//                //Set updatedBy and updatedTime AFTER the merge is successful
+//                existingEntity.setUsetpdateBy(u.getName());
+//                existingEntity.setUpdatedTime(LocalDateTime.now());
+
+                // Merge again to save updatedBy and updatedTime
+                em.merge(existingEntity);
+                isUpdated = true;
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error updating profile:" + e.getMessage());
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        } finally {
+            em.close();
+        }
+        return isUpdated;
+    }*/
+
 
     @Override
     public UserEntity findById(int userId) {

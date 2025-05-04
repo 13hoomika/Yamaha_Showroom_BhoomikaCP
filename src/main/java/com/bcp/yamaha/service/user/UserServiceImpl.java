@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -44,6 +46,8 @@ public class UserServiceImpl implements UserService{
     public void registerUser(UserDto userDto) {
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userDto, userEntity);
+//        userEntity.setInvalidLogInCount(-1);
+
         if (userDto.getShowroomId() != null) {
             ShowroomDto showroom = showroomService.getShowroomById(userDto.getShowroomId());
             if (showroom != null) {
@@ -131,13 +135,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public Boolean validateAndLogIn(String email, String password) {
         Optional<UserEntity> user = userRepository.findUserByEmail(email);
-
-//        if (user.isPresent() && user.get().getOtp().equals(otp)) {
-//            System.out.println("user found: " + user.get().getUserEmail());
-//            return true;
-//        }
-
-        //improved readability and avoided redundant calls to user.get()
         if (user.isPresent()) {
             UserEntity u = user.get();
 
@@ -152,6 +149,58 @@ public class UserServiceImpl implements UserService{
         }
         return false;
     }
+
+    /*@Override
+    public Boolean validateAndLogIn(String email, String password) {
+        Optional<UserEntity> user = userRepository.findUserByEmail(email);
+
+        if (user.isPresent()) {
+            UserEntity u = user.get();
+
+            if (u.getAccountLocked() != null && u.getAccountLocked()) {
+                LocalDateTime lastFailed = u.getLastLogIn();
+
+                if (lastFailed == null || Duration.between(lastFailed, LocalDateTime.now()).toMillis() >= 60000) {
+                    // Unlock account after timeout or if no timestamp exists
+                    u.setAccountLocked(false);
+                    u.setInvalidLogInCount(0); // reset login count
+                    userRepository.updateAccountLockStatus(u); // persist changes
+                    System.out.println("🔓 Account unlocked: " + u.getUserEmail());
+                } else {
+                    System.out.println("⏳ Account still locked: " + u.getUserEmail());
+                    return false;
+                }
+            }
+
+
+            if (passwordEncoder.matches(password, u.getPassword())) {
+                System.out.println("✅ User authenticated: " + u.getUserEmail());
+                return true;
+            } else {
+                System.out.println("❌ Invalid password for user: " + u.getUserEmail());
+
+                // update failed login count and lock if necessary
+                int attempts = (u.getInvalidLogInCount() == null ? 0 : u.getInvalidLogInCount()) + 1;
+                u.setInvalidLogInCount(attempts);
+                u.setLastLogIn(LocalDateTime.now());
+
+                int remainingAttempts = 3 - attempts;
+
+                if (attempts >= 3) { // Lock after 3 attempts
+                    u.setAccountLocked(true);
+                    System.out.println("🔒 Account locked: " + u.getUserEmail());
+                }  else {
+                    System.out.println("❌ Invalid password for user: " + u.getUserEmail() +
+                            " | Attempts left: " + remainingAttempts);
+                }
+
+                userRepository.updateLoginAttemptData(u); // persist changes
+            }
+        } else {
+            System.out.println("❌ No user found with email: " + email);
+        }
+        return false;
+    }*/
 
     @Override
     public boolean resetPassword(String email, String newPassword) {

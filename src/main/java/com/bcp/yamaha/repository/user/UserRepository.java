@@ -19,4 +19,9 @@ public interface UserRepository{
 
     List<UserEntity> findByScheduleType(ScheduleType scheduleType);
     boolean updatePassword(String email, String hashedPassword);
+
+    /*void updateAccountLockStatus(UserEntity user);
+    void updateLoginAttemptData(UserEntity user);
+
+    boolean updateAccountLockData(UserEntity u);*/
 }
