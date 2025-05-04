@@ -32,9 +32,9 @@ public class UserController {
     }
 
     @PostMapping("/loginWithOtp")
-    public String loginWithOtp(@RequestParam("userEmail") String email, @RequestParam("otp") String otp, Model model, HttpSession session) {
+    public String loginWithOtp(@RequestParam("userEmail") String email, @RequestParam("password") String password, Model model, HttpSession session) {
         System.out.println("===== controller: loginWithOtp() ======");
-        Boolean returnedValue = userService.validateAndLogIn(email, otp);
+        Boolean returnedValue = userService.validateAndLogIn(email, password);
         if (!returnedValue) {
             return "user/login";
         }

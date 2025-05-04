@@ -10,7 +10,6 @@ public interface AdminService {
 
     Boolean initializeAdmin();
     boolean sendOtpToAdmin(String email);
-    String generateRandomPassword();
 
     boolean verifyOtp(String email, String otp);
 }

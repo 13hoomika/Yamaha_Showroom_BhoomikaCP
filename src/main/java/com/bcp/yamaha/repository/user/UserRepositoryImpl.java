@@ -5,6 +5,8 @@ import com.bcp.yamaha.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +70,20 @@ public class UserRepositoryImpl implements UserRepository{
                         "findByScheduleType", UserEntity.class)
                 .setParameter("scheduleType", scheduleType)
                 .getResultList();
+    }
+
+    @Transactional
+    @Override
+    public void updateOtp(String email, String password, LocalDateTime currentTime) {
+        try {
+            em.createNamedQuery(
+                            "updateOtp")
+                    .setParameter("password", password)
+                    .setParameter("email", email)
+                    .executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

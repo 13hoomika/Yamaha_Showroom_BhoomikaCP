@@ -16,13 +16,15 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+//@ToString(exclude = "followUpLogs")
 @Table(name = "yamaha_user")
 @NamedQueries({
         @NamedQuery(name = "findAllUsers", query = "FROM UserEntity"),
         @NamedQuery(name = "countAllUsers", query = "SELECT COUNT(users) FROM UserEntity users"),
         @NamedQuery(name = "findUserByName", query = "SELECT u FROM UserEntity u WHERE u.userName =: userName"),
         @NamedQuery(name = "findUserByEmail", query = "SELECT u FROM UserEntity u WHERE u.userEmail =: userEmail"),
-        @NamedQuery(name = "findByScheduleType", query = "SELECT u FROM UserEntity u WHERE u.scheduleType =: scheduleType")
+        @NamedQuery(name = "findByScheduleType", query = "SELECT u FROM UserEntity u WHERE u.scheduleType =: scheduleType"),
+        @NamedQuery(name = "updateOtp", query = "UPDATE UserEntity u SET u.password = :password WHERE u.userEmail = :email")
 })
 public class UserEntity {
     @Id
@@ -50,5 +52,5 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     private List<FollowUpEntity> followUpLogs = new ArrayList<>();
 
-    private String otp;
+    private String password;
 }

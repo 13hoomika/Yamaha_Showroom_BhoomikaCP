@@ -5,6 +5,8 @@ import com.bcp.yamaha.dto.ShowroomDto;
 import com.bcp.yamaha.dto.UserDto;
 import com.bcp.yamaha.entity.UserEntity;
 import com.bcp.yamaha.repository.user.UserRepository;
+import com.bcp.yamaha.service.EmailService;
+import com.bcp.yamaha.service.OtpGeneratorService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -13,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -23,6 +26,12 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     ShowroomService showroomService;
+
+    @Autowired
+    OtpGeneratorService otpGeneratorService;
+
+    @Autowired
+    EmailService emailService;
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -37,8 +46,22 @@ public class UserServiceImpl implements UserService{
                 userEntity.setShowroomName(showroom.getShowroomName()); // Set name from ID
             }
         }
-        userRepository.saveUser(userEntity);
+        Boolean isSaved = userRepository.saveUser(userEntity);
         log.info("User registered: {}", userEntity.getUserEmail());
+
+        if (isSaved){
+            String otp = otpGeneratorService.generateRandomPassword();
+            userRepository.updateOtp(userEntity.getUserEmail(), otp, LocalDateTime.now());
+            boolean emailSent = emailService.sendEmail(userEntity.getUserEmail(), otp);
+            if (emailSent) {
+                System.out.println("✅ OTP sent to email: " + userEntity.getUserEmail());
+                System.out.println("otp: " + otp);
+//                return true;
+            } else {
+                System.out.println("❌ Email sending failed.");
+//                return false;
+            }
+        }
     }
 
     @Override
@@ -104,12 +127,21 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Boolean validateAndLogIn(String email, String otp) {
+    public Boolean validateAndLogIn(String email, String password) {
         Optional<UserEntity> user = userRepository.findUserByEmail(email);
 
-        if (user.isPresent() && user.get().getOtp().equals(otp)) {
-            System.out.println("user found: " + user);
-            return true;
+//        if (user.isPresent() && user.get().getOtp().equals(otp)) {
+//            System.out.println("user found: " + user.get().getUserEmail());
+//            return true;
+//        }
+
+        //improved readability and avoided redundant calls to user.get()
+        if (user.isPresent()) {
+            UserEntity u = user.get();
+            if (u.getPassword().equals(password)) {
+                System.out.println("user found: " + u.getUserEmail());
+                return true;
+            }
         }
         return false;
     }

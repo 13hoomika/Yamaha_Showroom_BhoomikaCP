@@ -15,5 +15,5 @@ public interface UserService {
 
     List<UserDto> getUsersByScheduleType(ScheduleType scheduleType);
 
-    Boolean validateAndLogIn(String email, String otp);
+    Boolean validateAndLogIn(String email, String password);
 }

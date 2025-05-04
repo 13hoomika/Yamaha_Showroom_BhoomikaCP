@@ -3,6 +3,7 @@ package com.bcp.yamaha.service.admin;
 import com.bcp.yamaha.entity.AdminEntity;
 import com.bcp.yamaha.repository.admin.AdminRepository;
 import com.bcp.yamaha.service.EmailService;
+import com.bcp.yamaha.service.OtpGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.Random;
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -18,15 +18,12 @@ public class AdminServiceImpl implements AdminService {
     private AdminRepository adminRepository;
 
     @Autowired
+    OtpGeneratorService otpGeneratorService;
+
+    @Autowired
     private EmailService emailService;
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-    @Override
-    public String generateRandomPassword() {
-        int otp =  new Random().nextInt(900000) + 100000;
-        return String.valueOf(otp);
-    }
 
     @Transactional
     @Override
@@ -48,7 +45,7 @@ public class AdminServiceImpl implements AdminService {
     public boolean sendOtpToAdmin(String email) {
         Optional<AdminEntity> admin = adminRepository.findByEmail(email);
         if (admin.isPresent()){
-            String otp = generateRandomPassword();
+            String otp = otpGeneratorService.generateRandomPassword();
             adminRepository.updateOtp(email, otp, LocalDateTime.now());
             boolean emailSent = emailService.sendEmail(email, otp);
             if (emailSent) {

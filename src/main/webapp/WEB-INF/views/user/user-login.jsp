@@ -59,7 +59,7 @@
         }
 
         .captcha-refresh button:hover {
-            color: green;
+            color: blue;
         }
 
         .error {
@@ -88,8 +88,9 @@
             <label for="userEmail">User Email</label>
             <input type="email" id="userEmail" name="userEmail" value="${userEmail}" placeholder="Enter registered email" required>
 
-            <label for="otp">Enter OTP</label>
-            <input type="text" id="otp" name="otp" placeholder="Enter the OTP sent to your email" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter password" required>
+            <span>For first-time login, please enter the OTP sent to your registered email address.</span>
 
             <div class="captcha-container">
                 <div class="captcha">
@@ -167,11 +168,11 @@
 
     function validateForm() {
         const email = document.getElementById("userEmail").value.trim();
-        const otp = document.getElementById("otp").value.trim();
+        const password = document.getElementById("password").value.trim();
         const captchaInput = document.getElementById("captchaInput").value.trim();
         const submitBtn = document.getElementById("submitBtn");
 
-        const isValid = email && otp && captchaInput && validateCaptcha();
+        const isValid = email && password && captchaInput && validateCaptcha();
         document.getElementById("captchaError").style.display = validateCaptcha() || captchaInput === "" ? "none" : "block";
         submitBtn.disabled = !isValid;
     }
@@ -180,7 +181,7 @@
         refreshCaptcha();
 
         document.getElementById("userEmail").addEventListener("input", validateForm);
-        document.getElementById("otp").addEventListener("input", validateForm);
+        document.getElementById("password").addEventListener("input", validateForm);
         document.getElementById("captchaInput").addEventListener("input", validateForm);
         document.getElementById("refreshCaptcha").addEventListener("click", refreshCaptcha);
 
