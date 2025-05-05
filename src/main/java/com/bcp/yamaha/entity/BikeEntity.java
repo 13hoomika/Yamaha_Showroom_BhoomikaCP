@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,11 +14,12 @@ import java.util.List;
 @Table(name = "yamaha_bikes")
 @NamedQueries({
 //        @NamedQuery(name = "findAllBikes", query = "FROM BikeEntity"),
-        @NamedQuery(name = "findAllBikes", query = "SELECT DISTINCT b FROM BikeEntity b LEFT JOIN FETCH b.availableShowroomId LEFT JOIN FETCH b.bikeImages"),
+//        @NamedQuery(name = "findAllBikes", query = "SELECT DISTINCT b FROM BikeEntity b LEFT JOIN FETCH b.showroomEntity LEFT JOIN FETCH b.bikeImages"),
+        @NamedQuery(name = "findAllBikes", query = "SELECT DISTINCT b FROM BikeEntity b LEFT JOIN FETCH b.showroomEntity"),
         @NamedQuery(name = "countAllBikes", query = "SELECT COUNT(bikes) FROM BikeEntity bikes"),
         @NamedQuery(name = "findByBikeType",query = "SELECT b FROM BikeEntity b WHERE b.bikeType = :type"),
-        @NamedQuery(name = "findUnassignedBikes",query = "SELECT b FROM BikeEntity b WHERE b.availableShowroomId IS NULL"),
-        @NamedQuery(name = "countByShowroomId",query = "SELECT COUNT(b) FROM BikeEntity b WHERE b.availableShowroomId.showroomId = :showroomId")
+        @NamedQuery(name = "findUnassignedBikes",query = "SELECT b FROM BikeEntity b WHERE b.showroomEntity IS NULL"),
+        @NamedQuery(name = "countByShowroomId",query = "SELECT COUNT(b) FROM BikeEntity b WHERE b.showroomEntity.showroomId = :showroomId")
 })
 
 
@@ -48,16 +48,13 @@ public class BikeEntity {
 
     @ManyToOne
     @JoinColumn(name = "showroom_id")
-    private ShowroomEntity availableShowroomId;
+    private ShowroomEntity showroomEntity;
 
-    @OneToMany(mappedBy = "bike", cascade = CascadeType.ALL, orphanRemoval = true)
+    /*@OneToMany(mappedBy = "bike", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BikeImageEntity> bikeImages = new ArrayList<>();
+    */
 
-    // Helper method to add images
-    public void addImage(BikeImageEntity image) {
-        bikeImages.add(image);
-        image.setBike(this);
-    }
-
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> images;
 
 }

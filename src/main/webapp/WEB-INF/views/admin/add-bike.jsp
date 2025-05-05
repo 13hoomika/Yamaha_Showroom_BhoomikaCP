@@ -152,7 +152,7 @@
                                     <!-- Front Image -->
                                     <div class="col-md-6 mb-3">
                                         <label for="frontImage" class="form-label required-field">Front View</label>
-                                        <input class="form-control" type="file" name="frontImage" id="frontImage" required accept="image/*" />
+                                        <input class="form-control" type="file" name="multipartFileList" id="frontImage" required accept="image/*" />
                                         <div class="form-text">Clear image showing the front of the bike</div>
                                         <div class="image-preview-container" id="frontPreview"></div>
                                     </div>
@@ -160,7 +160,7 @@
                                     <!-- Back Image -->
                                     <div class="col-md-6 mb-3">
                                         <label for="backImage" class="form-label required-field">Back View</label>
-                                        <input class="form-control" type="file" name="backImage" id="backImage" required accept="image/*" />
+                                        <input class="form-control" type="file" name="multipartFileList" id="backImage" required accept="image/*" />
                                         <div class="form-text">Clear image showing the rear of the bike</div>
                                         <div class="image-preview-container" id="backPreview"></div>
                                     </div>
@@ -168,7 +168,7 @@
                                     <!-- Left Image -->
                                     <div class="col-md-6 mb-3">
                                         <label for="leftImage" class="form-label">Left Side View</label>
-                                        <input class="form-control" type="file" name="leftImage" id="leftImage" accept="image/*" />
+                                        <input class="form-control" type="file" name="multipartFileList" id="leftImage" accept="image/*" />
                                         <div class="form-text">Optional image showing the left side</div>
                                         <div class="image-preview-container" id="leftPreview"></div>
                                     </div>
@@ -176,7 +176,7 @@
                                     <!-- Right Image -->
                                     <div class="col-md-6 mb-3">
                                         <label for="rightImage" class="form-label">Right Side View</label>
-                                        <input class="form-control" type="file" name="rightImage" id="rightImage" accept="image/*" />
+                                        <input class="form-control" type="file" name="multipartFileList" id="rightImage" accept="image/*" />
                                         <div class="form-text">Optional image showing the right side</div>
                                         <div class="image-preview-container" id="rightPreview"></div>
                                     </div>
@@ -191,6 +191,7 @@
                                 <button type="reset" class="btn btn-outline-secondary">
                                     <i class="fas fa-undo me-1"></i> Reset
                                 </button>
+                                <p style="color: red;">${sessionScope.addBikeErrorMsg}</p>
                             </div>
                         </div>
                     </form>

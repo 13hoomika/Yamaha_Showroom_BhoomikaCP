@@ -14,6 +14,7 @@ import com.bcp.yamaha.service.showroom.ShowroomService;
 import com.bcp.yamaha.service.user.FollowUpService;
 import com.bcp.yamaha.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,14 +23,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -217,31 +220,79 @@ public class AdminController {
     @PostMapping("/add-bike")
     public String addBike(
             @ModelAttribute BikeDto bikeDto,
-            @RequestParam("frontImage") MultipartFile frontImage,
-            @RequestParam("backImage") MultipartFile backImage,
-            @RequestParam("leftImage") MultipartFile leftImage,
-            @RequestParam("rightImage") MultipartFile rightImage,
-            RedirectAttributes redirectAttributes) {
+            HttpSession session) {
 
-        try {
-            // Set images to DTO
-            bikeDto.setFrontImage(frontImage);
-            bikeDto.setBackImage(backImage);
-            bikeDto.setLeftImage(leftImage);
-            bikeDto.setRightImage(rightImage);
+        System.out.println("---------------------MVC Controller: addBike()----------------------------");
+            List<MultipartFile> multipartFile = bikeDto.getMultipartFileList();
+            multipartFile.forEach(System.out::println);
+            List<String> images = new ArrayList<>();
+            for (MultipartFile file : multipartFile) {
+                images.add(file.getOriginalFilename());
+                Path path = Paths.get("D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP\\src\\main\\webapp\\static\\images\\bike-images\\" +file.getOriginalFilename());
+                try {
+                    Files.write(path, file.getBytes());
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            bikeDto.setImages(images);
+            System.out.println(bikeDto);
 
-            // Add bike
-            bikeService.addBike(bikeDto);
-
-            redirectAttributes.addFlashAttribute("success", "Bike added successfully!");
-            return "redirect:/admin/manage-bikes";
-
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Failed to add bike: " + e.getMessage());
+            try {
+                bikeService.addBike(bikeDto);
+                session.setAttribute("success", "Bike added successfully!");
+                return "redirect:/admin/manage-bikes";
+            } catch (Exception e) {
+                e.printStackTrace();
+                session.setAttribute("errorMsg", "Failed to save bike: " + e.getMessage());
             return "redirect:/admin/add-bike";
         }
     }
+    @GetMapping("bikeImage")
+    public void downloadBikeImage(HttpServletResponse response, @RequestParam String imageName) {
+        response.setContentType("image/jpg");
+        File file = new File("D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP\\src\\main\\webapp\\static\\images\\bike-images\\" + imageName);
+        try {
+            InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+            ServletOutputStream outputStream = response.getOutputStream();
+            IOUtils.copy(inputStream, outputStream);
+            response.flushBuffer();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
+    @GetMapping("/view-allBikes")
+    public String viewAllBikes(@RequestParam(required = false) String bikeType,
+                               Model model,
+                               HttpSession session) {
+        System.out.println("---------------------MVC Controller: viewAllBikes()----------------------------");
+
+        if (isAdminLoggedIn(session)) {
+            return "redirect:/admin/login";
+        }
+
+        model.addAttribute("allBikeTypes", Arrays.asList(BikeType.values()));
+
+        // Get bikes filtered by type if specified
+        List<BikeDto> bikeDtoList;
+
+        if (bikeType != null && !bikeType.isEmpty()) {
+            BikeType type = BikeType.valueOf(bikeType);
+            bikeDtoList = bikeService.getBikesByBikeType(type);
+            model.addAttribute("selectedBikeType", bikeType);
+        } else {
+            bikeDtoList = bikeService.getAllBikes();
+        }
+        // Debug output
+        System.out.println("Bikes retrieved: " + bikeDtoList);
+
+        // Add attributes to model
+        model.addAttribute("allBikeTypes", Arrays.asList(BikeType.values()));
+        model.addAttribute("bikeList", bikeDtoList);
+
+        return "admin/view-allBikes";
+    }
 
     @GetMapping("/manage-bikes")
     public String manageBikes(@RequestParam(required = false) String bikeType,
@@ -268,74 +319,6 @@ public class AdminController {
         model.addAttribute("bikeList", bikes);
 
         return "admin/manage-bikes";
-    }
-
-    @GetMapping("/view-allBikes")
-    public String viewAllBikes(@RequestParam(required = false) String bikeType,
-                              Model model,
-                              HttpSession session) {
-        /*if (session.getAttribute("loggedInAdminId") == null) {
-            return "redirect:/admin/login";
-        }*/
-        if (isAdminLoggedIn(session)) {
-            return "redirect:/admin/login";
-        }
-
-        model.addAttribute("allBikeTypes", Arrays.asList(BikeType.values()));
-
-        // Get bikes filtered by showroom if specified
-        List<BikeDto> bikes;
-        if (bikeType != null && !bikeType.isEmpty()) {
-            BikeType type = BikeType.valueOf(bikeType);
-            bikes = bikeService.getBikesByBikeType(type);
-            model.addAttribute("selectedBikeType", bikeType);
-        } else {
-            bikes = bikeService.getAllBikes();
-        }
-        model.addAttribute("bikeList", bikes);
-
-        return "admin/view-allBikes";
-    }
-//    String UPLOAD_FOLDER = "D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP- upload and download multiple images\\src\\main\\webapp\\static\\upload\\";
-private static final String UPLOAD_FOLDER = "src/main/webapp/static/upload/";
-
-    @GetMapping({
-            "/bikes/image/{fileName:.+}",
-            "/bikes/image/uploads/{fileName:.+}"
-    })
-    public void getBikeImage(
-            @PathVariable String fileName,
-            HttpServletResponse response) throws IOException {
-
-        // Security check
-        if (fileName.contains("..")) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid file path");
-            return;
-        }
-
-        // Handle both cases:
-        // 1. Direct filenames (Yamaha_FZ_S_Hybrid_1746256317935.webp)
-        // 2. Files from uploads folder (uploads/Yamaha_Ray_ZR_125_1744690143109.webp)
-        String actualFileName = fileName.startsWith("uploads/")
-                ? fileName.substring("uploads/".length())
-                : fileName;
-
-        Path filePath = Paths.get(UPLOAD_FOLDER, actualFileName);
-
-        if (!Files.exists(filePath)) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
-        }
-
-        // Set proper content type
-        String contentType = Files.probeContentType(filePath);
-        response.setContentType(contentType != null ? contentType : "application/octet-stream");
-
-        // Add caching headers
-        response.setHeader("Cache-Control", "public, max-age=31536000");
-
-        // Serve the file
-        Files.copy(filePath, response.getOutputStream());
     }
 
     @GetMapping("/assign-bikes")

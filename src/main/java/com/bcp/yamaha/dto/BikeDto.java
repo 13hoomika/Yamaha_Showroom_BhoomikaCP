@@ -30,8 +30,7 @@ public class BikeDto {
     private int showroomId;
     private String availableInShowroom;
 
-    private MultipartFile frontImage;
-    private MultipartFile backImage;
-    private MultipartFile leftImage;
-    private MultipartFile rightImage;
+    private List<String> images;
+    private List<MultipartFile> multipartFileList; // used in controller
+
 }

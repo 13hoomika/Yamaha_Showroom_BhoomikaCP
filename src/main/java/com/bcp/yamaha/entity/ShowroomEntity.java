@@ -31,7 +31,7 @@ public class ShowroomEntity {
     /*@OneToMany(mappedBy = "availableShowroom")
     private List<BikeEntity> bikes = new ArrayList<>();*/
 
-    @OneToMany(mappedBy = "availableShowroomId")
+    @OneToMany(mappedBy = "showroomEntity")
     private List<BikeEntity> bikes = new ArrayList<>();
 
     @Column(nullable = false)
