@@ -59,7 +59,9 @@ public class UserServiceImpl implements UserService{
 
         if (isSaved){
             String otp = generateRandomPassword();
-            userRepository.updatePassword(userEntity.getUserEmail(), otp);
+            String hashedOtp = passwordEncoder.encode(otp);
+
+            userRepository.updatePassword(userEntity.getUserEmail(), hashedOtp);
             boolean emailSent = emailService.sendEmail(userEntity.getUserEmail(), otp);
             if (emailSent) {
                 System.out.println("✅ OTP sent to email: " + userEntity.getUserEmail());

@@ -222,7 +222,6 @@ public class AdminController {
             @ModelAttribute BikeDto bikeDto,
             HttpSession session) {
 
-        System.out.println("---------------------MVC Controller: addBike()----------------------------");
             List<MultipartFile> multipartFile = bikeDto.getMultipartFileList();
             multipartFile.forEach(System.out::println);
             List<String> images = new ArrayList<>();
@@ -266,7 +265,6 @@ public class AdminController {
     public String viewAllBikes(@RequestParam(required = false) String bikeType,
                                Model model,
                                HttpSession session) {
-        System.out.println("---------------------MVC Controller: viewAllBikes()----------------------------");
 
         if (isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
@@ -298,9 +296,6 @@ public class AdminController {
     public String manageBikes(@RequestParam(required = false) String bikeType,
                               Model model,
                               HttpSession session) {
-        /*if (session.getAttribute("loggedInAdminId") == null) {
-            return "redirect:/admin/login";
-        }*/
         if (isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
         }

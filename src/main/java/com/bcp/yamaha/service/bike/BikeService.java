@@ -16,4 +16,6 @@ public interface BikeService {
 
     Boolean assignBikeToShowroom(Integer bikeId, Integer showroomId);
     Long getTotalBikeCount();
+
+//    List<BikeDto> getBikesByShowroomId(int showroomId);
 }

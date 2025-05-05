@@ -1,16 +1,23 @@
 package com.bcp.yamaha.controller;
 
+import com.bcp.yamaha.dto.BikeDto;
 import com.bcp.yamaha.dto.UserDto;
+import com.bcp.yamaha.service.bike.BikeService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
 import com.bcp.yamaha.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.*;
+import java.util.List;
 
 
 @Controller
@@ -26,6 +33,9 @@ public class UserController {
 
     @Autowired
     ShowroomService showroomService;
+
+    @Autowired
+    BikeService bikeService;
 
     @GetMapping("/login")
     public String showLoginForm() {
@@ -105,6 +115,27 @@ public class UserController {
         model.addAttribute("showroomList", showroomService.getAllShowroom());
         return "user/view-showrooms";
     }
+
+    @GetMapping("/bikes")
+    public String viewAllBikes(Model model, HttpSession session) {
+        model.addAttribute("bikeList", bikeService.getAllBikes());
+        return "user/view-bikes";
+    }
+
+    @GetMapping("bikeImage")
+    public void downloadBikeImage(HttpServletResponse response, @RequestParam String imageName) {
+        response.setContentType("image/jpg");
+        File file = new File("D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP\\src\\main\\webapp\\static\\images\\bike-images\\" + imageName);
+        try {
+            InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+            ServletOutputStream outputStream = response.getOutputStream();
+            IOUtils.copy(inputStream, outputStream);
+            response.flushBuffer();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session, RedirectAttributes redirectAttributes) {

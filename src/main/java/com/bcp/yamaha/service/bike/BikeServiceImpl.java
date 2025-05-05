@@ -28,7 +28,6 @@ public class BikeServiceImpl implements BikeService{
     @Transactional
     @Override
     public Boolean addBike(BikeDto bikeDto) {
-        System.out.println("------------------------Service Layer: addBike()-----------------------");
 
         try {
             // Convert DTO to Entity
