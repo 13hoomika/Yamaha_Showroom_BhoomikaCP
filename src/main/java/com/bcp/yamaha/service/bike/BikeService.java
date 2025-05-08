@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BikeService {
     Boolean addBike(BikeDto bikeDto);
-    BikeEntity getBikeById(Integer bikeId);
+//    BikeEntity getBikeById(Integer bikeId);
     List<BikeDto> getAllBikes();
 
     List<BikeDto> getBikesByBikeType(BikeType bikeType);
@@ -17,5 +17,4 @@ public interface BikeService {
     Boolean assignBikeToShowroom(Integer bikeId, Integer showroomId);
     Long getTotalBikeCount();
 
-//    List<BikeDto> getBikesByShowroomId(int showroomId);
 }
