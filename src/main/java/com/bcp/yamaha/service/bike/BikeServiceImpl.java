@@ -143,7 +143,6 @@ public class BikeServiceImpl implements BikeService{
             System.out.println("Successfully assigned bike " + bike.getBikeModel() +
                     " to showroom " + showroom.getShowroomName());
             return true;
-
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
             log.error("error !!{}", String.valueOf(e));
