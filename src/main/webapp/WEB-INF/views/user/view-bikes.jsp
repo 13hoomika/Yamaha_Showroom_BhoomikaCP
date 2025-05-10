@@ -10,68 +10,80 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
-        .bike-card { border-radius: 10px; transition: 0.3s; }
-        .bike-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.2); transform: scale(1.01); }
-        .bike-img { height: 200px; object-fit: cover; }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        /* Global Reset */
-                * {
-                    margin: 0;
-                    padding: 0;
-                    box-sizing: border-box;
-                }
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        padding-top: 70px;
+    }
 
-                body {
-                    font-family: 'Segoe UI', sans-serif;
-                    background-color: #f4f4f4;
-                    color: #333;
-                    padding-top: 70px;
-                }
+    /* Navbar */
+    .navbar {
+        background-color: #1f2d3d;
+        color: white;
+        padding: 15px 30px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
 
-                /* Navbar */
-                .navbar {
-                    background-color: #1f2d3d;
-                    color: white;
-                    padding: 15px 30px;
-                    position: fixed;
-                    top: 0;
-                    width: 100%;
-                    z-index: 1000;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                }
+    .navbar h2 {
+        font-size: 22px;
+        color: #ffffff;
+    }
 
-                .navbar h2 {
-                    font-size: 22px;
-                    color: #ffffff;
-                }
+    .nav-links a {
+        color: #ffffff;
+        text-decoration: none;
+        margin-left: 20px;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
 
-                .nav-links a {
-                    color: #ffffff;
-                    text-decoration: none;
-                    margin-left: 20px;
-                    font-weight: 500;
-                    transition: color 0.3s ease;
-                }
+    .nav-links a:hover {
+        color: #00aced;
+    }
 
-                .nav-links a:hover {
-                    color: #00aced;
-                }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px 20px;
+    }
 
-                .container {
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    padding: 30px 20px;
-                }
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+        text-align: center;
+        color: #1e3a8a;
+    }
 
-                .section-title {
-                    font-size: 28px;
-                    margin-bottom: 30px;
-                    text-align: center;
-                    color: #1e3a8a;
-                }
+    .bike-card {
+        transition: transform 0.2s ease-in-out;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 100%;
+    }
+
+    .bike-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img-top {
+        height: 220px;
+        object-fit: cover;
+    }
     </style>
 </head>
 <body>
@@ -125,7 +137,36 @@
                             <div class="card-body">
                                 <h5 class="card-title">${bike.bikeModel}</h5>
                                 <p class="card-text text-muted">₹${bike.bikePrice}</p>
-                                <p class="card-text">${bike.bikeDescription}</p>
+                                    <!-- <p class="card-text">
+                                        <c:choose>
+                                            <c:when test="${fn:length(bike.bikeDescription) > 100}">
+                                                ${fn:substring(bike.bikeDescription, 0, 100)}...
+                                                <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#descModal-${bike.bikeId}">Read more</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${bike.bikeDescription}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </p> -->
+
+                                <p class="card-text">
+                                    <c:choose>
+                                        <c:when test="${fn:length(bike.bikeDescription) > 100}">
+                                            <span id="short-${bike.bikeId}">
+                                                ${fn:substring(bike.bikeDescription, 0, 100)}
+                                                <a href="javascript:void(0);" onclick="toggleDescription('${bike.bikeId}')" class="text-primary">Read more</a>
+                                            </span>
+                                            <span id="full-${bike.bikeId}" style="display: none;">
+                                                ${bike.bikeDescription}
+                                                <a href="javascript:void(0);" onclick="toggleDescription('${bike.bikeId}')" class="text-danger">Show less</a>
+                                            </span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${bike.bikeDescription}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </p>
+
 
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item"><strong>Bike Type:</strong> ${bike.bikeType}</li>
@@ -146,6 +187,20 @@
                                 </form>-->
                             </div>
                         </div>
+                                <!-- Description Modal
+                                <div class="modal fade" id="descModal-${bike.bikeId}" tabindex="-1" aria-labelledby="descModalLabel-${bike.bikeId}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="descModalLabel-${bike.bikeId}">${bike.bikeModel} - Full Description</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ${bike.bikeDescription}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
                     </div>
                 </c:forEach>
             </div>
@@ -155,5 +210,22 @@
         </c:otherwise>
     </c:choose>
 </div>
+
+<!-- Read More Toggle Script -->
+<script>
+    function toggleDescription(bikeId) {
+        const shortText = document.getElementById('short-' + bikeId);
+        const fullText = document.getElementById('full-' + bikeId);
+
+        if (shortText.style.display === 'none') {
+            shortText.style.display = 'inline';
+            fullText.style.display = 'none';
+        } else {
+            shortText.style.display = 'none';
+            fullText.style.display = 'inline';
+        }
+    }
+</script>
+
 </body>
 </html>
