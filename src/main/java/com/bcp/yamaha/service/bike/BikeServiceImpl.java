@@ -146,7 +146,7 @@ public class BikeServiceImpl implements BikeService{
 
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
-            e.printStackTrace();
+            log.error("error !!{}", String.valueOf(e));
             return false;
         }
     }
