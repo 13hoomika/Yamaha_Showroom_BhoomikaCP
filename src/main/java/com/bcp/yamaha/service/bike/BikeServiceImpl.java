@@ -51,10 +51,10 @@ public class BikeServiceImpl implements BikeService{
         }
     }
 
-    @Override
-    public BikeEntity getBikeById(Integer bikeId) {
-        return bikeRepository.findById(bikeId);
-    }
+//    @Override
+//    public BikeEntity getBikeById(Integer bikeId) {
+//        return bikeRepository.findById(bikeId);
+//    }
 
     @Override
     public List<BikeDto> getAllBikes() {
