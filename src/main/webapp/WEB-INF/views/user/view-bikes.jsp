@@ -92,8 +92,8 @@
     <h2>Yamaha Motors</h2>
     <div class="nav-links">
         <a href="${pageContext.request.contextPath}/user/dashboard">Dashboard</a>
-        <a href="${pageContext.request.contextPath}/user/bikes">Bikes</a>
-        <!-- <a href="${pageContext.request.contextPath}/user/schedule">Schedule</a>-->
+        <a href="${pageContext.request.contextPath}/user/showrooms">Showrooms</a>
+        <a href="${pageContext.request.contextPath}/user/updateProfile">Update Profile</a>
         <a href="${pageContext.request.contextPath}/user/logout">Logout</a>
     </div>
 </div>

@@ -88,6 +88,7 @@
             overflow: hidden;
             transition: transform 0.3s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            height: 100%;
         }
 
         .card:hover {
@@ -114,13 +115,6 @@
             font-size: 14px;
             color: #555;
             line-height: 1.6;
-        }
-
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 14px;
-            color: #888;
         }
 
         @media (max-width: 992px) {
@@ -153,7 +147,7 @@
     <div class="nav-links">
         <a href="${pageContext.request.contextPath}/user/dashboard">Dashboard</a>
         <a href="${pageContext.request.contextPath}/user/bikes">Bikes</a>
-        <!-- <a href="${pageContext.request.contextPath}/user/schedule">Schedule</a>-->
+        <a href="${pageContext.request.contextPath}/user/updateProfile">Update Profile</a>
         <a href="${pageContext.request.contextPath}/user/logout">Logout</a>
     </div>
 </div>
