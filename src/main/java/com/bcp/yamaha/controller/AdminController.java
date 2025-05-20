@@ -13,6 +13,7 @@ import com.bcp.yamaha.service.bike.BikeService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
 import com.bcp.yamaha.service.user.FollowUpService;
 import com.bcp.yamaha.service.user.UserService;
+import com.bcp.yamaha.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -191,6 +194,13 @@ public class AdminController {
     public String processUserRegister( @Valid
                                        @ModelAttribute("userDto") UserDto userDto,
                                        RedirectAttributes redirectAttributes) {
+
+        // capitalizeWords user nam
+        if (userDto.getUserName() != null) {
+            String formattedUserName = StringUtil.capitalizeWords(userDto.getUserName());
+            userDto.setUserName(formattedUserName);
+        }
+
         // Save user to database
         try {
             userService.registerUser(userDto);
@@ -236,6 +246,11 @@ public class AdminController {
             }
             bikeDto.setImages(images);
             System.out.println(bikeDto);
+
+            if (bikeDto != null) {
+                String formattedModel = StringUtil.capitalizeWords(bikeDto.getBikeModel());
+                bikeDto.setBikeModel(formattedModel);
+            }
 
             try {
                 bikeService.addBike(bikeDto);
@@ -396,6 +411,18 @@ public class AdminController {
             }
         } else {
             System.out.println("❌ Image not provided.");
+        }
+
+        // capitalizeWords showroom name if applicable
+        if (showroomDto != null) {
+            String formattedShowroomName = StringUtil.capitalizeWords(showroomDto.getShowroomName());
+            showroomDto.setShowroomName(formattedShowroomName);
+
+            String formattedShowroomManager = StringUtil.capitalizeWords(showroomDto.getShowroomManager());
+            showroomDto.setShowroomManager(formattedShowroomManager);
+
+            String formattedShowroomAddress = StringUtil.capitalizeWords(showroomDto.getShowroomAddress());
+            showroomDto.setShowroomAddress(formattedShowroomAddress);
         }
 
         boolean isAdded = showroomService.addShowroom(showroomDto);
