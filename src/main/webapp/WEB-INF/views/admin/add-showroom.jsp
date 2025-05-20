@@ -39,21 +39,21 @@
                                 <label for="showroomName" class="form-label">Showroom Name</label>
                                 <input type="text" class="form-control" id="showroomName" name="showroomName" required>
                             </div>
+                            <div class="col-md-6">
+                                <label for="showroomManager" class="form-label">Manager</label>
+                                <input type="text" class="form-control" id="showroomManager" name="showroomManager" required>
+                            </div>
                             <div class="col-12">
                                 <label for="showroomAddress" class="form-label">Full Address</label>
                                 <textarea class="form-control" id="showroomAddress" name="showroomAddress" rows="2" required></textarea>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="showroomPhone" class="form-label">Contact Phone</label>
                                 <input type="tel" class="form-control" id="showroomPhone" name="showroomPhone" required>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="showroomEmail" class="form-label">Contact Email</label>
                                 <input type="email" class="form-control" id="showroomEmail" name="showroomEmail" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="showroomManager" class="form-label">Manager</label>
-                                <input type="text" class="form-control" id="showroomManager" name="showroomManager" required>
                             </div>
                             <div class="col-md-12">
                                 <label for="multipartFile" class="form-label">Upload Showroom Image</label>
