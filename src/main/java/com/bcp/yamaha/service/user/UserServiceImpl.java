@@ -14,13 +14,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.regex.Pattern;
 
 @Service
 @Slf4j
+@Transactional
 public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
@@ -90,16 +89,27 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDto getUserByEmail(String email) {
+        System.out.println("============= UserService : getUserByEmail() ===================");
         UserDto userDto = new UserDto();
         Optional<UserEntity> userByEmail = userRepository.findUserByEmail(email);
 
-        if (userByEmail == null){
+        /*if (userByEmail.isPresent()){
+            BeanUtils.copyProperties(userByEmail.get(),userDto);
+            return userDto;
+        }else {
             System.out.println("UserEntity is null for email:" + email);
             return null;
-        }else {
-            BeanUtils.copyProperties(userByEmail,userDto);
+        }*/
+
+        //cleaner version
+        return userByEmail.map(userEntity -> {
+            BeanUtils.copyProperties(userEntity, userDto);
             return userDto;
-        }
+        }).orElseGet(() -> {
+            System.out.println("UserEntity is null for email: " + email);
+            return null;
+        });
+
     }
 
     @Override
@@ -136,6 +146,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Boolean validateAndLogIn(String email, String password) {
+        System.out.println("============= UserService : validateAndLogIn() ===================");
         Optional<UserEntity> user = userRepository.findUserByEmail(email);
         if (user.isPresent()) {
             UserEntity u = user.get();
@@ -199,39 +210,73 @@ public class UserServiceImpl implements UserService{
                 userRepository.updateLoginAttemptData(u); // persist changes
             }
         } else {
-            System.out.println("❌ No user found with email: " + email);
+            System.out.println("No user found : " + email);
         }
         return false;
     }*/
 
     @Override
     public boolean resetPassword(String email, String newPassword) {
-        UserEntity user = userRepository.findUserByEmail(email).get();
-        if (user == null) {
-            log.warn("User not found with email: {}", email);
-            return false; // User not found
-        }
-        // Validate the new password
-        String PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
-        if (newPassword == null || !Pattern.matches(PASSWORD_REGEX, newPassword)) {
-            log.warn("Invalid New Password: {}", newPassword);
-            log.warn("Invalid Password. Must be at least 8 characters long, include one uppercase letter, one lowercase letter, one digit, and one special character.");
-            return false;
-        }
+        Optional<UserEntity> optionalUser = userRepository.findUserByEmail(email);
 
-        String hashedPassword = passwordEncoder.encode(newPassword);
-
-        try {
-            boolean isUpdated = userRepository.updatePassword(email, hashedPassword);
-            if (!isUpdated) {
-                log.error("Failed to update user for email: {}", email);
+        return optionalUser.map(user -> {
+            // Validate the new password
+            String PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+            if (newPassword == null || !Pattern.matches(PASSWORD_REGEX, newPassword)) {
+                log.warn("Invalid New Password: {}", newPassword);
+                log.warn("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a digit, and a special character.");
                 return false;
             }
-            log.info("Password successfully reset for user with email: {}", email);
-            return true;
-        } catch (Exception e) {
-            log.error("Error updating user profile for email: {}", email, e);
+
+            String hashedPassword = passwordEncoder.encode(newPassword);
+
+            try {
+                boolean isUpdated = userRepository.updatePassword(email, hashedPassword);
+                if (!isUpdated) {
+                    log.error("Failed to update password for user with email: {}", email);
+                    return false;
+                }
+                log.info("Password successfully reset for user with email: {}", email);
+                return true;
+            } catch (Exception e) {
+                log.error("Error updating user profile for email: {}", email, e);
+                return false;
+            }
+
+        }).orElseGet(() -> {
+            log.warn("User not found with email: {}", email);
             return false;
+        });
+    }
+
+
+    @Override
+    public boolean updateProfile(UserDto userDto) {
+        try {
+            Optional<UserEntity> optionalUser = userRepository.findUserByEmail(userDto.getUserEmail());
+
+            return optionalUser.map(existingUser -> {
+                existingUser.setUserName(userDto.getUserName());
+                existingUser.setUserAddress(userDto.getUserAddress());
+                existingUser.setDrivingLicenseNumber(userDto.getDrivingLicenseNumber());
+                existingUser.setUserAge(userDto.getUserAge());
+                existingUser.setUserPhoneNumber(userDto.getUserPhoneNumber());
+
+                boolean isUpdated = userRepository.updateProfile(existingUser);
+                System.out.println("isUpdated in service: " + isUpdated);
+                return isUpdated;
+            }).orElseGet(() -> {
+                System.out.println("Could not find user with email: " + userDto.getUserEmail());
+                return false;
+            });
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update profile for user: " + userDto.getUserEmail(), e);
         }
+    }
+
+    @Override
+    public void deleteById(int id) {
+        userRepository.deleteById(id);
+        System.out.println("user deleted successfully");
     }
 }

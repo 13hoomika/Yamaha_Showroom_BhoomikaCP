@@ -17,4 +17,8 @@ public interface UserService {
 
     Boolean validateAndLogIn(String email, String password);
     boolean resetPassword(String email, String newPassword);
+
+    boolean updateProfile(UserDto uerDto);
+
+    void deleteById(int id);
 }

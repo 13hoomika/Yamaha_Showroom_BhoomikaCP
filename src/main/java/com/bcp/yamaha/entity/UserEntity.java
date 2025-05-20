@@ -24,6 +24,7 @@ import java.util.List;
         @NamedQuery(name = "findUserByEmail", query = "SELECT u FROM UserEntity u WHERE u.userEmail =: userEmail"),
         @NamedQuery(name = "findByScheduleType", query = "SELECT u FROM UserEntity u WHERE u.scheduleType =: scheduleType"),
         @NamedQuery(name = "updatePassword", query = "UPDATE UserEntity u SET u.password = :password WHERE u.userEmail = :email"),
+        @NamedQuery(name = "deleteUser", query = "DELETE FROM UserEntity u WHERE u.userId = :id"),
 //        @NamedQuery(name = "updateAccountLockStatus", query = "UPDATE UserEntity u SET u.accountLocked = :accountLocked WHERE u.userEmail = :userEmail"),
 //        @NamedQuery(name = "updateLoginAttemptData", query = "UPDATE UserEntity u SET u.invalidLogInCount = :invalidLogInCount, u.lastLogIn = :lastLogIn WHERE u.userEmail = :userEmail ")
 })

@@ -1,0 +1,168 @@
+/* ====== Global Reset ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ====== Base Styling ====== */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f9;
+    color: #2c3e50;
+    padding-top: 70px;
+}
+
+/* ====== Navbar ====== */
+.navbar {
+    background-color: #1f2d3d;
+    color: white;
+    height: 60px;
+    padding: 15px 30px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .nav-link{
+    transition:background .3s;border-radius:.25rem
+}
+.navbar .nav-link:hover,
+.navbar .nav-link:focus{
+    background:rgba(255,255,255,.15)
+}
+/* ====== Container ====== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+/* ====== Headings ====== */
+.section-title,
+.welcome-box h1 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1e3a8a;
+    font-weight: 700;
+}
+
+/* ====== Welcome Box ====== */
+.welcome-box {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.welcome-box p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* ====== Action Links ====== */
+.action-links {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.action-links a {
+    text-decoration: none;
+    background-color: #1e3a8a;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.action-links a:hover {
+    background-color: #3b5998;
+}
+
+/* ====== Forms ====== */
+form .form-label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+}
+
+form .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+form .error {
+    font-size: 14px;
+    color: red;
+}
+
+/* ====== Cards ====== */
+.card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* ====== Button ====== */
+button.btn-primary,
+input[type="submit"].btn-primary {
+    background-color: #1e3a8a;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-primary:hover,
+input[type="submit"].btn-primary:hover {
+    background-color: #3b5998;
+}
+
+/* ====== Alerts ====== */
+.alert {
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    text-align: center;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 768px) {
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+    }
+
+    .action-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+}

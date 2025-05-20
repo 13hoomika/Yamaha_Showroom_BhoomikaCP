@@ -2,6 +2,7 @@ package com.bcp.yamaha.repository.user;
 
 import com.bcp.yamaha.constants.ScheduleType;
 import com.bcp.yamaha.entity.UserEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Slf4j
 public class UserRepositoryImpl implements UserRepository{
     @PersistenceContext
     private EntityManager em;
@@ -27,6 +29,7 @@ public class UserRepositoryImpl implements UserRepository{
     }
     @Override
     public Optional<UserEntity> findUserByEmail(String email) {
+        System.out.println("============= UserRepo : findUserByEmail() ===================");
         try {
             UserEntity user = (UserEntity) em.createNamedQuery("findUserByEmail")
                     .setParameter("userEmail", email)
@@ -35,7 +38,7 @@ public class UserRepositoryImpl implements UserRepository{
             return Optional.of(user);
 
         } catch (NoResultException e) {
-            System.out.println("no user found with email: " + email);
+            log.error("no user found with email: {}", email);
             return Optional.empty();
         }
     }
@@ -84,6 +87,42 @@ public class UserRepositoryImpl implements UserRepository{
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public boolean updateProfile(UserEntity updatedEntity) {
+        boolean isUpdated = false;
+        try {
+            // Fetch the existing entity
+            UserEntity existingEntity = em.find(UserEntity.class, updatedEntity.getUserId());
+            if (existingEntity != null) {
+                // Update all fields
+                existingEntity.setUserName(updatedEntity.getUserName());
+                existingEntity.setUserAge(updatedEntity.getUserAge());
+                existingEntity.setUserPhoneNumber(updatedEntity.getUserPhoneNumber());
+                existingEntity.setUserAddress(updatedEntity.getUserAddress());
+                existingEntity.setDrivingLicenseNumber(updatedEntity.getDrivingLicenseNumber());
+
+                /*existingEntity.setInvalidLogInCount(updatedEntity.getInvalidLogInCount());
+                existingEntity.setAccountLocked(updatedEntity.isAccountLocked());
+                existingEntity.setLastLogIn(updatedEntity.getLastLogIn());*/
+
+                em.merge(existingEntity);
+                /*//Set updatedBy and updatedTime AFTER the merge is successful
+                existingEntity.setUpdateBy(updatedEntity.getUserName());
+                existingEntity.setUpdatedTime(LocalDateTime.now());
+
+                // Merge again to save updatedBy and updatedTime
+                em.merge(existingEntity);*/
+                isUpdated = true;
+            }
+        } catch (Exception e) {
+            log.warn("Error updating profile: {}", e.getMessage());
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        }
+        return isUpdated;
     }
 
     /*@Transactional
@@ -162,5 +201,10 @@ public class UserRepositoryImpl implements UserRepository{
             throw new RuntimeException("Failed to update user");
         }
     }*/
+
+    @Override
+    public void deleteById(int id) {
+        em.createNamedQuery("deleteUser").setParameter("id",id).executeUpdate();
+    }
 
 }

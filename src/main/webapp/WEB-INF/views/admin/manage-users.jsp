@@ -60,6 +60,7 @@
                                     <th>Showroom</th>
                                     <th>Schedule For</th>
                                     <th>Follow-Up</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,6 +91,14 @@
                                             <a href="${pageContext.request.contextPath}/admin/followup-user?id=${user.userId}"
                                                class="btn btn-sm btn-primary">
                                                <i class="fas fa-phone"></i> Follow Up
+                                            </a>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <a href="${pageContext.request.contextPath}/admin/delete/user/${user.userId}"
+                                               class="icon-btn"
+                                               title="Delete User"
+                                               onclick="return confirm('Are you sure you want to delete this user?');">
+                                                <i class="fas fa-trash-alt icon-delete"></i>
                                             </a>
                                         </td>
                                     </tr>

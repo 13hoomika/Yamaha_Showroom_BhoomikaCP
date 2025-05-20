@@ -527,6 +527,28 @@ public class AdminController {
         return "redirect:/admin/followup-user?id=" + userId;
     }
 
+    // ========== DELETE BIKES / SHOWROOM / USER ==========
+    @GetMapping("delete/{type}/{id}")
+    public RedirectView deleteById(
+            @PathVariable("type") String type,
+            @PathVariable("id") int id,
+            HttpServletRequest req) {
+
+        switch (type.toLowerCase()) {
+            case "user":
+                userService.deleteById(id);
+                return new RedirectView(req.getContextPath() + "/admin/manage-users");
+            case "bike":
+//                bikeService.deleteById(id);
+                return new RedirectView(req.getContextPath() + "/admin/manage-bikes");
+            case "showroom":
+//                showroomService.deleteById(id);
+                return new RedirectView(req.getContextPath() + "/admin/manage-showrooms");
+            default:
+                throw new IllegalArgumentException("Invalid type: " + type);
+        }
+    }
+
     @GetMapping("/logout")
     public String logout(HttpSession session,RedirectAttributes redirectAttributes) {
         session.invalidate();
@@ -535,4 +557,36 @@ public class AdminController {
         return "redirect:/";
 
     }
+
+    /*@GetMapping("delete/{type}/{id}")
+    public RedirectView deleteById(
+            @PathVariable("type") String type,
+            @PathVariable("id") int id,
+            HttpServletRequest req,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            switch (type.toLowerCase()) {
+                case "user":
+                    userService.deleteById(id);
+                    redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully.");
+                    return new RedirectView(req.getContextPath() + "/admin/manage-users");
+                case "bike":
+                    bikeService.deleteById(id);
+                    redirectAttributes.addFlashAttribute("successMessage", "Bike deleted successfully.");
+                    return new RedirectView(req.getContextPath() + "/admin/manage-bikes");
+                case "showroom":
+                    showroomService.deleteById(id);
+                    redirectAttributes.addFlashAttribute("successMessage", "Showroom deleted successfully.");
+                    return new RedirectView(req.getContextPath() + "/admin/manage-showrooms");
+                default:
+                    redirectAttributes.addFlashAttribute("errorMessage", "Invalid delete type.");
+                    return new RedirectView(req.getContextPath() + "/admin/dashboard");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error occurred while deleting " + type + ".");
+            return new RedirectView(req.getContextPath() + "/admin/dashboard");
+        }
+    }*/
+
 }
