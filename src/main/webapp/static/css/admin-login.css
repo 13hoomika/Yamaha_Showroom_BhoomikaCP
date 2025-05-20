@@ -20,7 +20,13 @@ body {
     line-height: 1.6;
     background-color: var(--light);
     overflow-x: hidden;
-    background-image: url('https://images.unsplash.com/photo-1558980394-4c7c9299fe96'); /* Replace with your image URL */
+/*
+    background-image: url("https://images.unsplash.com/photo-1558980394-4c7c9299fe96");
+*/
+/*
+background-image:url('<c:url value="/static/images/login-bg.jpg"/>'); this Because admin-login.css is a plain CSS file, it is sent to the browser exactly as-is—JSP tags such as <c:url> cannot run inside it
+*/
+    background-image: url("../images/login-bg.jpeg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Keeps the image fixed during scroll */
