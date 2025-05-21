@@ -17,6 +17,7 @@ import java.util.List;
 
 @Service
 @Slf4j
+@Transactional
 public class BikeServiceImpl implements BikeService{
 
     @Autowired
@@ -25,7 +26,6 @@ public class BikeServiceImpl implements BikeService{
     @Autowired
     BikeRepository bikeRepository;
 
-    @Transactional
     @Override
     public Boolean addBike(BikeDto bikeDto) {
 
@@ -99,7 +99,6 @@ public class BikeServiceImpl implements BikeService{
     }
 
     @Override
-    @Transactional
     public Boolean assignBikeToShowroom(Integer bikeId, Integer showroomId) {
         // Validate input parameters
         if (bikeId == null || showroomId == null) {
