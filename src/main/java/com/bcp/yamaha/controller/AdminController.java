@@ -285,8 +285,6 @@ public class AdminController {
             return "redirect:/admin/login";
         }
 
-        model.addAttribute("allBikeTypes", Arrays.asList(BikeType.values()));
-
         // Get bikes filtered by type if specified
         List<BikeDto> bikeDtoList;
 
