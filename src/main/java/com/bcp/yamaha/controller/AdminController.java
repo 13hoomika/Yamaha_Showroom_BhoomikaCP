@@ -272,7 +272,7 @@ public class AdminController {
             IOUtils.copy(inputStream, outputStream);
             response.flushBuffer();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            log.error("Error saving image: {}", e.getMessage(), e);
         }
     }
 
