@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-login.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         input[type="submit"] {
             background-color: var(--blue);
@@ -81,14 +82,12 @@
     <div class="login-box">
         <h2>User Login</h2>
 
-        <div class="message-container">
-            <c:if test="${not empty message}">
-                <p class="text-success">${message}</p>
-            </c:if>
-            <c:if test="${not empty error}">
-                <p class="text-danger">${error}</p>
-            </c:if>
-        </div>
+        <c:if test="${not empty success}">
+            <div class="alert alert-success">${message}</div>
+        </c:if>
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger">${error}</div>
+        </c:if>
 
         <form action="${pageContext.request.contextPath}/user/loginWithOtp" id="LoginForm" method="post">
             <label for="userEmail">User Email</label>
@@ -96,7 +95,7 @@
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Enter password" required>
-            <span>For first-time login, please enter the OTP sent to your registered email address.</span>
+            <span class="text-muted">For first-time login, please enter the OTP sent to your registered email address.</span>
 
             <div class="captcha-container">
                 <div class="captcha">
