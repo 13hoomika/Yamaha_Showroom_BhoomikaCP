@@ -386,12 +386,7 @@ public class AdminController {
             return "redirect:/admin/login";
         }
 
-//        String uploadDir = "src" + File.separator + "main" + File.separator + "webapp" +
-//                File.separator + "static" + File.separator + "images" +
-//                File.separator + "showroom-Images" + File.separator;
-
         String uploadDir = "D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP\\src\\main\\webapp\\static\\images\\showroom-Images\\";
-
 
         Files.createDirectories(Paths.get(uploadDir)); // Ensure upload dir exists
 
