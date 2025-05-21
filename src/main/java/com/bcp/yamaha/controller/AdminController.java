@@ -330,7 +330,9 @@ public class AdminController {
     }
 
     @GetMapping("/assign-bikes")
-    public String showAssignmentForm(Model model) {
+    public String showAssignmentForm(Model model, HttpSession session) {
+        if (isAdminLoggedIn(session)) return "redirect:/admin/login";
+        
         List<BikeEntity> unassignedBikes = bikeService.getUnassignedBikes();
         List<ShowroomDto> showrooms = showroomService.getAllShowroom();
 
