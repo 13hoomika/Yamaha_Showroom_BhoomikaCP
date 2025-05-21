@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ShowroomServiceImpl implements ShowroomService {
 
     @Autowired
     ShowroomRepository showroomRepository;
 
-    @Transactional
     @Override
     public Boolean addShowroom(ShowroomDto showroomDto) {
         ShowroomEntity showroomEntity = new ShowroomEntity();
