@@ -43,7 +43,7 @@
                                     <th>Manager</th>
                                     <th>Contact</th>
                                     <th>Bike Count</th>
-                                    <th>Actions</th>
+                                    <!-- <th>Actions</th> -->
                                 </tr>
                             </thead>
                             <tbody>
