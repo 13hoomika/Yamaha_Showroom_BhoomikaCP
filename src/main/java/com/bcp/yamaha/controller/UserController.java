@@ -1,6 +1,7 @@
 package com.bcp.yamaha.controller;
 
 import com.bcp.yamaha.dto.UserDto;
+import com.bcp.yamaha.exception.UserNotFoundException;
 import com.bcp.yamaha.service.bike.BikeService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
 import com.bcp.yamaha.service.user.UserService;
@@ -113,11 +114,13 @@ public class UserController {
             // Update the password in the database
             boolean isUpdated = userService.resetPassword(email, newPassword);
             if (isUpdated) {
-                redirectAttributes.addFlashAttribute("message", "Password reset successful! You can now log in with your new password");
+                redirectAttributes.addFlashAttribute("success", "Password reset successful! You can now log in with your new password");
             } else {
                 redirectAttributes.addFlashAttribute("error", "Failed to update password, Invalid Password Must be at least 8 characters long, include one uppercase letter, one lowercase letter, one digit, and one special character.");
             }
-        } catch (Exception e) {
+        } catch (UserNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "An error occurred: " + e.getMessage());
         }
         return "redirect:/user/resetPassword";
