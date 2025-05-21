@@ -54,14 +54,13 @@
                                         <td>${showroom.showroomManager}</td>
                                         <td>${showroom.showroomPhone}</td>
                                         <td>${showroom.bikeCount}</td>
-                                        <td>
-                                            <a href="#" class="btn btn-sm btn-outline-primary me-1">
-                                                <i class="fas fa-edit"></i>
+                                        <!-- <td class="text-center align-middle">
+                                            <a href="${pageContext.request.contextPath}/admin/delete/showroom/${showroom.showroomId}"
+                                               class="icon-btn"
+                                               onclick="return confirm('Are you sure you want to delete this showroom?');">
+                                                <i class="fas fa-trash-alt icon-delete"></i>
                                             </a>
-                                            <a href="#" class="btn btn-sm btn-outline-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </c:forEach>
                             </tbody>
