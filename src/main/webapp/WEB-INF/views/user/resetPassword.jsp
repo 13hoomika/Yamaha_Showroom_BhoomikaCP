@@ -39,19 +39,14 @@
     <div class="login-box">
         <h2>Forgot Password</h2>
 
-        <!-- <div class="message-container">
-            <c:if test="${not empty message}">
-                <div class="alert alert-success text-center">${message}</div>
-            </c:if>
-            <c:if test="${not empty error}">
-                <div class="alert alert-danger text-center">${error}</div>
-            </c:if>
-        </div> -->
-
         <form action="${pageContext.request.contextPath}/user/resetPassword" method="POST">
             <!-- Display message if any -->
-            <h3 style="color:red">${error}</h3>
-            <h3 style="color:green">${message}</h3>
+            <c:if test="${not empty success}">
+                <div class="alert alert-success">${message}</div>
+            </c:if>
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger">${error}</div>
+            </c:if>
 
             <!-- Email Field -->
             <label for="userEmail">Email</label>
