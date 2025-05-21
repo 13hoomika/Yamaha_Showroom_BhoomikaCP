@@ -98,7 +98,7 @@ public class AdminController {
                 session.setAttribute("otpSent", true);
                 session.setAttribute("otpStartTime", System.currentTimeMillis());
                 session.setAttribute("adminEmail", email);
-                redirectAttributes.addFlashAttribute("message", "OTP sent successfully!");
+                redirectAttributes.addFlashAttribute("success", "OTP sent successfully!");
             } else {
                 redirectAttributes.addFlashAttribute("error", "Failed to send OTP");
             }

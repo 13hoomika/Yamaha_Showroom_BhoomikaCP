@@ -6,6 +6,8 @@
     <title>Admin Login - Yamaha Showroom</title>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-login.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -15,14 +17,12 @@
     <div class="login-box">
         <h2>Admin Login</h2>
 
-        <div class="message-container">
-            <c:if test="${not empty message}">
-                <p class="text-success">${message}</p>
-            </c:if>
-            <c:if test="${not empty error}">
-                <p class="text-danger">${error}</p>
-            </c:if>
-        </div>
+        <c:if test="${not empty success}">
+            <div class="alert alert-success">${success}</div>
+        </c:if>
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger">${error}</div>
+        </c:if>
 
         <!-- Email Form -->
         <form action="${pageContext.request.contextPath}/admin/sendOtp" method="post">
@@ -37,7 +37,7 @@
                 <label>Enter OTP</label>
                 <input type="text" name="otp" required placeholder="Enter OTP">
                 <div class="timer-container">
-                    <span id="timer"></span>
+                    <span>OTP expires in: </span><span id="timer"></span>
                 </div>
                 <input type="hidden" name="adminEmail" value="${adminEmail}">
                 <button type="submit">Verify OTP</button>
