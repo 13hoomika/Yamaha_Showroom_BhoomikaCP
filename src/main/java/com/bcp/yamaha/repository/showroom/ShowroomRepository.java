@@ -11,4 +11,5 @@ public interface ShowroomRepository {
     Long countAllShowroom();
     ShowroomEntity findById(Integer showroomId);
 
+//    void deleteShowroom(int id);
 }

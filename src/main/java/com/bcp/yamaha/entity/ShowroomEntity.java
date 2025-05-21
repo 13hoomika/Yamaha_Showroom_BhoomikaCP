@@ -16,6 +16,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "findAllShowroom", query = "SELECT DISTINCT s FROM ShowroomEntity s LEFT JOIN FETCH s.bikes"),
         @NamedQuery(name = "countAllShowroom", query = "SELECT COUNT(showroom) FROM ShowroomEntity showroom"),
+//        @NamedQuery(name = "deleteShowroom", query = "DELETE FROM ShowroomEntity s WHERE s.showroomId = :id"),
 })
 public class ShowroomEntity {
     @Id

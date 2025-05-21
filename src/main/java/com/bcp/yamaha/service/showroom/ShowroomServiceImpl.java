@@ -73,4 +73,9 @@ public class ShowroomServiceImpl implements ShowroomService {
         }
         return null;
     }
+
+    /*@Override
+    public void deleteById(int id) {
+        showroomRepository.deleteShowroom(id);
+    }*/
 }

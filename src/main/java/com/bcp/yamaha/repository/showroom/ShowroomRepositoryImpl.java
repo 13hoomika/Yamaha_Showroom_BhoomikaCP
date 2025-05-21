@@ -42,4 +42,9 @@ public class ShowroomRepositoryImpl implements ShowroomRepository{
         }
         return showroom;
     }
+
+    /*@Override
+    public void deleteShowroom(int id) {
+        em.createNamedQuery("deleteShowroom").setParameter("id",id).executeUpdate();
+    }*/
 }
