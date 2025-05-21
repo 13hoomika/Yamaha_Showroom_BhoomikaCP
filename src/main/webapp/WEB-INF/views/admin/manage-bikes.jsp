@@ -60,9 +60,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                            <c:if test="${empty bikeList}">
-                                <div class="alert alert-warning">No bikes found in the database</div>
-                            </c:if>
+
+                        <c:if test="${empty bikeList}">
+                            <div class="alert alert-warning">No bikes found in the database</div>
+                        </c:if>
+
                         <table class="table table-hover">
                             <thead class="table-light">
                                 <tr>
@@ -84,15 +86,11 @@
                                         <td>Rs.${bike.bikePrice}</td>
                                         <td>${bike.bikeType.displayName}</td>
                                         <td>${bike.bikeYear}</td>
-                                        <td>
-                                            <a href="${pageContext.request.contextPath}/admin/edit-bike?id=${bike.bikeId}"
-                                               class="btn btn-sm btn-outline-primary me-1">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="${pageContext.request.contextPath}/admin/delete-bike?id=${bike.bikeId}"
-                                               class="btn btn-sm btn-outline-danger"
-                                               onclick="return confirm('Are you sure you want to delete this bike?')">
-                                                <i class="fas fa-trash"></i>
+                                        <td class="text-center">
+                                            <a href="${pageContext.request.contextPath}/admin/delete/bike/${bike.bikeId}"
+                                               class="icon-btn"
+                                               onclick="return confirm('Are you sure you want to delete this bike?');">
+                                                <i class="fas fa-trash-alt icon-delete"></i>
                                             </a>
                                         </td>
                                     </tr>
