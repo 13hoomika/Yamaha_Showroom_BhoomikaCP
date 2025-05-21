@@ -241,7 +241,7 @@ public class AdminController {
                 try {
                     Files.write(path, file.getBytes());
                 } catch (IOException e) {
-                    System.out.println(e.getMessage());
+                    log.error("Error adding image: {}", e.getMessage(), e);
                 }
             }
             bikeDto.setImages(images);
