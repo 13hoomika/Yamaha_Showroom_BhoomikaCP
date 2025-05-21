@@ -489,7 +489,6 @@ public class AdminController {
     public String showFollowUpPage(@RequestParam("id") int userId, Model model) {
         UserDto user = userService.getUserById(userId);
         model.addAttribute("user", user);
-
         // Get existing follow-up logs
         List<FollowUpDto> logs = followUpService.getFollowUpLogsByUserId(userId);
         model.addAttribute("logs", logs);
