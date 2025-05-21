@@ -44,27 +44,27 @@ public class UserController {
     public String loginWithOtp(
             @RequestParam("userEmail") String email,
             @RequestParam("password") String password,
-            Model model,
+            RedirectAttributes redirectAttributes,
             HttpSession session) {
 
         System.out.println("===== controller: loginWithOtp() ======");
-        Boolean isValid = userService.validateAndLogIn(email, password);
-        if (!isValid) {
-            model.addAttribute("error", "Invalid email or password. Please try again.");
-            return "user/user-login";
+        Boolean authenticated  = userService.validateAndLogIn(email, password);
+        if (!authenticated ) {
+            redirectAttributes.addFlashAttribute("error", "Invalid email or password. Please try again.");
+            return "redirect:/user/login";
         }
-
-        // You can store the user in session if needed
-        session.setAttribute("userEmail", email);
 
         UserDto userDto = userService.getUserByEmail(email);
         if (userDto == null) {
-            model.addAttribute("error", "User not found for email: " + email);
+            redirectAttributes.addFlashAttribute("error", "User not found for email: " + email);
             log.warn("User not found for email: {}", email);
-            return "user/user-login";
+            return "redirect:/user/login";
         }
-        // Store user in session
+
+        // Store user info  in session
+        session.setAttribute("userEmail", email);
         session.setAttribute("loggedInUser", userDto);
+
         log.info("User signed in successfully: {}", email);
 
         // Redirect to dashboard
@@ -202,9 +202,6 @@ public class UserController {
         }
 
     }
-
-
-
     @GetMapping("/logout")
     public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
         session.invalidate();
