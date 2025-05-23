@@ -130,6 +130,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
 <script src="${pageContext.request.contextPath}/static/js/uniqueFieldValidator.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -171,8 +174,6 @@
         document.getElementById('showroom').addEventListener('change', validateForm);
         document.getElementById('scheduleType').addEventListener('change', validateForm);
     });
-
-   const contextPath = '${pageContext.request.contextPath}';
 
    // Function to validate the entire form
    function validateForm() {
