@@ -172,7 +172,33 @@
         document.getElementById('scheduleType').addEventListener('change', validateForm);
     });
 
-    const contextPath = '${pageContext.request.contextPath}';
+   const contextPath = '${pageContext.request.contextPath}';
+
+   // Function to validate the entire form
+   function validateForm() {
+     const name = document.getElementById('userName').value.trim();
+     const email = document.getElementById('userEmail').value.trim();
+     const phone = document.getElementById('userPhoneNumber').value.trim();
+     const age = document.getElementById('userAge').value.trim();
+     const address = document.getElementById('userAddress').value.trim();
+     const license = document.getElementById('drivingLicenseNumber').value.trim();
+     const showroom = document.getElementById('showroom').value;
+     const schedule = document.getElementById('scheduleType').value;
+
+     const emailError = document.getElementById('emailError').innerText;
+     const phError = document.getElementById('phNoError').innerText;
+
+     const submitBtn = document.getElementById('submitBtn');
+
+     const allRequiredFilled = name && email && phone && age && address && license && showroom && schedule;
+     const noErrors = !emailError && !phError;
+
+     if (allRequiredFilled && noErrors) {
+         submitBtn.disabled = false;
+     } else {
+         submitBtn.disabled = true;
+     }
+   }
 </script>
 </body>
 </html>
