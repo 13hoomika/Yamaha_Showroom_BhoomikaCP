@@ -4,6 +4,14 @@
     padding: 0;
     box-sizing: border-box;
 }
+:root {
+  --primary-color: #003399;
+  --primary-hover: #030088;
+  --disabled-color: #cccccc;
+  --blue-shadow: rgba(0, 51, 153, 0.25);
+  --dark-color: #121212;
+  --transition-speed: 0.3s;
+}
 
 /* ====== Base Styling ====== */
 body {
@@ -78,7 +86,7 @@ body {
 
 .action-links a {
     text-decoration: none;
-    background-color: #1e3a8a;
+    background-color: var(--primary-color);
     color: white;
     padding: 12px 24px;
     border-radius: 8px;
@@ -87,7 +95,7 @@ body {
 }
 
 .action-links a:hover {
-    background-color: #3b5998;
+    background-color: var(--primary-hover);
 }
 
 /* ====== Forms ====== */
@@ -122,9 +130,8 @@ form .error {
 }
 
 /* ====== Button ====== */
-button.btn-primary,
-input[type="submit"].btn-primary {
-    background-color: #1e3a8a;
+.custom-btn {
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 12px 20px;
@@ -134,9 +141,15 @@ input[type="submit"].btn-primary {
     transition: background-color 0.3s ease;
 }
 
-button.btn-primary:hover,
-input[type="submit"].btn-primary:hover {
-    background-color: #3b5998;
+.custom-btn:hover {
+    background-color: var(--primary-hover);
+    color: white;
+}
+
+.custom-btn:disabled {
+    color: white;
+    background-color: var(--disabled-color); /* Gray color when disabled */
+    cursor: not-allowed; /* Change cursor to indicate disabled state */
 }
 
 /* ====== Alerts ====== */

@@ -58,7 +58,7 @@
 
                             <div class="col-md-8">
                                 <label for="userPhoneNumber" class="form-label">Phone</label>
-                                <input type="tel" class="form-control" id="userPhoneNumber" name="userPhoneNumber" placeholder="10 digit phone" onchange="checkPhNo()"required>
+                                <input type="tel" class="form-control" id="userPhoneNumber" name="userPhoneNumber" placeholder="10 digit phone" onchange="checkPhNoForRegister()" required>
                                 <span id="phNoError" style="color: red; font-size: 0.85rem;"></span>
                             </div>
 

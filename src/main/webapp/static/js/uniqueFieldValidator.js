@@ -20,7 +20,7 @@ function checkEmail() {
 }
 
 // Function to validate phone number
-function checkPhNo() {
+function checkPhNoForRegister() {
    var checkPhValue = document.getElementById("userPhoneNumber").value;
    console.log(checkPhValue);
    if (checkPhValue != "") {
@@ -37,3 +37,17 @@ function checkPhNo() {
        validateForm(); // Call validateForm to recheck form state
    }
 }
+
+function checkPhNoForUpdate() {
+    const phInput = document.getElementById('userPhoneNumber');
+    const currentPh = phInput.getAttribute('data-current');
+    const phone = phInput.value.trim();
+
+    fetch(contextPath + `/checkPhValue/${phone}/${currentPh}`)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('phNoError').innerText = data;
+            validateForm(); // trigger form validation again
+        });
+}
+

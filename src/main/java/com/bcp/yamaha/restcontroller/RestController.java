@@ -23,7 +23,7 @@ public class RestController {
 
 
     @GetMapping(value = "/checkPhValue/{phNo}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getPhCount(@PathVariable String phNo){
+    public String getPhCountForRegister(@PathVariable String phNo){
         System.out.println("Received phNo in Controller: [" + phNo + "]");
         boolean isPhExist = userService.existByPhNumber(phNo);
         System.out.println("isPhExist: "+isPhExist);
@@ -32,4 +32,18 @@ public class RestController {
         }
         return "";
     }
+
+    @GetMapping(value = "/checkPhValue/{phNo}/{currentPh}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getPhCountForUpdate(@PathVariable String phNo, @PathVariable String currentPh) {
+        System.out.println("Received phNo: [" + phNo + "], CurrentPh: [" + currentPh + "]");
+
+        if (phNo.equals(currentPh)) {
+            // Allow if user hasn't changed their phone
+            return "";
+        }
+
+        boolean isPhExist = userService.existByPhNumber(phNo);
+        return isPhExist ? "phone number already exists" : "";
+    }
+
 }
