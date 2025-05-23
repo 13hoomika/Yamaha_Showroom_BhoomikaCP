@@ -6,7 +6,7 @@
     <title>Admin Login - Yamaha Showroom</title>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-login.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
                     <span>OTP expires in: </span><span id="timer"></span>
                 </div>
                 <input type="hidden" name="adminEmail" value="${adminEmail}">
-                <button type="submit">Verify OTP</button>
+                <button type="submit">Verify & Login</button>
             </form>
         </c:if>
 
