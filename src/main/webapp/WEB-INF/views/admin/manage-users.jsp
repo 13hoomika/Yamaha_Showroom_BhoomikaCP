@@ -25,6 +25,15 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4><i class="fas fa-users me-2"></i>Manage Users</h4>
             </div>
+
+            <c:if test="${not empty successMessage}">
+                <div class="alert alert-success">${successMessage}</div>
+            </c:if>
+
+            <c:if test="${not empty errorMessage}">
+                <div class="alert alert-danger">${errorMessage}</div>
+            </c:if>
+
             <div class="row mb-2">
                 <div class="col-md-2">
                     <form method="get" action="${pageContext.request.contextPath}/admin/manage-users" class="d-inline">
