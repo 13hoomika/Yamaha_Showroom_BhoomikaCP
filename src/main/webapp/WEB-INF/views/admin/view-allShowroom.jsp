@@ -46,11 +46,11 @@
                                     <strong>Email:</strong> ${showroom.showroomEmail}<br>
                                     <strong>Address:</strong> ${showroom.showroomAddress}
                                 </p>
-                                <!-- Optional Action Buttons -->
+                                <!-- Optional Action Buttons
                                 <div class="d-flex justify-content-between">
                                     <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
                                     <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
