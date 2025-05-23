@@ -172,7 +172,7 @@ public class UserController {
         return "user/update-profile";
     }*/
 
-    @GetMapping("getProfile")
+    @GetMapping("/getProfile")
     public String getProfile(Model model, HttpSession session) {
         UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
@@ -188,18 +188,18 @@ public class UserController {
     @PostMapping("/updateProfile")
     public String updateProfile(@ModelAttribute("userDto") UserDto userDto,
                                 RedirectAttributes redirectAttributes,HttpSession session) {
+        log.info("Controller updateProfileEmail started for email: {}", userDto.getUserEmail());
 
         boolean updated = userService.updateProfile(userDto);
         if (updated) {
-            redirectAttributes.addAttribute("success", "Updated user profile successfully");
+            redirectAttributes.addFlashAttribute("success", "Updated user profile successfully");
             session.setAttribute("loggedInUser", userDto);
             System.out.println("isUpdated in controller: " + true);
-            return "user/user-dashboard";
         }else {
-            redirectAttributes.addAttribute("error", "Failed to update profile. Please try again.");
+            redirectAttributes.addFlashAttribute("error", "Failed to update profile. Please try again.");
             System.out.println("isUpdated in controller: " + false);
-            return "user/update-profile";
         }
+        return "redirect:/user/getProfile";
 
     }
     @GetMapping("/logout")
