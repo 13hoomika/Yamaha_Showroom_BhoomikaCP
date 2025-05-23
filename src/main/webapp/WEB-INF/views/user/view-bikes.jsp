@@ -8,66 +8,8 @@
     <link rel="icon" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/user-styles.css">
     <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background-color: #f4f4f4;
-        color: #333;
-        padding-top: 70px;
-    }
-
-    /* Navbar */
-    .navbar {
-        background-color: #1f2d3d;
-        color: white;
-        padding: 15px 30px;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-
-    .navbar h2 {
-        font-size: 22px;
-        color: #ffffff;
-    }
-
-    .nav-links a {
-        color: #ffffff;
-        text-decoration: none;
-        margin-left: 20px;
-        font-weight: 500;
-        transition: color 0.3s ease;
-    }
-
-    .nav-links a:hover {
-        color: #00aced;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 30px 20px;
-    }
-
-    .section-title {
-        font-size: 28px;
-        margin-bottom: 30px;
-        text-align: center;
-        color: #1e3a8a;
-    }
-
     .bike-card {
         transition: transform 0.2s ease-in-out;
         border-radius: 10px;
@@ -88,17 +30,32 @@
 </head>
 <body>
 <!-- Navbar -->
-<div class="navbar">
-    <h2>Yamaha Motors</h2>
-    <div class="nav-links">
-        <a href="${pageContext.request.contextPath}/user/dashboard">Dashboard</a>
-        <a href="${pageContext.request.contextPath}/user/showrooms">Showrooms</a>
-        <a href="${pageContext.request.contextPath}/user/updateProfile">Update Profile</a>
-        <a href="${pageContext.request.contextPath}/user/logout">Logout</a>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">Yamaha Motors</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarUserLinks" aria-controls="navbarUserLinks" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarUserLinks">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/user/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/user/showrooms">Showrooms</a
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/user/getProfile">Update Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/user/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
-<div class="container mt-4">
-    <h3 class="mb-4">Available Bikes</h3>
+</nav>
+<div class="container">
+    <h3 class="section-title">Available Bikes</h3>
 
     <c:choose>
         <c:when test="${not empty bikeList}">
