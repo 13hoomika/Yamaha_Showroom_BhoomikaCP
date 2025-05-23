@@ -271,9 +271,10 @@ body {
 }
 
 .btn-primary:disabled {
-    color: var(--primary-hover);
+    color: white;
     background-color: var(--disabled-color); /* Gray color when disabled */
     cursor: not-allowed; /* Change cursor to indicate disabled state */
+    border-color: var(--disabled-color);
 }
 
 .btn-outline-primary {
@@ -320,7 +321,7 @@ body {
 
 .icon-btn:hover {
     transform: scale(1.2);
-    color: darkred !important;
+    color: darkened !important;
 }
 
 .icon-delete {
