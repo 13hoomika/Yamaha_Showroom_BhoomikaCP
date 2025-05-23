@@ -4,6 +4,7 @@
   --header-height: 60px;
   --primary-color: #003399;
   --primary-hover: #030088;
+  --disabled-color: #cccccc;
   --blue-shadow: rgba(0, 51, 153, 0.25);
   --dark-color: #121212;
   --transition-speed: 0.3s;
@@ -267,6 +268,12 @@ body {
 .btn-primary:hover {
   background-color: var(--primary-hover);
   border-color: var(--primary-hover);
+}
+
+.btn-primary:disabled {
+    color: var(--primary-hover);
+    background-color: var(--disabled-color); /* Gray color when disabled */
+    cursor: not-allowed; /* Change cursor to indicate disabled state */
 }
 
 .btn-outline-primary {

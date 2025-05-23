@@ -4,6 +4,7 @@ import com.bcp.yamaha.constants.ScheduleType;
 import com.bcp.yamaha.dto.ShowroomDto;
 import com.bcp.yamaha.dto.UserDto;
 import com.bcp.yamaha.entity.UserEntity;
+import com.bcp.yamaha.exception.UserNotFoundException;
 import com.bcp.yamaha.repository.user.UserRepository;
 import com.bcp.yamaha.service.EmailService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
@@ -278,5 +279,18 @@ public class UserServiceImpl implements UserService{
     public void deleteById(int id) {
         userRepository.deleteById(id);
         System.out.println("user deleted successfully");
+    }
+
+    @Override
+    public boolean existByEmail(String email) {
+        System.out.println("invoking existByEmail in service..........");
+        boolean emailExist = userRepository.existByEmail(email);
+        System.out.println("is emailExist in service: " + emailExist);
+        return emailExist;
+    }
+
+    @Override
+    public boolean existByPhNumber(String phNumber) {
+        return userRepository.existByPhNumber(phNumber);
     }
 }

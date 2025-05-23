@@ -207,4 +207,34 @@ public class UserRepositoryImpl implements UserRepository{
         em.createNamedQuery("deleteUser").setParameter("id",id).executeUpdate();
     }
 
+    @Override
+    public boolean existByEmail(String email) {
+        try {
+            System.out.println("Checking email in repo: [" + email + "]"); // Debugging
+
+            Long count = em.createNamedQuery("emailExist", Long.class)
+                    .setParameter("email", email.trim()) // Ensure no spaces
+                    .getSingleResult();
+
+            System.out.println("Email count from repo: " + count);
+            return count > 0;
+        } catch (Exception e) {
+            log.warn("Error checking email existence: {}", e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean existByPhNumber(String phNumber) {
+        try {
+            Long count = em.createNamedQuery("phExist", Long.class)
+                    .setParameter("phNumber", phNumber)
+                    .getSingleResult();
+            return count > 0; // Return true if phone number exists, false otherwise
+        } catch (Exception e) {
+            log.warn("Error checking phone number existence:{}", e.getMessage());
+            return false;
+        }
+    }
+
 }

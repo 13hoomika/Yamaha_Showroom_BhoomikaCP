@@ -21,4 +21,7 @@ public interface UserService {
     boolean updateProfile(UserDto uerDto);
 
     void deleteById(int id);
+
+    boolean existByEmail(String email);
+    boolean existByPhNumber(String phNumber);
 }

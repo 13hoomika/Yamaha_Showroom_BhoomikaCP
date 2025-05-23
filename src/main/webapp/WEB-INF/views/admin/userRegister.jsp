@@ -12,12 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
-    <style>
-        .error {
-            font-size: 0.85rem;
-            color: #e30613;
-        }
-    </style>
+
 </head>
 <body>
 <div class="wrapper">
@@ -48,37 +43,33 @@
                             <div class="col-md-6">
                                 <label for="userName" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter name" required>
-                                <div class="error">${errors.userName}</div>
                             </div>
 
                             <div class="col-md-6">
                                 <label for="userEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="example@gmail.com" required>
-                                <div class="error">${errors.userEmail}</div>
+                                <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="youremail@gmail.com" onchange="checkEmail()" required>
+                                <span id="emailError" style="color: red; font-size: 0.85rem;"></span>
                             </div>
 
                             <div class="col-md-4">
                                 <label for="userAge" class="form-label">Age</label>
                                 <input type="number" class="form-control" id="userAge" name="userAge" placeholder="Your age" required>
-                                <div class="error">${errors.userAge}</div>
                             </div>
 
                             <div class="col-md-8">
                                 <label for="userPhoneNumber" class="form-label">Phone</label>
-                                <input type="tel" class="form-control" id="userPhoneNumber" name="userPhoneNumber" placeholder="10 digit phone" required>
-                                <div class="error">${errors.userPhoneNumber}</div>
+                                <input type="tel" class="form-control" id="userPhoneNumber" name="userPhoneNumber" placeholder="10 digit phone" onchange="checkPhNo()"required>
+                                <span id="phNoError" style="color: red; font-size: 0.85rem;"></span>
                             </div>
 
                             <div class="col-md-12">
                                 <label for="userAddress" class="form-label">Address</label>
                                 <input type="text" class="form-control" id="userAddress" name="userAddress" placeholder="Enter address" required>
-                                <div class="error">${errors.userAddress}</div>
                             </div>
 
                             <div class="col-md-12">
                                 <label for="drivingLicenseNumber" class="form-label">Driving License Number</label>
                                 <input type="text" class="form-control" id="drivingLicenseNumber" name="drivingLicenseNumber" placeholder="KA1234567890123" required>
-                                <div class="error">${errors.drivingLicenseNumber}</div>
                             </div>
 
                             <div class="col-md-4">
@@ -128,7 +119,7 @@
                         </div>
 
                         <div class="d-grid mt-4">
-                            <button type="submit"  id="submitBtn" class="btn btn-primary">Register</button>
+                            <button type="submit"  id="submitBtn" class="btn btn-primary" disabled>Register</button>
                         </div>
                     </form>
                 </div>
@@ -151,7 +142,6 @@
         const today = new Date().toISOString().split("T")[0];
         dateInput.min = today;
 
-
         function toggleFields() {
             const value = scheduleType.value;
             const isScheduleVisit = value === "SCHEDULE_VISIT";
@@ -169,7 +159,84 @@
 
         scheduleType.addEventListener("change", toggleFields);
         toggleFields(); // Run once on page load
+
+        // Input listeners
+        document.getElementById('userName').addEventListener('input', validateForm);
+        document.getElementById('userEmail').addEventListener('input', validateForm);
+        document.getElementById('userPhoneNumber').addEventListener('input', validateForm);
+        document.getElementById('userAge').addEventListener('input', validateForm);
+        document.getElementById('userAddress').addEventListener('input', validateForm);
+        document.getElementById('drivingLicenseNumber').addEventListener('input', validateForm);
+        document.getElementById('showroom').addEventListener('change', validateForm);
+        document.getElementById('scheduleType').addEventListener('change', validateForm);
     });
+
+   // Function to validate email
+   function checkEmail() {
+       var checkEmailValue = document.getElementById('userEmail').value.trim(); // Remove spaces
+       console.log("Checking email:", checkEmailValue); // Debugging
+
+       if (checkEmailValue) {
+           var encodedEmail = encodeURIComponent(checkEmailValue); // Encode special characters
+           var xhttp = new XMLHttpRequest();
+           xhttp.open("GET", "${pageContext.request.contextPath}/checkEmailValue/" + encodedEmail, true);
+           xhttp.send();
+           xhttp.onload = function () {
+               console.log("Response:", this.responseText);
+               document.getElementById("emailError").innerHTML = this.responseText;
+               validateForm(); // Call validateForm after AJAX response
+           };
+       } else {
+           document.getElementById("emailError").innerHTML = ""; // Clear error if field is empty
+           validateForm(); // Call validateForm to recheck form state
+       }
+   }
+
+   // Function to validate phone number
+   function checkPhNo() {
+       var checkPhValue = document.getElementById("userPhoneNumber").value;
+       console.log(checkPhValue);
+       if (checkPhValue != "") {
+           var xhttp = new XMLHttpRequest();
+           xhttp.open("GET", "${pageContext.request.contextPath}/checkPhValue/" + checkPhValue);
+           xhttp.send();
+           xhttp.onload = function () {
+               console.log(this.responseText);
+               document.getElementById("phNoError").innerHTML = this.responseText;
+               validateForm(); // Call validateForm after AJAX response
+           };
+       } else {
+           document.getElementById("phNoError").innerHTML = ""; // Clear error if field is empty
+           validateForm(); // Call validateForm to recheck form state
+       }
+   }
+
+   // Function to validate the entire form
+   function validateForm() {
+       const name = document.getElementById('userName').value.trim();
+       const email = document.getElementById('userEmail').value.trim();
+       const phone = document.getElementById('userPhoneNumber').value.trim();
+       const age = document.getElementById('userAge').value.trim();
+       const address = document.getElementById('userAddress').value.trim();
+       const license = document.getElementById('drivingLicenseNumber').value.trim();
+       const showroom = document.getElementById('showroom').value;
+       const schedule = document.getElementById('scheduleType').value;
+
+       const emailError = document.getElementById('emailError').innerText;
+       const phError = document.getElementById('phNoError').innerText;
+
+       const submitBtn = document.getElementById('submitBtn');
+
+       const allRequiredFilled = name && email && phone && age && address && license && showroom && schedule;
+       const noErrors = !emailError && !phError;
+
+       if (allRequiredFilled && noErrors) {
+           submitBtn.disabled = false;
+       } else {
+           submitBtn.disabled = true;
+       }
+   }
+
 </script>
 </body>
 </html>

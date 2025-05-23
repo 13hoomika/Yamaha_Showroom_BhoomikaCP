@@ -24,6 +24,9 @@ public interface UserRepository{
 
     void deleteById(int id);
 
+    boolean existByEmail(String email);
+    boolean existByPhNumber(String phNumber);
+
     /*void updateAccountLockStatus(UserEntity user);
     void updateLoginAttemptData(UserEntity user);
 
