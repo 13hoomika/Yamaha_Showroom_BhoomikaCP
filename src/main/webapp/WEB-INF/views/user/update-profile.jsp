@@ -59,7 +59,8 @@
                     <div class="col-md-6">
                         <label for="userName" class="form-label">Name</label>
                         <input type="text" class="form-control" id="userName" name="userName"
-                               placeholder="Enter name" value="${profile.userName}" required>
+                               placeholder="Enter name" value="${profile.userName}" onchange="validateUserName()" required>
+                        <span id="nameError" style="color: red; font-size: 0.85rem;"></span>
                     </div>
 
                     <div class="col-md-6">
