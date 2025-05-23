@@ -219,61 +219,59 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean resetPassword(String email, String newPassword) {
         Optional<UserEntity> optionalUser = userRepository.findUserByEmail(email);
-
-        return optionalUser.map(user -> {
-            // Validate the new password
-            String PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
-            if (newPassword == null || !Pattern.matches(PASSWORD_REGEX, newPassword)) {
-                log.warn("Invalid New Password: {}", newPassword);
-                log.warn("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a digit, and a special character.");
-                return false;
-            }
-
-            String hashedPassword = passwordEncoder.encode(newPassword);
-
-            try {
-                boolean isUpdated = userRepository.updatePassword(email, hashedPassword);
-                if (!isUpdated) {
-                    log.error("Failed to update password for user with email: {}", email);
-                    return false;
-                }
-                log.info("Password successfully reset for user with email: {}", email);
-                return true;
-            } catch (Exception e) {
-                log.error("Error updating user profile for email: {}", email, e);
-                return false;
-            }
-
-        }).orElseGet(() -> {
-            log.warn("User not found with email: {}", email);
+        if (!optionalUser.isPresent()) {
+            throw new UserNotFoundException("User not found with email: " + email);
+        }
+        // Validate the new password
+        String PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        if (newPassword == null || !Pattern.matches(PASSWORD_REGEX, newPassword)) {
+            log.warn("Invalid New Password: {}", newPassword);
+            log.warn("Invalid Password. Must be at least 8 characters long, include one uppercase letter, one lowercase letter, one digit, and one special character.");
             return false;
-        });
-    }
+        }
 
+        String hashedPassword = passwordEncoder.encode(newPassword);
+
+        try {
+            boolean isUpdated = userRepository.updatePassword(email, hashedPassword);
+            if (!isUpdated) {
+                log.error("Failed to update user for email: {}", email);
+                return false;
+            }
+            log.info("Password successfully reset for user with email: {}", email);
+            return true;
+        } catch (Exception e) {
+            log.error("Error updating user profile for email: {}", email, e);
+            return false;
+        }
+    }
 
     @Override
     public boolean updateProfile(UserDto userDto) {
+        boolean isUpdated = false;
         try {
-            Optional<UserEntity> optionalUser = userRepository.findUserByEmail(userDto.getUserEmail());
+            Optional<UserEntity> userOpt = userRepository.findUserByEmail(userDto.getUserEmail());
 
-            return optionalUser.map(existingUser -> {
+            if (userOpt.isPresent()) {
+                UserEntity existingUser = userOpt.get();
+
                 existingUser.setUserName(userDto.getUserName());
                 existingUser.setUserAddress(userDto.getUserAddress());
                 existingUser.setDrivingLicenseNumber(userDto.getDrivingLicenseNumber());
                 existingUser.setUserAge(userDto.getUserAge());
                 existingUser.setUserPhoneNumber(userDto.getUserPhoneNumber());
 
-                boolean isUpdated = userRepository.updateProfile(existingUser);
+                isUpdated = userRepository.updateProfile(existingUser);
                 System.out.println("isUpdated in service: " + isUpdated);
-                return isUpdated;
-            }).orElseGet(() -> {
+            } else {
                 System.out.println("Could not find user with email: " + userDto.getUserEmail());
-                return false;
-            });
+            }
         } catch (Exception e) {
-            throw new RuntimeException("Failed to update profile for user: " + userDto.getUserEmail(), e);
+            throw new RuntimeException(e);
         }
+        return isUpdated;
     }
+
 
     @Override
     public void deleteById(int id) {
