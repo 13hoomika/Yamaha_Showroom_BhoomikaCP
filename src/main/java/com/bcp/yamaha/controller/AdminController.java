@@ -13,7 +13,7 @@ import com.bcp.yamaha.service.bike.BikeService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
 import com.bcp.yamaha.service.user.FollowUpService;
 import com.bcp.yamaha.service.user.UserService;
-import com.bcp.yamaha.utils.StringUtil;
+import com.bcp.yamaha.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;

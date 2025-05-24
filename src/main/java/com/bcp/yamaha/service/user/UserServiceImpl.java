@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.bcp.yamaha.util.ValidationUtil;
 
 import javax.transaction.Transactional;
 import java.util.*;
@@ -280,6 +281,21 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public boolean isValidPhoneFormat(String phoneNumber) {
+        return !ValidationUtil.isValidPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public boolean isValidUserNameFormat(String userName) {
+        return ValidationUtil.isValidUserName(userName);
+    }
+
+    @Override
+    public boolean isValidDl(String dlNo) {
+        return ValidationUtil.isValidDl(dlNo);
+    }
+
+    @Override
     public boolean existByEmail(String email) {
         System.out.println("invoking existByEmail in service..........");
         boolean emailExist = userRepository.existByEmail(email);
@@ -290,5 +306,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean existByPhNumber(String phNumber) {
         return userRepository.existByPhNumber(phNumber);
+    }
+
+    @Override
+    public boolean existsByDrivingLicenseNumber(String dlNo) {
+        return userRepository.existsByDrivingLicenseNumber(dlNo);
     }
 }

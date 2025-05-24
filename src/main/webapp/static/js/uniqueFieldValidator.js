@@ -1,3 +1,24 @@
+// Function to validate userName
+function validateUserName() {
+    const checkUserName = document.getElementById('userName').value.trim();
+    console.log("Checking name:", checkUserName); //debugging
+
+    if (checkUserName !== "") {
+        const encodedName = encodeURIComponent(checkUserName);
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("GET", contextPath + "/checkUserName/" + encodedName, true);
+        xhttp.send();
+        xhttp.onload = function () {
+            console.log("Username Validation:", this.responseText);
+            document.getElementById("userNameError").innerText = this.responseText;
+            validateForm();
+        };
+    } else {
+        document.getElementById("userNameError").innerText = "";
+        validateForm();
+    }
+}
+
 // Function to validate email
 function checkEmail() {
    var checkEmailValue = document.getElementById('userEmail').value.trim(); // Remove spaces
@@ -38,6 +59,29 @@ function checkPhNoForRegister() {
    }
 }
 
+function validateDrivingLicense() {
+    const checkDlInput = document.getElementById('drivingLicenseNumber').value.trim();
+    console.log(checkDlInput);
+
+    const dlError = document.getElementById('dlNoError');
+
+    if (checkDlInput != "") {
+         var xhttp = new XMLHttpRequest();
+         xhttp.open("GET", contextPath + "/checkDlNumber/" + checkDlInput);
+         xhttp.send();
+         xhttp.onload = function () {
+             console.log(this.responseText);
+             document.getElementById("dlNoError").innerHTML = this.responseText;
+             validateForm(); // Call validateForm after AJAX response
+         };
+    } else {
+         document.getElementById("dlNoError").innerHTML = ""; // Clear error if field is empty
+         validateForm();
+    }
+}
+
+/* ============================= Update ======================================= */
+
 /*function checkPhNoForUpdate() {
     const phInput = document.getElementById('userPhoneNumber');
     const currentPh = phInput.getAttribute('data-current');
@@ -56,6 +100,8 @@ function checkPhNoForUpdate() {
     const phone = phoneField.value.trim();
     const current = phoneField.getAttribute('data-current');
     const errorSpan = document.getElementById('phNoError');
+
+    console.log("Ph Entered:", phone, "| Current ph:", current);
 
     // Regex: 10 digits, starting with 6-9
     const isValid = /^[6-9]\d{9}$/.test(phone);
@@ -80,21 +126,44 @@ function checkPhNoForUpdate() {
     }
 }
 
-function validateUserName() {
-    const nameInput = document.getElementById('userName');
-    const name = nameInput.value.trim();
-    const nameRegex = /^([A-Z][a-z]*)(\s[A-Z][a-z]*)*$/;
+function checkDlNoForUpdate() {
+    const dlField = document.getElementById('drivingLicenseNumber'); // Get the input field
+    const dl = dlField.value.trim(); // Value entered by the user
+    const current = dlField.getAttribute('data-current'); // Original DL value
+    const errorSpan = document.getElementById('dlError');
 
-    const nameError = document.getElementById('nameError');
+    console.log("DL Entered:", dl, "| Current DL:", current);
 
-    if (!nameRegex.test(name)) {
-        nameError.innerText = "Each word must start with uppercase, rest lowercase (e.g., John Doe)";
-    } else {
-        nameError.innerText = "";
+    // Format validation
+    const dlRegex = /^[A-Z]{2}[0-9]{2}[0-9]{4}[0-9]{7}$/;
+    if (!dlRegex.test(dl)) {
+        errorSpan.innerText = "Enter a valid DL number (e.g., KA0120231234567)";
+        validateForm();
+        return;
     }
 
-    validateForm(); // Call your existing form validation
+    // Only check with server if changed
+    if (dl !== current) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("GET", contextPath + "/checkDlNumber/" + dl + "/" + current, true);
+        xhttp.send();
+        xhttp.onload = function () {
+            console.log("DL Check Response:", this.responseText);
+            errorSpan.innerText = this.responseText;
+            validateForm();
+        };
+    } else {
+        errorSpan.innerText = "";
+        validateForm();
+    }
 }
+
+
+
+
+
+
+
 
 
 

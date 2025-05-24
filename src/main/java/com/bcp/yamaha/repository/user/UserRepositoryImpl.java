@@ -237,4 +237,18 @@ public class UserRepositoryImpl implements UserRepository{
         }
     }
 
+    @Override
+    public boolean existsByDrivingLicenseNumber(String dlNo) {
+        try {
+            Long count = em.createNamedQuery("dlExist", Long.class)
+                    .setParameter("dlNo", dlNo)
+                    .getSingleResult();
+            System.out.println("count :" + count);
+            return count > 0; // Return true if phone number exists, false otherwise
+        } catch (Exception e) {
+            log.warn("Error checking Driving License number existence:{}", e.getMessage());
+            return false;
+        }
+    }
+
 }

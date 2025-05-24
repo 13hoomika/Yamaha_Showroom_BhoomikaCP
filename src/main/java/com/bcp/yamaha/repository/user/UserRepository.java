@@ -27,6 +27,8 @@ public interface UserRepository{
     boolean existByEmail(String email);
     boolean existByPhNumber(String phNumber);
 
+    boolean existsByDrivingLicenseNumber(String dlNo);
+
     /*void updateAccountLockStatus(UserEntity user);
     void updateLoginAttemptData(UserEntity user);
 

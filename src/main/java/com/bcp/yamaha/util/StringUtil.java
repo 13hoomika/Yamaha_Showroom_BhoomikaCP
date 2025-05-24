@@ -1,4 +1,4 @@
-package com.bcp.yamaha.utils;
+package com.bcp.yamaha.util;
 
 public class StringUtil {
     public static String capitalize(String input) {

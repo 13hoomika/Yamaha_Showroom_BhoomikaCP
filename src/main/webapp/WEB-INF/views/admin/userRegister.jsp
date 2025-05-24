@@ -42,13 +42,16 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="userName" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter name" required>
+                                <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter name" required
+                                oninput="validateUserName()">
+                                <span id="userNameError" class="validation-error""></span>
                             </div>
 
                             <div class="col-md-6">
                                 <label for="userEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="youremail@gmail.com" onchange="checkEmail()" required>
-                                <span id="emailError" style="color: red; font-size: 0.85rem;"></span>
+                                <input type="email" class="form-control" id="userEmail" name="userEmail"
+                                    placeholder="youremail@gmail.com" oninput="checkEmail()" required>
+                                <span id="emailError" class="validation-error""></span>
                             </div>
 
                             <div class="col-md-4">
@@ -69,7 +72,9 @@
 
                             <div class="col-md-12">
                                 <label for="drivingLicenseNumber" class="form-label">Driving License Number</label>
-                                <input type="text" class="form-control" id="drivingLicenseNumber" name="drivingLicenseNumber" placeholder="KA1234567890123" required>
+                                <input type="text" class="form-control" id="drivingLicenseNumber" name="drivingLicenseNumber" placeholder="KA1234567890123" required
+                                oninput="validateDrivingLicense()">
+                                <span id="dlNoError" class="validation-error""></span>
                             </div>
 
                             <div class="col-md-4">
