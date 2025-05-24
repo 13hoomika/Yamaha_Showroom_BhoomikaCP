@@ -17,7 +17,7 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light  fixed-top shadow">
+<nav class="navbar navbar-expand-lg navbar-dark  fixed-top shadow">
     <div class="container-fluid">
         <a class="navbar-brand fw-bold" href="#">Yamaha Motors</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarUserLinks" aria-controls="navbarUserLinks" aria-expanded="false" aria-label="Toggle navigation">
