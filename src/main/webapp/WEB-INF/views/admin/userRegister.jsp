@@ -61,8 +61,9 @@
 
                             <div class="col-md-8">
                                 <label for="userPhoneNumber" class="form-label">Phone</label>
-                                <input type="tel" class="form-control" id="userPhoneNumber" name="userPhoneNumber" placeholder="10 digit phone" onchange="checkPhNoForRegister()" required>
-                                <span id="phNoError" style="color: red; font-size: 0.85rem;"></span>
+                                <input type="tel" class="form-control" id="userPhoneNumber" name="userPhoneNumber"
+                                    placeholder="10 digit phone" oninput="checkPhNoForUpdate()" required>
+                                <span id="phNoError" class="validation-error""></span>
                             </div>
 
                             <div class="col-md-12">
@@ -191,13 +192,14 @@
      const showroom = document.getElementById('showroom').value;
      const schedule = document.getElementById('scheduleType').value;
 
-     const emailError = document.getElementById('emailError').innerText;
+     const nameError = document.getElementById('userNameError').innerText;
      const phError = document.getElementById('phNoError').innerText;
+     const dlError = document.getElementById('dlNoError').innerText;
 
      const submitBtn = document.getElementById('submitBtn');
 
      const allRequiredFilled = name && email && phone && age && address && license && showroom && schedule;
-     const noErrors = !emailError && !phError;
+     const noErrors = !nameError && !phError && !dlError;
 
      if (allRequiredFilled && noErrors) {
          submitBtn.disabled = false;
