@@ -22,6 +22,11 @@ public interface UserService {
 
     void deleteById(int id);
 
+    boolean isValidPhoneFormat(String phoneNumber);
+    boolean isValidUserNameFormat(String userName);
+    boolean isValidDl(String dlNo);
+
     boolean existByEmail(String email);
     boolean existByPhNumber(String phNumber);
+    boolean existsByDrivingLicenseNumber(String dlNo);
 }

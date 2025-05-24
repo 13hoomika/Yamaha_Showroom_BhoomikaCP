@@ -8,6 +8,7 @@
     <link rel="icon" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png" type="image/png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom CSS must come after Bootstrap to override it -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/user-styles.css">
 
@@ -16,7 +17,7 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
+<nav class="navbar navbar-expand-lg navbar-light  fixed-top shadow">
     <div class="container-fluid">
         <a class="navbar-brand fw-bold" href="#">Yamaha Motors</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarUserLinks" aria-controls="navbarUserLinks" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,8 +60,9 @@
                     <div class="col-md-6">
                         <label for="userName" class="form-label">Name</label>
                         <input type="text" class="form-control" id="userName" name="userName"
-                               placeholder="Enter name" value="${profile.userName}" onchange="validateUserName()" required>
-                        <span id="nameError" style="color: red; font-size: 0.85rem;"></span>
+                               placeholder="Enter name" value="${profile.userName}" onchange="validateUserName()" required
+                        oninput="validateUserName()">
+                        <span id="userNameError" class="validation-error""></span>
                     </div>
 
                     <div class="col-md-6">
@@ -79,7 +81,7 @@
                         <label for="userPhoneNumber" class="form-label">Phone</label>
                         <input type="tel" class="form-control" id="userPhoneNumber" name="userPhoneNumber"
                                placeholder="10 digit phone" value="${profile.userPhoneNumber}"
-                               data-current="${profile.userPhoneNumber}" onchange="checkPhNoForUpdate()" required>
+                               data-current="${profile.userPhoneNumber}" oninput="checkPhNoForUpdate()" required>
                         <span id="phNoError" style="color: red; font-size: 0.85rem;"></span>
                     </div>
 
@@ -92,8 +94,9 @@
                     <div class="col-md-12">
                         <label for="drivingLicenseNumber" class="form-label">Driving License Number</label>
                         <input type="text" class="form-control" id="drivingLicenseNumber" name="drivingLicenseNumber"
-                               placeholder="KA1234567890123" value="${profile.drivingLicenseNumber}" required>
-                        <div class="error">${errors.drivingLicenseNumber}</div>
+                               placeholder="KA0120231234567" value="${profile.drivingLicenseNumber}" required
+                               data-current="${profile.drivingLicenseNumber}" oninput="checkDlNoForUpdate()">
+                        <span id="dlError" style="color: red; font-size: 0.85rem;"></span>
                     </div>
                 </div>
 
@@ -129,12 +132,14 @@
      const address = document.getElementById('userAddress').value.trim();
      const license = document.getElementById('drivingLicenseNumber').value.trim();
 
+     const nameError = document.getElementById('userNameError').innerText;
      const phError = document.getElementById('phNoError').innerText;
+     const dlError = document.getElementById('dlError').innerText;
 
      const submitBtn = document.getElementById('submitBtn');
 
      const allRequiredFilled = name && email && phone && age && address && license;
-     const noErrors = !phError;
+     const noErrors = !nameError && !phError && !dlError;
 
      if (allRequiredFilled && noErrors) {
          submitBtn.disabled = false;
