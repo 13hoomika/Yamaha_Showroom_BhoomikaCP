@@ -266,26 +266,94 @@ input.form-control[readonly] {
     cursor: not-allowed; /* Optional: shows it's uneditable */
 }
 
-/* ====== Cards ====== */
-.card {
-    background: #fff;
-    border-radius: 10px;
+/* ====== Modern Bike Card ====== */
+.bike-card {
+    background: var(--white-color); /* bright white background */
+    border-radius: 16px;
     overflow: hidden;
-    transition: transform 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    cursor: pointer;
+    border: 1px solid #e5e5e5;
 }
 
-/* ====== Button ====== */
-.custom-btn {
-    background-color: var(--primary-color);
-    color: white;
+.bike-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    /*border-color: var(--secondary-color);*/
+}
+
+/* Image styling */
+.card-img-top {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+    border-radius: 16px 16px 0 0;
+    transition: transform 0.3s ease;
+}
+
+.bike-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+/* Card body */
+.card-body {
+    flex-grow: 1;
+    padding: 1.5rem 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Title */
+.card-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.03em;
+}
+
+/* Description text */
+.card-text.text-muted {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+    line-height: 1.4;
+}
+
+/* List group styles */
+.list-group-item {
+    border: none;
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+    color: #444;
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-group-item strong {
+    color: #222;
+    font-weight: 600;
+}
+
+/* ======= Submit Buttons ====== */
+.custom-submit-btn {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
     border: none;
     padding: 12px 20px;
-    border-radius: 6px;
-    font-weight: 600;
+    border-radius: 10px;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(212, 0, 0, 0.3);
+    width: 100%;
 }
 
 .custom-btn:hover {
@@ -293,10 +361,25 @@ input.form-control[readonly] {
     color: white;
 }
 
-.custom-btn:disabled {
-    color: white;
-    background-color: var(--disabled-color); /* Gray color when disabled */
-    cursor: not-allowed; /* Change cursor to indicate disabled state */
+.custom-submit-btn:disabled {
+    background-color: var(--disabled-bg-color);
+    color: var(--disabled-color);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Responsive tweaks */
+@media (max-width: 576px) {
+    .card-img-top {
+        height: 160px;
+    }
+    .card-title {
+        font-size: 1.1rem;
+    }
+    .custom-submit-btn {
+        padding: 10px 15px;
+        font-size: 0.95rem;
+    }
 }
 
 /* ====== Alerts ====== */
