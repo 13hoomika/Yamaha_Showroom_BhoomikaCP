@@ -67,6 +67,12 @@
     <div class="welcome-box">
         <h1>Welcome, ${loggedInUser.userName}!</h1>
         <p>Your premium Yamaha experience starts here.</p>
+         <div class="action-links">
+                <a href="${pageContext.request.contextPath}/user/bikes">View Bikes</a>
+                <a href="${pageContext.request.contextPath}/user/showrooms">View Showrooms</a>
+                <a href="${pageContext.request.contextPath}/user/resetPassword">Reset Password</a>
+            </div>
+        </div>
     </div>
 </div>
 
