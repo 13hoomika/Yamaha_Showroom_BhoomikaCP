@@ -54,8 +54,13 @@
         </div>
     </div>
 </nav>
+
+<div class="banner">
+    <h1 class="banner-title">Products</h1>
+</div>
+
 <div class="container">
-    <h3 class="section-title">Available Bikes</h3>
+    <!-- <h3 class="section-title">Available Bikes</h3> -->
 
     <c:choose>
         <c:when test="${not empty bikeList}">

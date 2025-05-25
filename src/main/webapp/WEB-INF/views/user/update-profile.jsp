@@ -42,9 +42,12 @@
     </div>
 </nav>
 
+<div class="banner">
+    <h1 class="banner-title">Profile Settings</h1>
+</div>
 
 <div class="container mt-5">
-    <h2 class="section-title text-center mb-4">Update Profile</h2>
+    <h2 class="section-title text-center mb-4">Edit Profile Details</h2>
 
     <div class="card shadow-sm">
         <div class="card-body">
@@ -101,7 +104,7 @@
                 </div>
 
                 <div class="d-grid mt-4">
-                    <button type="submit" id="submitBtn" class="btn custom-btn" disabled>Update Profile</button>
+                    <button type="submit" id="submitBtn" class="btn custom-submit-btn" disabled>Update Profile</button>
                 </div>
             </form>
         </div>

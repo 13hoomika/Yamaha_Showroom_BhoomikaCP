@@ -106,9 +106,13 @@
     </div>
 </nav>
 
+<div class="banner">
+    <h1 class="banner-title">Showrooms</h1>
+</div>
+
 <!-- Showrooms Section -->
 <div class="container">
-    <h2 class="section-title">Available Showrooms</h2>
+    <!-- <h2 class="section-title">Available Showrooms</h2> -->
 
     <div class="row">
         <c:forEach var="showroom" items="${showroomList}">
