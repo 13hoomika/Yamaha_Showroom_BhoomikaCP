@@ -5,12 +5,14 @@
     box-sizing: border-box;
 }
 :root {
-  --primary-color: #003399;
-  --primary-hover: #030088;
-  --disabled-color: #cccccc;
-  --blue-shadow: rgba(0, 51, 153, 0.25);
-  --dark-color: #121212;
-  --transition-speed: 0.3s;
+  --primary-color: #0001a0;        /* Yamaha Blue */
+  --primary-hover: #0002d7;        /* Lighter Blue */
+  --secondary-color: #d40000;      /* Yamaha red */
+  --secondary-hover: #aa0000;      /* Darker red */
+  --disabled-bg-color: #cccccc;       /* Gray for disabled buttons */
+  --disabled-color: #666666;       /* Gray for disabled buttons */
+  --white-color: #ffffff;              /* Card background */
+  --card-shadow: rgba(0, 0, 0, 0.12);
 }
 
 /* ====== Base Styling ====== */
