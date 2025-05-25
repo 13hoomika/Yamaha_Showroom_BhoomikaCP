@@ -6,27 +6,13 @@
 <head>
     <title>Available Bikes</title>
     <link rel="icon" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png" type="image/png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
+
+    <script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/user-styles.css">
-    <style>
-    .bike-card {
-        transition: transform 0.2s ease-in-out;
-        border-radius: 10px;
-        overflow: hidden;
-        height: 100%;
-    }
 
-    .bike-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-img-top {
-        height: 220px;
-        object-fit: cover;
-    }
-    </style>
 </head>
 <body>
 <!-- Navbar -->
@@ -42,7 +28,7 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/user/dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/user/showrooms">Showrooms</a
+                    <a class="nav-link" href="${pageContext.request.contextPath}/user/showrooms">Showrooms</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/user/getProfile">Update Profile</a>
@@ -67,7 +53,17 @@
             <div class="row g-4">
                 <c:forEach var="bike" items="${bikeList}">
                     <div class="col-md-6 col-lg-4">
-                        <div class="card bike-card">
+
+                        <div class="card bike-card"
+                             data-bs-toggle="modal"
+                             data-bs-target="#bikeDetailsModal"
+                             data-title="${bike.bikeModel}"
+                             data-desc="${bike.bikeDescription}"
+                             data-price="₹${bike.bikePrice}"
+                             data-showroom="${bike.availableInShowroom}"
+                             data-engine="${bike.engineCapacity}cc"
+                             data-bike-type="${bike.bikeType}">
+
                             <!-- Image -->
                             <c:if test="${not empty bike.images}">
                                 <div id="carousel-${bike.bikeId}" class="carousel slide" data-bs-ride="carousel">
@@ -99,18 +95,6 @@
                             <div class="card-body">
                                 <h5 class="card-title">${bike.bikeModel}</h5>
                                 <p class="card-text text-muted">₹${bike.bikePrice}</p>
-                                    <!-- <p class="card-text">
-                                        <c:choose>
-                                            <c:when test="${fn:length(bike.bikeDescription) > 100}">
-                                                ${fn:substring(bike.bikeDescription, 0, 100)}...
-                                                <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#descModal-${bike.bikeId}">Read more</a>
-                                            </c:when>
-                                            <c:otherwise>
-                                                ${bike.bikeDescription}
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </p> -->
-
                                 <p class="card-text">
                                     <c:choose>
                                         <c:when test="${fn:length(bike.bikeDescription) > 100}">
@@ -129,42 +113,80 @@
                                     </c:choose>
                                 </p>
 
-
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item"><strong>Bike Type:</strong> ${bike.bikeType}</li>
                                     <li class="list-group-item"><strong>Engine:</strong> ${bike.engineCapacity}cc</li>
                                     <li class="list-group-item"><strong>Mileage:</strong> ${bike.mileage} km/l</li>
                                     <li class="list-group-item"><strong>Fuel Tank:</strong> ${bike.fuelTankCapacity} L</li>
                                 </ul>
-                                <div class="text-muted"><strong>Showroom:</strong> ${bike.availableInShowroom}</div>
-
-
-                                <!-- Schedule Button
-                                <form method="get" action="${pageContext.request.contextPath}/user/schedule">
-                                    <input type="hidden" name="bikeId" value="${bike.bikeId}"/>
-                                    <div class="d-grid gap-2 mt-3">
-                                        <button type="submit" name="type" value="0" class="btn btn-outline-primary btn-sm">Book</button>
-                                        <button type="submit" name="type" value="1" class="btn btn-outline-secondary btn-sm">Test Ride</button>
-                                    </div>
-                                </form>-->
+                                <c:choose>
+                                    <c:when test="${not empty bike.availableInShowroom}">
+                                        <div class="list-group-item"><strong>Showroom:</strong> ${bike.availableInShowroom}</div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="text-danger">Not available in showrooms yet</div>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
-                                <!-- Description Modal
-                                <div class="modal fade" id="descModal-${bike.bikeId}" tabindex="-1" aria-labelledby="descModalLabel-${bike.bikeId}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="descModalLabel-${bike.bikeId}">${bike.bikeModel} - Full Description</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                ${bike.bikeDescription}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
                     </div>
                 </c:forEach>
+
+                <!-- Bike Details Modal -->
+                <div class="modal fade" id="bikeDetailsModal" tabindex="-1" aria-labelledby="bikeDetailsModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content rounded-4 shadow">
+                      <div class="modal-header border-0">
+                        <h5 class="modal-title fw-bold" id="bikeDetailsModalLabel">Bike Model</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+
+                      <c:set var="imgList" value="" />
+                      <c:forEach var="img" items="${bike.images}" varStatus="status">
+                        <c:set var="imgList" value="${imgList}${img.filename}" />
+                        <c:if test="${!status.last}">
+                          <c:set var="imgList" value="${imgList}," />
+                        </c:if>
+                      </c:forEach>
+
+                      <div class="modal-body" data-imgs="${imgList}">
+                          <div id="modalCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+                            <div class="carousel-inner" id="modalCarouselInner">
+                              <!-- JS will fill carousel items here -->
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
+                          </div>
+
+                          <p id="modalBikeDescription" class="text-muted"></p>
+
+                          <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item d-flex justify-content-between"><strong>Bike Type:</strong> <span id="modalBikeType"></span></li>
+                            <li class="list-group-item d-flex justify-content-between"><strong>Price:</strong> <span id="modalBikePrice"></span></li>
+                            <li class="list-group-item d-flex justify-content-between"><strong>Engine:</strong> <span id="modalBikeEngine"></span></li>
+
+                            <c:choose>
+                                <c:when test="${not empty bike.availableInShowroom}">
+                                    <li class="list-group-item d-flex justify-content-between"><strong>Showroom:</strong> <span id="modalBikeShowroom"></span></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="text-danger">Not available in showrooms yet</div>
+                                </c:otherwise>
+                            </c:choose>
+                          </ul>
+
+                          <button class="custom-submit-btn w-100">Schedule Test Drive / Booking</button>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
             </div>
         </c:when>
         <c:otherwise>
@@ -187,6 +209,54 @@
             fullText.style.display = 'inline';
         }
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('bikeDetailsModal');
+
+      modal.addEventListener('show.bs.modal', event => {
+        const bikeCard = event.relatedTarget;
+
+        const title = bikeCard.getAttribute('data-title');
+        const description = bikeCard.getAttribute('data-desc');
+        const price = bikeCard.getAttribute('data-price');
+        const showroom = bikeCard.getAttribute('data-showroom');
+        const engine = bikeCard.getAttribute('data-engine');
+        const bikeType = bikeCard.getAttribute('data-bike-type');
+
+        modal.querySelector('#bikeDetailsModalLabel').textContent = title;
+        modal.querySelector('#modalBikeDescription').textContent = description;
+        modal.querySelector('#modalBikePrice').textContent = price;
+        modal.querySelector('#modalBikeShowroom').textContent = showroom;
+        modal.querySelector('#modalBikeEngine').textContent = engine;
+        modal.querySelector('#modalBikeType').textContent = bikeType;
+
+        // Build carousel inner HTML dynamically
+        const carouselInner = modal.querySelector('#modalCarouselInner');
+        carouselInner.innerHTML = ''; // clear previous images
+
+        imgs.forEach((img, index) => {
+          const activeClass = index === 0 ? 'active' : '';
+          const imgSrc = `bikeImage?imageName=${img.trim()}`; // adjust as needed
+          const carouselItem = `
+            <div class="carousel-item ${activeClass}">
+              <img src="${imgSrc}" class="d-block w-100 rounded" alt="${title} image ${index + 1}" style="max-height: 300px; object-fit: cover;">
+            </div>
+          `;
+          carouselInner.insertAdjacentHTML('beforeend', carouselItem);
+        });
+
+        // Reset carousel to first slide
+        const carousel = bootstrap.Carousel.getInstance(document.getElementById('modalCarousel'));
+        if (carousel) {
+          carousel.to(0);
+        } else {
+          new bootstrap.Carousel(document.getElementById('modalCarousel'));
+        }
+      });
+    });
+
+
+
 </script>
 
 </body>
