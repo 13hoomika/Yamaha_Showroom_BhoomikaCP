@@ -29,4 +29,6 @@ public interface UserService {
     boolean existByEmail(String email);
     boolean existByPhNumber(String phNumber);
     boolean existsByDrivingLicenseNumber(String dlNo);
+
+    boolean updateUserProfileImage(int userId, String profileImagePath);
 }

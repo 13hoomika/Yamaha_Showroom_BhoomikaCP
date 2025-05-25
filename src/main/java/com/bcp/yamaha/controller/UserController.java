@@ -10,13 +10,18 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 @RequestMapping("/user")
@@ -200,8 +205,46 @@ public class UserController {
             System.out.println("isUpdated in controller: " + false);
         }
         return "redirect:/user/getProfile";
-
     }
+
+    @PostMapping("/uploadAvatar")
+    public String uploadAvatar(@RequestParam("avatar") MultipartFile avatar, HttpSession session) {
+        UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
+
+        if (avatar != null && !avatar.isEmpty()) {
+            try {
+                String safeName = loggedInUser.getUserName().replaceAll("[^a-zA-Z0-9]", "_");
+                String fileName = "user_" + loggedInUser.getUserId() + "_" + safeName + "_" +
+                        System.currentTimeMillis() + "." + StringUtils.getFilenameExtension(avatar.getOriginalFilename());
+
+                // Get absolute path to static/uploads
+                String realPath = session.getServletContext().getRealPath("/static/uploads/");
+                Path uploadPath = Paths.get(realPath);
+
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                // Save the file
+                avatar.transferTo(uploadPath.resolve(fileName));
+
+                // Update user profile image path
+                loggedInUser.setProfileImage("/static/uploads/" + fileName);
+                boolean isSaved = userService.updateUserProfileImage(loggedInUser.getUserId(), loggedInUser.getProfileImage());
+
+                // Update session
+                session.setAttribute("loggedInUser", loggedInUser);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return "redirect:/user/dashboard";
+    }
+
+
+
     @GetMapping("/logout")
     public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
         session.invalidate();

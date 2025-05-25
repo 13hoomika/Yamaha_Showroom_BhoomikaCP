@@ -312,4 +312,23 @@ public class UserServiceImpl implements UserService{
     public boolean existsByDrivingLicenseNumber(String dlNo) {
         return userRepository.existsByDrivingLicenseNumber(dlNo);
     }
+
+    @Override
+    public boolean updateUserProfileImage(int userId, String profileImagePath) {
+        UserEntity user = userRepository.findById(userId);
+        if (user == null) {
+            throw new RuntimeException("User not found with id: " + userId);
+        }
+
+        user.setProfileImage(profileImagePath);
+        boolean saved = userRepository.saveUser(user);
+
+        if (!saved) {
+            throw new RuntimeException("Failed to save user profile image for id: " + userId);
+        }
+
+        System.out.println("Profile image updated successfully for user ID: " + userId);
+        return true;
+    }
+
 }

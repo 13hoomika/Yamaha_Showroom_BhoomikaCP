@@ -19,14 +19,18 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public Boolean saveUser(UserEntity userEntity) {
         try {
-            em.persist(userEntity);
+            if (userEntity.getUserId() == 0) {
+                em.persist(userEntity);
+            } else {
+                em.merge(userEntity);
+            }
             return true;
         } catch (Exception e) {
-            System.out.println("Error in saving user details " + e.getMessage());
-
+            log.error("Error in saving user details {}", e.getMessage());
             return false;
         }
     }
+
     @Override
     public Optional<UserEntity> findUserByEmail(String email) {
         System.out.println("============= UserRepo : findUserByEmail() ===================");
@@ -248,6 +252,17 @@ public class UserRepositoryImpl implements UserRepository{
         } catch (Exception e) {
             log.warn("Error checking Driving License number existence:{}", e.getMessage());
             return false;
+        }
+    }
+
+    @Override
+    public void updateUserProfileImage(int userId, String profileImagePath) {
+        UserEntity user = em.find(UserEntity.class, userId);
+        if (user != null) {
+            user.setProfileImage(profileImagePath);
+            em.merge(user); // update the entity
+        } else {
+            throw new RuntimeException("User not found with id: " + userId);
         }
     }
 

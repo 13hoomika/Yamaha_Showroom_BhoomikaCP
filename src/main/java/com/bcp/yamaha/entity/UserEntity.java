@@ -60,6 +60,9 @@ public class UserEntity {
 
     private String password;
 
+    @Column(name = "profile_img")
+    private String profileImage;
+
     /*@Column(name = "invalid_logInCount")
     private Integer invalidLogInCount;
     @Column(name = "account_locked")

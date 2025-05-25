@@ -221,24 +221,30 @@ body {
 .action-links {
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 20px;
     flex-wrap: wrap;
+    margin-top: 30px;
 }
 
-.action-links a {
+.action-links .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     text-decoration: none;
     background-color: var(--primary-color);
-    color: white;
+    color: #fff;
     padding: 12px 24px;
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: 600;
-    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 87, 216, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.action-links a:hover {
+.action-links .action-btn:hover {
     background-color: var(--primary-hover);
+    transform: translateY(-2px);
 }
-
 /* ====== Forms ====== */
 form .form-label {
     font-weight: 600;
@@ -356,8 +362,9 @@ input.form-control[readonly] {
     width: 100%;
 }
 
-.custom-btn:hover {
-    background-color: var(--primary-hover);
+.custom-submit-btn:hover {
+    background-color: var(--secondary-hover);
+    box-shadow: 0 6px 14px rgba(163, 0, 0, 0.5);
     color: white;
 }
 
