@@ -25,7 +25,7 @@
 
         <div class="container-fluid mt-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4><i class="fas fa-store me-2"></i>Manage Showrooms</h4>
+                <h4><i class="fas fa-store me-2"></i>View Showrooms</h4>
                 <a href="${pageContext.request.contextPath}/admin/add-showroom" class="btn btn-primary">
                     <i class="fas fa-plus me-1"></i> Add New Showroom
                 </a>
