@@ -10,10 +10,9 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/user-styles.css">
 
     <script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/user-styles.css">
 
 </head>
 <body>
@@ -52,8 +51,10 @@
                         <li class="px-3 py-2 text-center">
                             <form id="avatarUploadForm" action="${pageContext.request.contextPath}/user/uploadAvatar" method="post" enctype="multipart/form-data">
                                 <label for="avatarInput" class="avatar-wrapper" style="cursor: pointer;">
-                                    <img src="${pageContext.request.contextPath}${loggedInUser.profileImage}"
-                                        alt="User" class="rounded-circle user-avatar"/>
+                                    <img src="${empty loggedInUser.profileImage
+                                                                        ? pageContext.request.contextPath.concat('/static/images/user-avatar.png')
+                                                                        : pageContext.request.contextPath.concat(loggedInUser.profileImage)}"
+                                                                alt="User Img" class="rounded-circle me-2" width="32" height="32" />
                                     <div class="avatar-overlay">
                                         <i class="bi bi-camera-fill text-white"></i>
                                     </div>
@@ -97,17 +98,7 @@
         </div>
     </div>
 </div>
-<script>
-    function uploadAvatar() {
-        const form = document.getElementById('avatarUploadForm');
-        const fileInput = document.getElementById('avatarInput');
-
-        if (fileInput.files.length > 0) {
-            form.submit();
-        }
-    }
-</script>
-
+<script src="${pageContext.request.contextPath}/static/js/uploadAvatar.js"></script>
 
 </body>
 </html>
