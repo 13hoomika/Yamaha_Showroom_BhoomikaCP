@@ -31,9 +31,6 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/user/showrooms">Showrooms</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/user/getProfile">Update Profile</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/user/logout">Logout</a>
                 </li>
             </ul>
