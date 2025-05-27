@@ -135,6 +135,52 @@
             <div class="alert alert-info">No bikes available in this showroom.</div>
         </c:otherwise>
     </c:choose>
+
+    <!-- Bike Details Modal -->
+    <div class="modal fade" id="bikeDetailsModal" tabindex="-1" aria-labelledby="bikeDetailsModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow">
+          <div class="modal-header border-0">
+            <h5 class="modal-title fw-bold" id="bikeDetailsModalLabel">Bike Model</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <c:forEach var="img" items="${bike.images}" varStatus="status">
+            <c:set var="imgList" value="${imgList}${img.filename}" />
+            <c:if test="${!status.last}">
+              <c:set var="imgList" value="${imgList}," />
+            </c:if>
+          </c:forEach>
+
+          <div class="modal-body" data-imgs="${imgList}">
+              <div id="modalCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+                <div class="carousel-inner" id="modalCarouselInner">
+                  <!-- JS will fill carousel items here -->
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+
+              <p id="modalBikeDescription" class="text-muted"></p>
+
+              <ul class="list-group list-group-flush mb-3">
+                <li class="list-group-item d-flex justify-content-between"><strong>Bike Type:</strong> <span id="modalBikeType"></span></li>
+                <li class="list-group-item d-flex justify-content-between"><strong>Price:</strong> <span id="modalBikePrice"></span></li>
+                <li class="list-group-item d-flex justify-content-between"><strong>Engine:</strong> <span id="modalBikeEngine"></span></li>
+                <li class="list-group-item d-flex justify-content-between"><strong>Showroom:</strong> <span id="modalBikeShowroom"></span></li>
+              </ul>
+
+              <button class="custom-submit-btn w-100">Schedule Test Drive / Booking</button>
+            </div>
+        </div>
+      </div>
+    </div>
 </div>
 
 <!-- Read More Toggle Script -->
@@ -165,20 +211,25 @@
         const engine = bikeCard.getAttribute('data-engine');
         const bikeType = bikeCard.getAttribute('data-bike-type');
 
+        // Get the images from the clicked bike card's carousel
+        const bikeId = bikeCard.id.split('-')[1]; // Assuming bikeCard has an id like "carousel-1"
+        const carouselItems = document.querySelectorAll(`#carousel-${bikeId} .carousel-item`);
+
         modal.querySelector('#bikeDetailsModalLabel').textContent = title;
         modal.querySelector('#modalBikeDescription').textContent = description;
         modal.querySelector('#modalBikePrice').textContent = price;
-        modal.querySelector('#modalBikeShowroom').textContent = showroom;
         modal.querySelector('#modalBikeEngine').textContent = engine;
         modal.querySelector('#modalBikeType').textContent = bikeType;
+        const showroomElem = modal.querySelector('#modalBikeShowroom');
+        showroomElem.textContent = showroom?.trim() !== '' ? showroom : 'Not available in showrooms yet';
 
         // Build carousel inner HTML dynamically
         const carouselInner = modal.querySelector('#modalCarouselInner');
         carouselInner.innerHTML = ''; // clear previous images
 
-        imgs.forEach((img, index) => {
+        carouselItems.forEach((item, index) => {
+          const imgSrc = item.querySelector('img').src;
           const activeClass = index === 0 ? 'active' : '';
-          const imgSrc = `bikeImage?imageName=${img.trim()}`; // adjust as needed
           const carouselItem = `
             <div class="carousel-item ${activeClass}">
               <img src="${imgSrc}" class="d-block w-100 rounded" alt="${title} image ${index + 1}" style="max-height: 300px; object-fit: cover;">
@@ -187,7 +238,7 @@
           carouselInner.insertAdjacentHTML('beforeend', carouselItem);
         });
 
-        // Reset carousel to first slide
+        // Initialize or reset carousel
         const carousel = bootstrap.Carousel.getInstance(document.getElementById('modalCarousel'));
         if (carousel) {
           carousel.to(0);
