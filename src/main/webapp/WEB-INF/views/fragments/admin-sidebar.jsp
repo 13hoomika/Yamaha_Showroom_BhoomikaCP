@@ -13,24 +13,25 @@
             </a>
         </li>
 
-        <li>
+        <!-- <li>
             <a href="${pageContext.request.contextPath}/admin/manage-bikes">
                 <i class="fas fa-screwdriver-wrench"></i> Manage Bikes
-            </a>
-        </li>
-        <li>
-            <a href="${pageContext.request.contextPath}/admin/view-allBikes">
-                <i class="fas fa-motorcycle"></i> View All Bikes
             </a>
         </li>
         <li>
             <a href="${pageContext.request.contextPath}/admin/manage-showrooms">
                 <i class="fas fa-warehouse"></i> Manage Showrooms
             </a>
+        </li> -->
+        <li>
+            <a href="${pageContext.request.contextPath}/admin/view-allBikes">
+                <i class="fas fa-motorcycle"></i> Bikes
+            </a>
         </li>
+
         <li>
             <a href="${pageContext.request.contextPath}/admin/view-showrooms">
-                <i class="fas fa-store"></i> View All Showrooms
+                <i class="fas fa-store"></i> Showrooms
             </a>
         </li>
         <li>
