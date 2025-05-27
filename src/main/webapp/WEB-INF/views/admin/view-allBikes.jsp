@@ -75,6 +75,16 @@
                         </div>
                     </form>
                 </div>
+                <div class="col-auto">
+                    <a href="${pageContext.request.contextPath}/admin/add-bike" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add New Bike
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <a href="${pageContext.request.contextPath}/admin/assign-bikes" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Assign Bikes
+                    </a>
+                </div>
             </div>
 
             <!-- Bike Cards -->
