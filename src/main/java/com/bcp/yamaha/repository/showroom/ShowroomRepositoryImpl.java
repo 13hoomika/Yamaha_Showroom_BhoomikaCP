@@ -25,7 +25,9 @@ public class ShowroomRepositoryImpl implements ShowroomRepository{
 
     @Override
     public List<ShowroomEntity> findAllShowroom() {
-        return em.createNamedQuery("findAllShowroom",ShowroomEntity.class).getResultList();
+        List<ShowroomEntity> allShowrooms = em.createNamedQuery("findAllShowroom", ShowroomEntity.class).getResultList();
+        System.out.println("\nAll Showroom from Repo: " + allShowrooms);
+        return allShowrooms;
     }
 
     @Override
