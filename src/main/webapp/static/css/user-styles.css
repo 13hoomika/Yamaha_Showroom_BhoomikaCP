@@ -94,7 +94,7 @@ body {
 
 .navbar .dropdown-item:hover {
     background-color: #f8f9fa;
-    color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .navbar .dropdown-divider {
