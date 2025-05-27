@@ -23,7 +23,7 @@ import java.util.List;
 })
 
 
-public class BikeEntity {
+public class BikeEntity extends AuditEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bikeId;
