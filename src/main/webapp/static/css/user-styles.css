@@ -201,7 +201,6 @@ body {
 .welcome-box h1 {
     font-size: 28px;
     text-align: center;
-    margin-bottom: 30px;
     color: var(--primary-color);
     font-weight: 700;
 }
@@ -331,7 +330,7 @@ input.form-control[readonly] {
 }
 
 /* Description text */
-.card-text.text-muted {
+.card-text {
     color: #555;
     font-size: 0.95rem;
     margin-bottom: 1.25rem;
