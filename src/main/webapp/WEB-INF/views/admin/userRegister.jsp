@@ -125,7 +125,7 @@
                         </div>
 
                         <div class="d-grid mt-4">
-                            <button type="submit"  id="submitBtn" class="btn btn-primary" disabled>Register</button>
+                            <button type="submit"  id="submitBtn" class="btn btn-primary" disabled></button>
                         </div>
                     </form>
                 </div>
@@ -164,7 +164,7 @@
             timeInput.required = isScheduleVisit;
 
             // Change button label
-            submitBtn.textContent = isScheduleVisit ? "Schedule Now" : "Book Now";
+            submitBtn.textContent = isScheduleVisit ? "Schedule Now" : "Register Now";
         }
 
         scheduleType.addEventListener("change", toggleFields);
