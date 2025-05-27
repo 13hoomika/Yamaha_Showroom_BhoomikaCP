@@ -51,7 +51,7 @@
                 <c:forEach var="bike" items="${bikeList}">
                     <div class="col-md-6 col-lg-4">
 
-                        <div class="card bike-card"
+                        <div class="card bike-card" id="bike-${bike.bikeId}"
                              data-bs-toggle="modal"
                              data-bs-target="#bikeDetailsModal"
                              data-title="${bike.bikeModel}"
