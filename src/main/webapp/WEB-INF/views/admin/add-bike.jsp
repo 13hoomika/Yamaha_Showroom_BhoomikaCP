@@ -68,7 +68,7 @@
         <div class="container-fluid mt-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4><i class="fas fa-motorcycle me-2"></i>Add New Bike</h4>
-                <a href="${pageContext.request.contextPath}/admin/manage-bikes" class="btn btn-outline-secondary">
+                <a href="${pageContext.request.contextPath}/admin/view-allBikes" class="btn btn-outline-secondary">
                     <i class="fas fa-arrow-left me-1"></i> Back to List
                 </a>
             </div>
