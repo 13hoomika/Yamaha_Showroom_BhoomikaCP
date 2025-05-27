@@ -452,7 +452,7 @@ public class AdminController {
             return "redirect:/admin/login";
         }
         List<ShowroomDto> showroomList = showroomService.getAllShowroom();
-        System.out.println("All showroom list: " + showroomList); // Just once
+        System.out.println("\nAll showroom from Controller: " + showroomList); // Just once
         model.addAttribute("showroomList", showroomList);
         return "admin/view-allShowroom";
     }
