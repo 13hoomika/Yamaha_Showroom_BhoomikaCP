@@ -137,7 +137,14 @@
                                             <li class="list-group-item"><strong>Engine:</strong> ${bike.engineCapacity} cc</li>
                                             <li class="list-group-item"><strong>Fuel Tank:</strong> ${bike.fuelTankCapacity} ltr</li>
                                         </ul>
-                                        <div class="text-muted"><strong>Showroom:</strong> ${bike.availableInShowroom}</div>
+                                        <c:choose>
+                                            <c:when test="${not empty bike.availableInShowroom}">
+                                                <div class="text-muted"><strong>Showroom:</strong> ${bike.availableInShowroom}</div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="text-danger">Not available in showrooms yet</div>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>
