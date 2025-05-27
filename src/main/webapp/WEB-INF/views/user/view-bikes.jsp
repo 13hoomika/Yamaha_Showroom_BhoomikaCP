@@ -129,61 +129,6 @@
                     </div>
                 </c:forEach>
 
-                <!-- Bike Details Modal -->
-                <div class="modal fade" id="bikeDetailsModal" tabindex="-1" aria-labelledby="bikeDetailsModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content rounded-4 shadow">
-                      <div class="modal-header border-0">
-                        <h5 class="modal-title fw-bold" id="bikeDetailsModalLabel">Bike Model</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-
-                      <c:set var="imgList" value="" />
-                      <c:forEach var="img" items="${bike.images}" varStatus="status">
-                        <c:set var="imgList" value="${imgList}${img.filename}" />
-                        <c:if test="${!status.last}">
-                          <c:set var="imgList" value="${imgList}," />
-                        </c:if>
-                      </c:forEach>
-
-                      <div class="modal-body" data-imgs="${imgList}">
-                          <div id="modalCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
-                            <div class="carousel-inner" id="modalCarouselInner">
-                              <!-- JS will fill carousel items here -->
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Next</span>
-                            </button>
-                          </div>
-
-                          <p id="modalBikeDescription" class="text-muted"></p>
-
-                          <ul class="list-group list-group-flush mb-3">
-                            <li class="list-group-item d-flex justify-content-between"><strong>Bike Type:</strong> <span id="modalBikeType"></span></li>
-                            <li class="list-group-item d-flex justify-content-between"><strong>Price:</strong> <span id="modalBikePrice"></span></li>
-                            <li class="list-group-item d-flex justify-content-between"><strong>Engine:</strong> <span id="modalBikeEngine"></span></li>
-
-                            <c:choose>
-                                <c:when test="${not empty bike.availableInShowroom}">
-                                    <li class="list-group-item d-flex justify-content-between"><strong>Showroom:</strong> <span id="modalBikeShowroom"></span></li>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="text-danger">Not available in showrooms yet</div>
-                                </c:otherwise>
-                            </c:choose>
-                          </ul>
-
-                          <button class="custom-submit-btn w-100">Schedule Test Drive / Booking</button>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-
             </div>
         </c:when>
         <c:otherwise>
