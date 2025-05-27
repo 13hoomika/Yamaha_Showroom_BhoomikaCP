@@ -32,7 +32,7 @@ import java.util.List;
 //        @NamedQuery(name = "updateAccountLockStatus", query = "UPDATE UserEntity u SET u.accountLocked = :accountLocked WHERE u.userEmail = :userEmail"),
 //        @NamedQuery(name = "updateLoginAttemptData", query = "UPDATE UserEntity u SET u.invalidLogInCount = :invalidLogInCount, u.lastLogIn = :lastLogIn WHERE u.userEmail = :userEmail ")
 })
-public class UserEntity {
+public class UserEntity extends AuditEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;

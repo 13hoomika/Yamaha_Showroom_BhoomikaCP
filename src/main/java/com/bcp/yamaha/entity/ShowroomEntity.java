@@ -18,7 +18,7 @@ import java.util.List;
         @NamedQuery(name = "countAllShowroom", query = "SELECT COUNT(showroom) FROM ShowroomEntity showroom"),
 //        @NamedQuery(name = "deleteShowroom", query = "DELETE FROM ShowroomEntity s WHERE s.showroomId = :id"),
 })
-public class ShowroomEntity {
+public class ShowroomEntity extends AuditEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer showroomId;

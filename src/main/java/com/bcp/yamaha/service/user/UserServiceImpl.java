@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.bcp.yamaha.util.ValidationUtil;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -261,6 +262,7 @@ public class UserServiceImpl implements UserService{
                 existingUser.setDrivingLicenseNumber(userDto.getDrivingLicenseNumber());
                 existingUser.setUserAge(userDto.getUserAge());
                 existingUser.setUserPhoneNumber(userDto.getUserPhoneNumber());
+                existingUser.setLastModifiedDateTime(LocalDateTime.now());
 
                 isUpdated = userRepository.updateProfile(existingUser);
                 System.out.println("isUpdated in service: " + isUpdated);
@@ -321,6 +323,8 @@ public class UserServiceImpl implements UserService{
         }
 
         user.setProfileImage(profileImagePath);
+        user.setLastModifiedDateTime(LocalDateTime.now());
+
         boolean saved = userRepository.saveUser(user);
 
         if (!saved) {
