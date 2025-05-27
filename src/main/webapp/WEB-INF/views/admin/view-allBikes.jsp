@@ -54,7 +54,7 @@
 
         <div class="container-fluid mt-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4><i class="fas fa-motorcycle me-2"></i>All Bikes</h4>
+                <h4><i class="fas fa-motorcycle me-2"></i>View Bikes</h4>
             </div>
 
             <!-- Filter Section -->
