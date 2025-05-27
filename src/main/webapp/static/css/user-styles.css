@@ -15,6 +15,12 @@
   --card-shadow: rgba(0, 0, 0, 0.12);
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
 /* ====== Base Styling ====== */
 body {
     font-family: 'Montserrat', sans-serif;
