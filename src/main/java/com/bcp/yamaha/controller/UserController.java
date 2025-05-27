@@ -208,18 +208,30 @@ public class UserController {
     }
 
     @PostMapping("/uploadAvatar")
-    public String uploadAvatar(@RequestParam("avatar") MultipartFile avatar, HttpSession session) {
+    public String uploadAvatar(@RequestParam("avatar") MultipartFile avatar, HttpSession session,RedirectAttributes redirectAttributes) {
         UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
 
         if (avatar != null && !avatar.isEmpty()) {
             try {
+
+                // Delete old image if exists
+                String oldImagePath = loggedInUser.getProfileImage();
+                if (oldImagePath != null && !oldImagePath.isEmpty()) {
+                    String realPath = session.getServletContext().getRealPath("/");
+                    Path oldFilePath = Paths.get(realPath, oldImagePath.replaceFirst("^/", ""));
+                    if (Files.exists(oldFilePath)) {
+                        Files.delete(oldFilePath);
+                    }
+                }
+
+                // Create new file name
                 String safeName = loggedInUser.getUserName().replaceAll("[^a-zA-Z0-9]", "_");
                 String fileName = "user_" + loggedInUser.getUserId() + "_" + safeName + "_" +
                         System.currentTimeMillis() + "." + StringUtils.getFilenameExtension(avatar.getOriginalFilename());
 
-                // Get absolute path to static/uploads
-                String realPath = session.getServletContext().getRealPath("/static/uploads/");
-                Path uploadPath = Paths.get(realPath);
+                // Upload new file
+                String uploadDir = session.getServletContext().getRealPath("/static/uploads/");
+                Path uploadPath = Paths.get(uploadDir);
 
                 if (!Files.exists(uploadPath)) {
                     Files.createDirectories(uploadPath);
@@ -230,20 +242,28 @@ public class UserController {
 
                 // Update user profile image path
                 loggedInUser.setProfileImage("/static/uploads/" + fileName);
+                String newImagePath = "/static/uploads/" + fileName;
+                loggedInUser.setProfileImage(newImagePath);
                 boolean isSaved = userService.updateUserProfileImage(loggedInUser.getUserId(), loggedInUser.getProfileImage());
+
+                if (isSaved){
+                    redirectAttributes.addFlashAttribute("success","Profile Image uploaded successfully!!");
+                }else {
+                    redirectAttributes.addFlashAttribute("error","Failed to upload profile Image");
+                }
 
                 // Update session
                 session.setAttribute("loggedInUser", loggedInUser);
 
             } catch (IOException e) {
                 e.printStackTrace();
+                redirectAttributes.addFlashAttribute("error", "An error occurred while uploading the image.");
             }
+        } else {
+            redirectAttributes.addFlashAttribute("error", "No file selected.");
         }
-
         return "redirect:/user/dashboard";
     }
-
-
 
     @GetMapping("/logout")
     public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
