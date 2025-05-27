@@ -2,7 +2,8 @@ package com.bcp.yamaha.constants;
 
 public enum ScheduleType {
     SCHEDULE_VISIT("Schedule Visit"),
-    TEST_DRIVE("Test Drive");
+    TEST_DRIVE("Test Drive"),
+    SCHEDULE_LATER("Schedule Later");
 
     private final String displayName;
 
