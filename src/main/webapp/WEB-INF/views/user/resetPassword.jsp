@@ -42,7 +42,7 @@
         <form action="${pageContext.request.contextPath}/user/resetPassword" method="POST">
             <!-- Display message if any -->
             <c:if test="${not empty success}">
-                <div class="alert alert-success">${message}</div>
+                <div class="alert alert-success">${success}</div>
             </c:if>
             <c:if test="${not empty error}">
                 <div class="alert alert-danger">${error}</div>
