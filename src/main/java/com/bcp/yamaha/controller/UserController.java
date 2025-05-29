@@ -55,7 +55,7 @@ public class UserController {
         System.out.println("===== controller: loginWithOtp() ======");
         Boolean authenticated  = userService.validateAndLogIn(email, password);
         if (!authenticated ) {
-            redirectAttributes.addFlashAttribute("error", "Invalid email or password. Please try again.");
+            redirectAttributes.addFlashAttribute("error", "Invalid password. Please try again.");
             return "redirect:/user/login";
         }
 
@@ -145,15 +145,34 @@ public class UserController {
 
     @GetMapping("bikeImage")
     public void downloadBikeImage(HttpServletResponse response, @RequestParam String imageName) {
-        response.setContentType("image/jpg");
+        // Basic validation
+        if (imageName.contains("..") || imageName.contains("/") || imageName.contains("\\")) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
         File file = new File("D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP\\src\\main\\webapp\\static\\images\\bike-images\\" + imageName);
+
+        if (!file.exists() || !file.isFile()) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
         try {
-            InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-            ServletOutputStream outputStream = response.getOutputStream();
-            IOUtils.copy(inputStream, outputStream);
-            response.flushBuffer();
+            String contentType = Files.probeContentType(file.toPath());
+            if (contentType == null) {
+                contentType = "application/octet-stream";
+            }
+            response.setContentType(contentType);
+
+            try (InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+                 ServletOutputStream outputStream = response.getOutputStream()) {
+                IOUtils.copy(inputStream, outputStream);
+                response.flushBuffer();
+            }
         } catch (IOException e) {
-            log.error("IOException{}", e.getMessage());
+            log.error("IOException: {}", e.getMessage());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -241,7 +260,6 @@ public class UserController {
                 avatar.transferTo(uploadPath.resolve(fileName));
 
                 // Update user profile image path
-                loggedInUser.setProfileImage("/static/uploads/" + fileName);
                 String newImagePath = "/static/uploads/" + fileName;
                 loggedInUser.setProfileImage(newImagePath);
                 boolean isSaved = userService.updateUserProfileImage(loggedInUser.getUserId(), loggedInUser.getProfileImage());
