@@ -7,10 +7,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
     <title>Add Bike | Yamaha Motors</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
 </head>
 <body>
@@ -25,9 +25,9 @@
 
         <div class="container-fluid mt-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4><i class="fas fa-motorcycle me-2"></i>Assign Bikes to Showrooms</h4>
+                <h4><i class="bi bi-bicycle me-2"></i>Assign Bikes to Showrooms</h4>
                 <a href="${pageContext.request.contextPath}/admin/view-allBikes" class="btn btn-outline-secondary">
-                    <i class="fas fa-arrow-left me-1"></i> Back to List
+                    <i class="bi bi-arrow-left-short me-1"></i> Back to List
                 </a>
             </div>
 
@@ -68,7 +68,7 @@
 
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-link me-1"></i> Assign Bike
+                                    <i class="bi bi-link-45deg me-1"></i> Assign Bike
                                 </button>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
 <script>
     document.getElementById('bikeImages').addEventListener('change', function() {
