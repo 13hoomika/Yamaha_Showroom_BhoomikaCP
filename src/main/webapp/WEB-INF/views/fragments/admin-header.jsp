@@ -6,7 +6,7 @@
         <div class="user-profile ms-auto">
             <!-- <span class="me-2">${admin.adminName}</span> -->
             <span class="me-2">Admin</span>
-            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="rounded-circle" alt="Admin" width="45" height="45">
+            <img src="${pageContext.request.contextPath.concat('/static/images/user-avatar.png')}" class="rounded-circle" alt="Admin" width="45" height="45">
         </div>
     </div>
 </nav>
