@@ -6,14 +6,12 @@
 <head>
     <title>Yamaha Motors - Ravs your heart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
     <!-- Swiper JS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/swiper-bundle.min.css">
     <!-- style.css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 </head>
@@ -76,7 +74,7 @@
     </section>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/bootstrap/js/swiper-bundle.min.js"></script>
     <script>
         // Initialize Swiper
         const swiper = new Swiper('.swiper', {
