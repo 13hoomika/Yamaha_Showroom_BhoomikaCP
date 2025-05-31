@@ -79,18 +79,7 @@ public class UserController {
             model.addAttribute("error", "Session expired. Please log in again.");
             return "user/user-login";
         }
-
-        String email = (String) session.getAttribute("userEmail");
-
-        /*if (email == null) {
-            model.addAttribute("error", "Session expired. Please log in again.");
-            return "user/user-login";
-        }*/
-
-        // Optionally load user details for the dashboard
-        UserDto user = userService.getUserByEmail(email);
-        model.addAttribute("user", user);
-
+        model.addAttribute("user", loggedInUser);
         return "user/user-dashboard";
     }
 
