@@ -54,7 +54,7 @@ public class UserController {
             RedirectAttributes redirectAttributes,
             HttpSession session) {
         System.out.println("===== controller: loginWithOtp() ======");
-        Boolean emailExist = userService.existByEmail(email);
+        boolean emailExist = userService.existByEmail(email);
         if (!emailExist){
             redirectAttributes.addFlashAttribute("error", "User does not exist");
             return "redirect:/user/login";
@@ -179,10 +179,9 @@ public class UserController {
     public String getProfile(Model model, HttpSession session) {
         UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
-            model.addAttribute("error", "No user is logged in. Please sign in.");
-            return "user/update-profile";
+            model.addAttribute("error", "Session expired. Please log in again.");
+            return "user/user-login";
         }
-
         model.addAttribute("profile", loggedInUser);
         log.info("Returning profile data for user: {}", loggedInUser.getUserEmail());
         return "user/update-profile"; // Redirect to profile update page
