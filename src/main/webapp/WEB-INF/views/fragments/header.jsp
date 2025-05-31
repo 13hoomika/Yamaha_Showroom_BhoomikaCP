@@ -25,9 +25,15 @@
     document.addEventListener("DOMContentLoaded", function () {
         const navbarToggle = document.getElementById("navbarToggle");
         const navLinks = document.getElementById("navLinks");
+        const authButtons = document.getElementById("authButtons");
 
         navbarToggle.addEventListener("click", function () {
+            // Toggle active class on both elements
             navLinks.classList.toggle("active");
+            authButtons.classList.toggle("active");
+
+            // Toggle active class on the toggle button itself
+            this.classList.toggle("active");
         });
     });
 </script>
