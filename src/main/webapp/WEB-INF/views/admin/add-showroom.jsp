@@ -9,8 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Showroom | Yamaha Motors</title>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
 </head>
 <body>
@@ -25,9 +26,9 @@
 
         <div class="container-fluid mt-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4><i class="fas fa-store me-2"></i>Add New Showroom</h4>
+                <h4><i class="bi bi-shop-window me-2"></i>Add New Showroom</h4>
                 <a href="${pageContext.request.contextPath}/admin/view-showrooms" class="btn btn-outline-secondary">
-                    <i class="fas fa-arrow-left me-1"></i> Back to List
+                    <i class="bi bi-arrow-left-short me-1"></i> Back to List
                 </a>
             </div>
 
@@ -65,10 +66,10 @@
                             </div>
                             <div class="col-12 mt-4">
                                 <button type="submit" class="btn btn-primary me-2">
-                                    <i class="fas fa-save me-1"></i> Save Showroom
+                                    <i class="bi bi-floppy me-1"></i> Save Showroom
                                 </button>
                                 <button type="reset" class="btn btn-outline-secondary">
-                                    <i class="fas fa-undo me-1"></i> Reset
+                                    <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
                                 </button>
                             </div>
                         </div>
@@ -79,7 +80,7 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
 <script>
     const imageInput = document.getElementById("imageInput");
