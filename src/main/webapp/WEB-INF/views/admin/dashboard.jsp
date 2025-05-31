@@ -9,7 +9,8 @@
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
-    <!-- Font Awesome -->
+    <!-- Font Awesome & Bootstrap Icons-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
     <!-- style.css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
