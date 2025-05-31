@@ -175,26 +175,6 @@ public class UserController {
         }
     }
 
-    /*@GetMapping("/updateProfile")
-    public String updateProfile(UserDto uerDto,HttpSession session, RedirectAttributes redirectAttributes) {
-        UserDto existingUser = userService.getUserByEmail(uerDto.getUserEmail());
-        if (existingUser == null) {
-            redirectAttributes.addAttribute("error", "User not found!");
-            System.out.println("No user found: " + null);
-        }else {
-            System.out.println("-----> user found: " + existingUser);
-        }
-        boolean userUpdated = userService.updateUserData(uerDto);
-        if (userUpdated) {
-            redirectAttributes.addAttribute("success", "User details updated successfully");
-            session.setAttribute("user", uerDto);
-            System.out.println("-----> user updated for: " + existingUser);
-        } else {
-            redirectAttributes.addAttribute("error", "User details update failed");
-        }
-        return "user/update-profile";
-    }*/
-
     @GetMapping("/getProfile")
     public String getProfile(Model model, HttpSession session) {
         UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
