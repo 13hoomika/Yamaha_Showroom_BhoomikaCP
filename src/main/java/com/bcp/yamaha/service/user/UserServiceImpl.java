@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Boolean validateAndLogIn(String email, String password) {
+    public UserDto validateAndLogIn(String email, String password) {
         System.out.println("============= UserService : validateAndLogIn() ===================");
         Optional<UserEntity> user = userRepository.findUserByEmail(email);
         if (user.isPresent()) {
@@ -156,14 +156,16 @@ public class UserServiceImpl implements UserService{
 
             if (passwordEncoder.matches(password,u.getPassword())) {
                 System.out.println("User authenticated: " + u.getUserEmail());
-                return true;
+                UserDto userDto = new UserDto();
+                BeanUtils.copyProperties(u,userDto);
+                return userDto;
             }else {
                 System.out.println("Invalid password for user: " + u.getUserEmail());
             }
         }else {
-            System.out.println("No user found with email: " + email);
+            log.error("No user found with email: {}", email);
         }
-        return false;
+        return null;
     }
 
     /*@Override

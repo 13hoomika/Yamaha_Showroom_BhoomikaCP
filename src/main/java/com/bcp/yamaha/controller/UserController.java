@@ -51,29 +51,23 @@ public class UserController {
             @RequestParam("password") String password,
             RedirectAttributes redirectAttributes,
             HttpSession session) {
-
         System.out.println("===== controller: loginWithOtp() ======");
-        Boolean authenticated  = userService.validateAndLogIn(email, password);
-        if (!authenticated ) {
+        Boolean emailExist = userService.existByEmail(email);
+        if (!emailExist){
+            redirectAttributes.addFlashAttribute("error", "User does not exist");
+            return "redirect:/user/login";
+        }
+
+        // Validate login
+        UserDto authenticatedUser  = userService.validateAndLogIn(email, password);
+        if (authenticatedUser != null ) {
+            session.setAttribute("loggedInUser", authenticatedUser);
+            log.info("User signed in successfully: {}", email);
+            return "redirect:/user/dashboard";
+        }else {
             redirectAttributes.addFlashAttribute("error", "Invalid password. Please try again.");
             return "redirect:/user/login";
         }
-
-        UserDto userDto = userService.getUserByEmail(email);
-        if (userDto == null) {
-            redirectAttributes.addFlashAttribute("error", "User not found for email: " + email);
-            log.warn("User not found for email: {}", email);
-            return "redirect:/user/login";
-        }
-
-        // Store user info  in session
-        session.setAttribute("userEmail", email);
-        session.setAttribute("loggedInUser", userDto);
-
-        log.info("User signed in successfully: {}", email);
-
-        // Redirect to dashboard
-        return "redirect:/user/dashboard";
     }
 
     @GetMapping("/dashboard")
