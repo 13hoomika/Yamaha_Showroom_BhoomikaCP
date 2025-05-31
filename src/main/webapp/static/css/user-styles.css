@@ -5,19 +5,19 @@
     box-sizing: border-box;
 }
 :root {
-  --primary-color: #0001a0;        /* Yamaha Blue */
-  --primary-hover: #0002d7;        /* Lighter Blue */
-  --secondary-color: #d40000;      /* Yamaha red */
-  --secondary-hover: #aa0000;      /* Darker red */
-  --disabled-bg-color: #cccccc;       /* Gray for disabled buttons */
-  --disabled-color: #666666;       /* Gray for disabled buttons */
-  --white-color: #ffffff;              /* Card background */
+  --yamaha-blue: #0001a0;        /* Yamaha Blue */
+  --yamaha-blue-hover: #0002d7;        /* Lighter Blue */
+  --yamaha-red: #d40000;      /* Yamaha red */
+  --yamaha-red-hover: #aa0000;      /* Darker red */
+  --disabled-background: #cccccc;       /* Gray for disabled buttons */
+  --disabled-text: #666666;       /* Gray for disabled text */
+  --white: #ffffff;              /* Card background */
   --card-shadow: rgba(0, 0, 0, 0.12);
 }
 
 @font-face {
   font-family: 'Montserrat';
-  src: url('../fonts/Montserrat-Medium.ttf') format('truetype');
+  src: url('../fonts/Montserrat-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
 }
@@ -32,7 +32,7 @@ body {
 /* ====== Navbar ====== */
 /* Base Navbar */
 .navbar {
-    background-color: var(--white-color); /* Light theme background */
+    background-color: var(--white); /* Light theme background */
     color: #1a1a1a;
     border-bottom: 2px solid #e0e0e0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -43,13 +43,13 @@ body {
 
 /* Brand Styling */
 .navbar .navbar-brand {
-    color: var(--secondary-color); /* Yamaha red */
+    color: var(--yamaha-red); /* Yamaha red */
     font-weight: bold;
     font-size: 1.4rem;
 }
 
 .navbar .navbar-brand:hover {
-    color: var(--secondary-hover);
+    color: var(--yamaha-red-hover);
 }
 
 /* Toggler Button (mobile) */
@@ -59,7 +59,7 @@ body {
 
 /* Collapse Content Styling */
 .navbar-collapse {
-    background-color: var(--white-color);
+    background-color: var(--white);
     padding: 1rem 0;
 }
 
@@ -75,12 +75,12 @@ body {
 .navbar .nav-link:hover,
 .navbar .nav-link:focus {
     background-color: #f1f1f1;
-    color: var(--primary-color);
+    color: var(--yamaha-blue);
 }
 
 /* Dropdown Menu */
 .navbar .dropdown-menu {
-    background-color: var(--white-color);
+    background-color: var(--white);
     border: 1px solid #ddd;
     border-radius: 0.5rem;
     min-width: 220px;
@@ -94,7 +94,7 @@ body {
 
 .navbar .dropdown-item:hover {
     background-color: #f8f9fa;
-    color: var(--primary-color);
+    color: var(--yamaha-blue);
 }
 
 .navbar .dropdown-divider {
@@ -173,7 +173,7 @@ body {
 
 /* ====== Container ====== */
 .container {
-    background-color: var(--white-color);
+    background-color: var(--white);
     max-width: 100%;
     margin: 5px auto;
     padding: 30px 20px;
@@ -182,14 +182,14 @@ body {
 /* ====== Banner ====== */
 .banner {
     background: linear-gradient(0deg, #06005b 0, #0000ab 100%);;
-    color: var(--white-color);
+    color: var(--white);
     font-size: 1.375rem;
     padding: 3rem 0;
     text-align: center;
     margin-top: 5px;
 }
 .banner-title {
-    color: var(--white-color);
+    color: var(--white);
     font-size: 3.625rem;
     margin: 0;
     position: relative;
@@ -201,7 +201,7 @@ body {
 .welcome-box h1 {
     font-size: 28px;
     text-align: center;
-    color: var(--primary-color);
+    color: var(--yamaha-blue);
     font-weight: 700;
 }
 
@@ -236,7 +236,7 @@ body {
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    background-color: var(--primary-color);
+    background-color: var(--yamaha-blue);
     color: #fff;
     padding: 12px 24px;
     border-radius: 10px;
@@ -247,7 +247,7 @@ body {
 }
 
 .action-links .action-btn:hover {
-    background-color: var(--primary-hover);
+    background-color: var(--yamaha-blue-hover);
     transform: translateY(-2px);
 }
 /* ====== Forms ====== */
@@ -278,8 +278,8 @@ input.form-control[readonly] {
 }
 
 /* ====== Modern Bike Card ====== */
-.bike-card {
-    background: var(--white-color); /* bright white background */
+.product-card {
+    background: var(--white); /* bright white background */
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -291,15 +291,15 @@ input.form-control[readonly] {
     border: 1px solid #e5e5e5;
 }
 
-.bike-card:hover {
+.product-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    /*border-color: var(--secondary-color);*/
+    border-color: var(--yamaha-blue);
 }
 
 /* Image styling */
 .card-img-top {
-    height: 200px;
+    height: 45vh;
     width: 100%;
     object-fit: cover;
     border-bottom: 1px solid #eee;
@@ -307,7 +307,7 @@ input.form-control[readonly] {
     transition: transform 0.3s ease;
 }
 
-.bike-card:hover .card-img-top {
+.product-card:hover .card-img-top {
     transform: scale(1.05);
 }
 
@@ -324,7 +324,7 @@ input.form-control[readonly] {
 .card-title {
     font-weight: 700;
     font-size: 1.3rem;
-    color: var(--primary-color);
+    color: var(--yamaha-blue);
     margin-bottom: 0.75rem;
     letter-spacing: 0.03em;
 }
@@ -353,29 +353,55 @@ input.form-control[readonly] {
     font-weight: 600;
 }
 
-/* ======= Submit Buttons ====== */
-.custom-submit-btn {
-    background-color: var(--secondary-color);
-    color: var(--white-color);
-    border: none;
+/* ======= Modal ======= */
+/* Ensure images don't exceed modal width */
+.modal-body img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* Add some spacing between images */
+.modal-body .row > div {
+    margin-bottom: 15px;
+}
+
+/* ======= Submit Buttons ======= */
+.view-details-btn {
+    background-color: var(--yamaha-blue);
+    color: var(--white);
+    border: 1px solid var(--yamaha-blue);
     padding: 12px 20px;
-    border-radius: 10px;
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(212, 0, 0, 0.3);
-    width: 100%;
 }
 
-.custom-submit-btn:hover {
-    background-color: var(--secondary-hover);
-    box-shadow: 0 6px 14px rgba(163, 0, 0, 0.5);
+.view-details-btn:hover {
+    background-color: var(--white);
+    border: 1px solid var(--yamaha-blue);
+    color: var(--yamaha-blue);
+}
+
+.custom-btn {
+    background-color: var(--yamaha-blue);
+    color: var(--white);
+    border: none;
+    padding: 12px 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-btn:hover {
+    background-color: var(--yamaha-blue-hover);
     color: white;
 }
 
-.custom-submit-btn:disabled {
-    background-color: var(--disabled-bg-color);
-    color: var(--disabled-color);
+.custom-btn:disabled {
+    background-color: var(--disabled-background);
+    color: var(--disabled-text);
     cursor: not-allowed;
     box-shadow: none;
 }
@@ -388,7 +414,11 @@ input.form-control[readonly] {
     .card-title {
         font-size: 1.1rem;
     }
-    .custom-submit-btn {
+    .custom-btn {
+        padding: 10px 15px;
+        font-size: 0.95rem;
+    }
+    .view-details-btn {
         padding: 10px 15px;
         font-size: 0.95rem;
     }
