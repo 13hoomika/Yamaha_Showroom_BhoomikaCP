@@ -5,6 +5,7 @@ import com.bcp.yamaha.exception.UserNotFoundException;
 import com.bcp.yamaha.service.bike.BikeService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
 import com.bcp.yamaha.service.user.UserService;
+import com.bcp.yamaha.util.MimeTypeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -137,35 +139,49 @@ public class UserController {
         return "user/view-bikes";
     }
 
-    @GetMapping("bikeImage")
-    public void downloadBikeImage(HttpServletResponse response, @RequestParam String imageName) {
-        // Basic validation
+    @GetMapping("/bikeImage")
+    public void downloadBikeImage(HttpServletResponse response,
+                                  @RequestParam String imageName,
+                                  HttpServletRequest request) {
+        log.info("Received request for image: bikeId={}, imageName={}", request.getParameter("bikeId"), imageName);
+        // Validate filename to prevent directory traversal
         if (imageName.contains("..") || imageName.contains("/") || imageName.contains("\\")) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            log.warn("Invalid image name or possible directory traversal attempt: {}", imageName);
             return;
         }
 
-        File file = new File("D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP\\src\\main\\webapp\\static\\images\\bike-images\\" + imageName);
+        // Get the real path to the bike images directory
+        String uploadDir = request.getServletContext().getRealPath("/static/images/bike-images/");
+        if (!uploadDir.endsWith(File.separator)) {
+            uploadDir += File.separator;
+        }
+        File file = new File(uploadDir + imageName);
+        log.info("Attempting to load file from path: {}", file.getAbsolutePath());
 
         if (!file.exists() || !file.isFile()) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return;
+            log.warn("Image file not found: {}", file.getAbsolutePath());
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND); // Send 404
+            return; // Stop processing if file doesn't exist
         }
+        log.info("Image file FOUND: {}", file.getAbsolutePath());
 
-        try {
-            String contentType = Files.probeContentType(file.toPath());
-            if (contentType == null) {
-                contentType = "application/octet-stream";
-            }
-            response.setContentType(contentType);
+        // Determine content type based on file extension
+        String contentType = MimeTypeUtil.getContentTypeByExtension(imageName);
+        response.setContentType(contentType);
+        response.setContentLength((int) file.length()); // Set content length for better performance
 
-            try (InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-                 ServletOutputStream outputStream = response.getOutputStream()) {
-                IOUtils.copy(inputStream, outputStream);
-                response.flushBuffer();
-            }
+        // Stream the file contents to the response
+        try (InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+             ServletOutputStream outputStream = response.getOutputStream()) {
+
+            log.info("Streaming image {} with content type {}", imageName, contentType);
+            IOUtils.copy(inputStream, outputStream);
+            response.flushBuffer();
+
+            log.info("Successfully streamed image {}", imageName);
         } catch (IOException e) {
-            log.error("IOException: {}", e.getMessage());
+            log.error("Error streaming image file {}: {}", imageName, e.getMessage(), e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
