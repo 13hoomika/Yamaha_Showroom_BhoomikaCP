@@ -163,29 +163,36 @@ header {
     .nav-links {
         display: none;
         flex-direction: column;
-        width: 100%;
-        background-color: white;
+        width: 30%;
+        background-color: var(--light);
         position: absolute;
-        top: 60px;
+        top: 100%;
         left: 0;
         padding: 1rem;
         gap: 1rem;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
-    .nav-links.active {
-        display: flex;
-    }
-
     .auth-buttons {
         display: none;
         flex-direction: column;
-        width: 100%;
+        width: 30%;
         padding: 1rem;
-        text-align: center;
+        background-color: var(--light);
+        position: absolute;
+        top: calc(100% + 180px); /* Position below nav links */
+        left: 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        display: flex;
+        top: 70px; /* Adjust based on your header height */
     }
 
     .auth-buttons.active {
         display: flex;
+        top: calc(70px + 180px); /* Header height + nav links height */
     }
 }
