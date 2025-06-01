@@ -1,6 +1,7 @@
 package com.bcp.yamaha.restcontroller;
 
 import com.bcp.yamaha.service.user.UserService;
+import com.bcp.yamaha.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ public class UserRestController {
     public String validateUserName(@PathVariable String userName) {
         System.out.println("Received userName: [" + userName + "]");
 
-        if (!userService.isValidUserNameFormat(userName)) {
+        if (!ValidationUtil.isValidUserName(userName)) {
             return "Invalid name format. Each word must start with uppercase followed by lowercase letters (e.g., John Doe)";
         }
         return "";
@@ -36,7 +37,7 @@ public class UserRestController {
     public String getPhCountForRegister(@PathVariable String phNo){
         System.out.println("Received phNo in Controller: [" + phNo + "]");
 
-        if (userService.isValidPhoneFormat(phNo)){
+        if (!ValidationUtil.isValidPhoneNumber(phNo)){
             return "Invalid phone number format. phone number must be 10 digits and start with 9, 8, 7, or 6";
         }
         boolean isPhExist = userService.existByPhNumber(phNo);
@@ -52,7 +53,7 @@ public class UserRestController {
         System.out.println("Received DL Number: [" + dlNo + "]");
 
         // Validate format using regex (KA0120231234567 format)
-        if (!userService.isValidDl(dlNo)) {
+        if (!ValidationUtil.isValidDl(dlNo)) {
             return "Invalid DL number format (e.g., KA0120231234567)";
         }
 
@@ -64,12 +65,12 @@ public class UserRestController {
         return "";
     }
 
-/* ========================== Update User ========================== */
+    /* ========================== Update User ========================== */
     @GetMapping(value = "/checkPhValue/{phNo}/{currentPh}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getPhCountForUpdate(@PathVariable String phNo, @PathVariable String currentPh) {
         System.out.println("Received phNo: [" + phNo + "], CurrentPh: [" + currentPh + "]");
 
-        if (userService.isValidPhoneFormat(phNo)) {
+        if (!ValidationUtil.isValidPhoneNumber(phNo)) {
             return "Invalid phone number, must be 10 digits and start with 9, 8, 7, or 6";
         }
 
@@ -87,7 +88,7 @@ public class UserRestController {
         System.out.println("Received DL Number: [" + dlNo + "], Current DL Number: [" + currentDlNo + "]");
 
         // Format validation (e.g., KA0120231234567)
-        if (!userService.isValidDl(dlNo)) {
+        if (!ValidationUtil.isValidDl(dlNo)) {
             return "Invalid DL number format (e.g., KA0120231234567)";
         }
 
@@ -100,8 +101,4 @@ public class UserRestController {
         boolean exists = userService.existsByDrivingLicenseNumber(dlNo);
         return exists ? "Driving License number already exists" : "";
     }
-
-
-
 }
-

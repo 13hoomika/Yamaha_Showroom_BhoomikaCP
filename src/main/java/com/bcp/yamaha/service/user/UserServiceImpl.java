@@ -13,7 +13,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.bcp.yamaha.util.ValidationUtil;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -282,21 +281,6 @@ public class UserServiceImpl implements UserService{
     public void deleteById(int id) {
         userRepository.deleteById(id);
         System.out.println("user deleted successfully");
-    }
-
-    @Override
-    public boolean isValidPhoneFormat(String phoneNumber) {
-        return !ValidationUtil.isValidPhoneNumber(phoneNumber);
-    }
-
-    @Override
-    public boolean isValidUserNameFormat(String userName) {
-        return ValidationUtil.isValidUserName(userName);
-    }
-
-    @Override
-    public boolean isValidDl(String dlNo) {
-        return ValidationUtil.isValidDl(dlNo);
     }
 
     @Override
