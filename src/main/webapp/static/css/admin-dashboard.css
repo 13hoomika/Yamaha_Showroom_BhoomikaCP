@@ -160,6 +160,9 @@ body {
   padding: 20px;
 }
 
+.input-group{
+  min-width: 200px
+}
 /* Form Elements */
 .form-section {
   background-color: white;
@@ -326,6 +329,11 @@ body {
 
 .icon-delete {
     color: red;
+    font-size: 1.2rem;
+}
+
+.icon-followup {
+    color: var(--primary-color);
     font-size: 1.2rem;
 }
 
