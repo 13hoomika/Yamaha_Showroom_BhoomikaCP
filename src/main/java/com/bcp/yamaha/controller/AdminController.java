@@ -190,11 +190,11 @@ public class AdminController {
             @ModelAttribute UserDto userDto,
             RedirectAttributes redirectAttributes) {
 
-        // capitalizeWords user nam
+        /*// capitalizeWords user name
         if (userDto.getUserName() != null) {
             String formattedUserName = StringUtil.capitalizeWords(userDto.getUserName());
             userDto.setUserName(formattedUserName);
-        }
+        }*/
 
         Optional.ofNullable(userDto.getUserName())
                 .map(StringUtil::capitalizeWords)
@@ -203,11 +203,18 @@ public class AdminController {
         try {
             UserDto savedUser = userService.registerUser(userDto);
             System.out.println("User added = "+ userDto);
-            redirectAttributes.addFlashAttribute("successMessage", "User registered successfully");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Something went wrong!!");
-            throw new RuntimeException(e);
 
+            FollowUpDto followUpDto = new FollowUpDto();
+            followUpDto.setUserId(savedUser.getUserId());
+            followUpDto.setCallStatus("Registered");
+            followUpDto.setNotes("User Registered");
+            followUpDto.setFollowupDate(LocalDate.now());
+            followUpService.saveFollowUp(followUpDto);
+
+            redirectAttributes.addFlashAttribute("success", "Registration successful!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Registration failed");
+            log.error("Registration error", e);
         }
         return "redirect:/admin/userRegister";
     }
