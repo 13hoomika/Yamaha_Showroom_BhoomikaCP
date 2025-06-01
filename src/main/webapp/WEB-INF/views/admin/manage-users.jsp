@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users | Yamaha Motors</title>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
 </head>
 <body>
@@ -23,16 +23,8 @@
 
         <div class="container-fluid mt-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4><i class="fas fa-users me-2"></i>Manage Users</h4>
+                <h4><i class="bi bi-person-plus-fill me-2"></i>Manage Users</h4>
             </div>
-
-            <c:if test="${not empty successMessage}">
-                <div class="alert alert-success">${successMessage}</div>
-            </c:if>
-
-            <c:if test="${not empty errorMessage}">
-                <div class="alert alert-danger">${errorMessage}</div>
-            </c:if>
 
             <div class="row mb-2">
                 <div class="col-md-2">
@@ -96,10 +88,10 @@
                                                 ${user.scheduleType.displayName}
                                             </c:if>
                                         </td>
-                                        <td>
+                                        <td class="text-center align-middle">
                                             <a href="${pageContext.request.contextPath}/admin/followup-user?id=${user.userId}"
-                                               class="btn btn-sm btn-primary">
-                                               <i class="fas fa-phone"></i> Follow Up
+                                                class="icon-btn">
+                                               <i class="bi bi-telephone-fill icon-followup"></i>
                                             </a>
                                         </td>
                                         <td class="text-center align-middle">
@@ -107,7 +99,7 @@
                                                class="icon-btn"
                                                title="Delete User"
                                                onclick="return confirm('Are you sure you want to delete this user?');">
-                                                <i class="fas fa-trash-alt icon-delete"></i>
+                                                <i class="bi bi-trash-fill icon-delete"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -122,7 +114,7 @@
 </div>
 
 <!-- JavaScript Libraries -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
 </body>
 </html>

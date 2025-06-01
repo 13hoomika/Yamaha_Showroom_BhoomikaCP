@@ -5,34 +5,8 @@
 <head>
     <title>Forgot Password - Yamaha Showroom</title>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <style>
-        input[type="submit"] {
-            background-color: var(--blue);
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: background-color 0.3s ease;
-        }
-
-        input[type="submit"]:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-
-        .back-home {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-    </style>
 </head>
 <body>
 <div class="container">

@@ -9,8 +9,6 @@
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
-    <!-- Font Awesome & Bootstrap Icons-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
     <!-- style.css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
@@ -29,7 +27,7 @@
         <div class="container-fluid mt-4">
             <h4 class="mb-4">Dashboard Overview</h4>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     <div class="card dashboard-card">
                         <div class="card-header">
                             <h5 class="card-title mb-0">Total Bikes</h5>
@@ -40,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     <div class="card dashboard-card">
                         <div class="card-header">
                             <h5 class="card-title mb-0">Showrooms</h5>
@@ -51,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     <div class="card dashboard-card">
                         <div class="card-header">
                             <h5 class="card-title mb-0">Total Users</h5>

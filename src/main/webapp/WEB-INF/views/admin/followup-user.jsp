@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FollowUp Users | Yamaha Motors</title>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
 </head>
 <body>
@@ -24,27 +24,27 @@
         <div class="container-fluid mt-4">
             <div class="card followup-card">
                 <div class="card-header text-white">
-                    <h5><i class="fas fa-user-circle me-2"></i>Follow-Up for ${user.userName}</h5>
+                    <h5><i class="bi bi-person-fill me-2"></i>Follow-Up for ${user.userName}</h5>
                 </div>
                 <div class="card-body">
                     <!-- User Details -->
                     <div class="row mb-4 user-details p-3">
                         <div class="col-md-6">
                             <!--<p>
-                                <strong><i class="fas fa-envelope me-2"></i>Email:</strong>
+                                <strong><i class="bi bi-envelope-fill me-2"></i>Email:</strong>
                                 ${user.userEmail}
                             </p>-->
                             <p>
-                                <strong><i class="fas fa-phone me-2"></i>Phone:</strong>
+                                <strong><i class="bi bi-telephone me-2"></i>Phone:</strong>
                                 ${user.userPhoneNumber}
                             </p>
                             <p>
-                                <strong><i class="fas fa-clipboard-list me-2"></i>Schedule For	:</strong>
+                                <strong><i class="bi bi-journal-check me-2"></i>Schedule For	:</strong>
                                 ${user.scheduleType.displayName}
                             </p>
                             <c:if test="${user.scheduleType.name() == 'SCHEDULE_VISIT'}">
                                <p>
-                                   <strong><i class="fa fa-calendar-alt me-2"></i>Schedule to :</strong>
+                                   <strong><i class="bi bi-calendar-event me-2"></i>Schedule to :</strong>
                                    ${user.scheduleDate}
                                </p>
                             </c:if>
@@ -52,22 +52,22 @@
 
                         <div class="col-md-6">
                             <p>
-                                <strong><i class="fas fa-motorcycle me-2"></i>Bike Interest:</strong>
+                                <strong><i class="bi bi-bicycle me-2"></i>Bike Interest:</strong>
                                 <span class="badge bg-info">${user.bikeType.displayName}</span>
                             </p>
                             <p>
-                                <strong><i class="fas fa-store me-2"></i>Showroom:</strong>
+                                <strong><i class="bi bi-shop me-2"></i>Showroom:</strong>
                                 ${user.showroomName}
                             </p>
                            <c:if test="${user.scheduleType.name() == 'SCHEDULE_VISIT'}">
-                              <strong><i class="fas fa-clock me-2"></i>Schedule at    :</strong>
+                              <strong><i class="bi bi-clock me-2"></i>Schedule at    :</strong>
                               ${user.scheduleTime}
                            </c:if>
                         </div>
                     </div>
 
                     <!-- Add New Follow-Up Form -->
-                    <h5 class="mt-5 mb-3"><i class="fas fa-plus-circle me-2"></i>Add New Follow-Up</h5>
+                    <h5 class="mt-5 mb-3"><i class="bi bi-plus-circle-fill me-2"></i>Add New Follow-Up</h5>
                     <form method="post" action="${pageContext.request.contextPath}/admin/followup-user">
                         <c:if test="${not empty success}">
                             <div class="alert alert-success">${success}</div>
@@ -90,7 +90,6 @@
                                     <option value="">Select Status</option>
                                     <option value="Interested">Interested</option>
                                     <option value="Not Interested">Not Interested</option>
-                                    <option value="Follow Up Required">Follow Up Required</option>
                                     <option value="No Response">No Response</option>
                                 </select>
                             </div>
@@ -104,17 +103,17 @@
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="submit" class="btn btn-primary me-md-2">
-                                <i class="fas fa-save me-1"></i> Save
+                                <i class="bi bi-floppy-fill me-1"></i> Save
                             </button>
                             <a href="${pageContext.request.contextPath}/admin/manage-users"
                                class="btn btn-outline-secondary">
-                               <i class="fas fa-arrow-left me-1"></i> Back to Users
+                               <i class="bi bi-arrow-left me-1"></i> Back to Users
                             </a>
                         </div>
                     </form>
 
                     <!-- Follow-Up History Table -->
-                    <h5 class="mb-3"><i class="fas fa-history me-2"></i>Follow-Up History</h5>
+                    <h5 class="mb-3"><i class="bi bi-clock-history me-2"></i>Follow-Up History</h5>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <thead class="table-dark">

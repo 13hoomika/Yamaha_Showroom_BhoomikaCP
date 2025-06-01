@@ -9,8 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Bikes | Yamaha Motors</title>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
 </head>
 <body>
@@ -29,7 +30,8 @@
             </div>
 
             <div class="row mb-2">
-                <div class="col-md-2">
+                <!-- Bike Type Filter Dropdown -->
+                <div class="col-auto">
                     <form method="get" action="${pageContext.request.contextPath}/admin/manage-bikes" class="d-inline">
                         <div class="input-group">
                             <select name="bikeType" class="form-select" onchange="this.form.submit()">
@@ -44,11 +46,13 @@
                         </div>
                     </form>
                 </div>
+                <!-- Add New Bike Button -->
                 <div class="col-auto">
                     <a href="${pageContext.request.contextPath}/admin/add-bike" class="btn btn-primary">
                         <i class="fas fa-plus"></i> Add New Bike
                     </a>
                 </div>
+                <!-- Assign Bikes Button -->
                 <div class="col-auto">
                     <a href="${pageContext.request.contextPath}/admin/assign-bikes" class="btn btn-primary">
                         <i class="fas fa-plus"></i> Assign Bikes
