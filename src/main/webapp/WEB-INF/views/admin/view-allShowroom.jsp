@@ -35,7 +35,7 @@
             <!-- Showroom List Table -->
             <div class="row">
                 <c:forEach var="showroom" items="${showroomList}">
-                    <div class="col-md-4 mb-4">
+                    <div class="col-md-4 col-sm-6 mb-4">
                         <div class="card h-100 shadow-sm">
                             <img src="${pageContext.request.contextPath}/static/images/showroom-Images/${showroom.showroomImg}"
                                  class="card-img-top" alt="${showroom.showroomName}" style="height: 200px; object-fit: cover;">
