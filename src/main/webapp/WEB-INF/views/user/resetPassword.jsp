@@ -35,7 +35,7 @@
             <input type="password" name="confirmNewPassword" id="confirmNewPassword" required>
 
             <!-- Submit Button -->
-            <input type="submit" value="Reset Password">
+            <button type="submit">Reset Password</button>
         </form>
 
         <div class="back-home">
