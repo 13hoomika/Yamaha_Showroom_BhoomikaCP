@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/WEB-INF/views/fragments/header.jsp" %>
+<%@ include file="/WEB-INF/views/fragments/home-header.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +13,7 @@
     <!-- Swiper JS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/swiper-bundle.min.css">
     <!-- style.css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/home.css">
 </head>
 <body>
     <!-- Hero Slider -->
@@ -116,4 +116,4 @@
 
 </body>
 </html>
-<%@ include file="/WEB-INF/views/fragments/footer.jsp" %>
+<%@ include file="/WEB-INF/views/fragments/home-footer.jsp" %>
