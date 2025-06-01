@@ -60,7 +60,7 @@
 
             <!-- Filter Section -->
             <div class="row mb-3">
-                <div class="col-md-3">
+                <div class="col-auto">
                     <form method="get" action="${pageContext.request.contextPath}/admin/view-allBikes">
                         <div class="input-group">
                             <select name="bikeType" class="form-select" onchange="this.form.submit()">
@@ -93,8 +93,8 @@
                 <c:choose>
                     <c:when test="${not empty bikeList}">
                         <c:forEach items="${bikeList}" var="bike">
-                            <div class="col-md-6 col-lg-4">
-                                <div class="card bike-card shadow-sm position-relative">
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="card bike-card">
                                     <!-- Bike Type Badge -->
                                     <span class="badge bike-type-badge">${bike.bikeType}</span>
 
