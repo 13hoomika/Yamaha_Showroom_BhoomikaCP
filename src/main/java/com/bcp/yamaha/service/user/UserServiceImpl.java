@@ -99,22 +99,13 @@ public class UserServiceImpl implements UserService{
         UserDto userDto = new UserDto();
         Optional<UserEntity> userByEmail = userRepository.findUserByEmail(email);
 
-        /*if (userByEmail.isPresent()){
+        if (userByEmail.isPresent()){
             BeanUtils.copyProperties(userByEmail.get(),userDto);
             return userDto;
         }else {
-            System.out.println("UserEntity is null for email:" + email);
+            log.error("UserEntity is null for email:{}", email);
             return null;
-        }*/
-
-        //cleaner version
-        return userByEmail.map(userEntity -> {
-            BeanUtils.copyProperties(userEntity, userDto);
-            return userDto;
-        }).orElseGet(() -> {
-            System.out.println("UserEntity is null for email: " + email);
-            return null;
-        });
+        }
 
     }
 
@@ -126,7 +117,7 @@ public class UserServiceImpl implements UserService{
             BeanUtils.copyProperties(userEntity,userDto);
             return userDto;
         }else {
-            System.out.println(("User entity is null for userId: " + userId));
+            log.error("User entity is null for userId: {}", userId);
             return null;
         }
     }
