@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/footer.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/home-footer.css">
 <footer>
     <div class="footer-content">
         <ul class="footer-links">

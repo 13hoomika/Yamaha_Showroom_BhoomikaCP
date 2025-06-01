@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/header.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/home-header.css">
 <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
 
 <header>
@@ -7,7 +7,9 @@
         <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
             <span class="toggler-icon"></span>
         </button>
-        <div class="logo">Yamaha Motors</div>
+        <a class="navbar-brand fw-bold" href="${pageContext.request.contextPath}/user/dashboard">
+            <img src="${pageContext.request.contextPath}/static/images/yamaha-logo.png" alt="Yamaha" height="40">
+        </a>
         <ul class="nav-links" id="navLinks">
             <li><a href="#" class="active">Home</a></li> <!-- Add 'active' manually here -->
             <li><a href="${pageContext.request.contextPath}/">Bikes</a></li>
