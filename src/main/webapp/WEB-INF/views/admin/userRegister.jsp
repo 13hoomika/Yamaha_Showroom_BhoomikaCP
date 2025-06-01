@@ -65,7 +65,7 @@
                             <div class="col-md-8">
                                 <label for="userPhoneNumber" class="form-label">Phone</label>
                                 <input type="tel" class="form-control" id="userPhoneNumber" name="userPhoneNumber"
-                                    placeholder="10 digit phone" oninput="checkPhNoForUpdate()" required>
+                                    placeholder="10 digit phone" onchange="checkPhNoForRegister()" required>
                                 <span id="phNoError" class="validation-error""></span>
                             </div>
 
@@ -77,7 +77,7 @@
                             <div class="col-md-12">
                                 <label for="drivingLicenseNumber" class="form-label">Driving License Number</label>
                                 <input type="text" class="form-control" id="drivingLicenseNumber" name="drivingLicenseNumber" placeholder="KA1234567890123" required
-                                oninput="validateDrivingLicense()">
+                                onchange="validateDrivingLicense()">
                                 <span id="dlNoError" class="validation-error""></span>
                             </div>
 
@@ -195,6 +195,7 @@
      const showroom = document.getElementById('showroom').value;
      const schedule = document.getElementById('scheduleType').value;
 
+     const emailError = document.getElementById('emailError').innerText;
      const nameError = document.getElementById('userNameError').innerText;
      const phError = document.getElementById('phNoError').innerText;
      const dlError = document.getElementById('dlNoError').innerText;
@@ -202,7 +203,7 @@
      const submitBtn = document.getElementById('submitBtn');
 
      const allRequiredFilled = name && email && phone && age && address && license && showroom && schedule;
-     const noErrors = !nameError && !phError && !dlError;
+     const noErrors = !nameError && !emailError && !phError && !dlError;
 
      if (allRequiredFilled && noErrors) {
          submitBtn.disabled = false;
