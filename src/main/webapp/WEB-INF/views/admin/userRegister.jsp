@@ -34,8 +34,11 @@
 
             <div class="card">
                 <div class="card-body">
-                    <c:if test="${not empty successMessage}">
-                        <div class="alert alert-success text-center">${successMessage}</div>
+                    <c:if test="${not empty success}">
+                        <div class="alert alert-success">${success}</div>
+                    </c:if>
+                    <c:if test="${not empty error}">
+                        <div class="alert alert-danger">${error}</div>
                     </c:if>
 
                     <form action="registerUser" method="post">
