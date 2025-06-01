@@ -28,7 +28,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4><i class="bi bi-shop-window me-2"></i>Add New Showroom</h4>
                 <a href="${pageContext.request.contextPath}/admin/view-showrooms" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left-short me-1"></i> Back to List
+                    <i class="bi bi-arrow-left me-1"></i> Back to List
                 </a>
             </div>
 
