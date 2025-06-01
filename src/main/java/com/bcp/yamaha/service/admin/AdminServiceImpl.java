@@ -1,9 +1,10 @@
 package com.bcp.yamaha.service.admin;
 
+import com.bcp.yamaha.dto.AdminDto;
 import com.bcp.yamaha.entity.AdminEntity;
 import com.bcp.yamaha.repository.admin.AdminRepository;
 import com.bcp.yamaha.service.EmailService;
-//import com.bcp.yamaha.service.OtpGeneratorService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminRepository adminRepository;
-
-//    @Autowired
-//    OtpGeneratorService otpGeneratorService;
 
     @Autowired
     private EmailService emailService;
@@ -74,8 +72,15 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Optional<AdminEntity> findByEmail(String email) {
-        return adminRepository.findByEmail(email);
+    public Optional<AdminDto> findByEmail(String email) {
+        Optional<AdminEntity> adminEntityOpt = adminRepository.findByEmail(email);
+
+        return adminEntityOpt.map(entity -> {
+            AdminDto dto = new AdminDto();
+            BeanUtils.copyProperties(entity, dto);
+            return dto;
+        });
+
     }
 
     @Override

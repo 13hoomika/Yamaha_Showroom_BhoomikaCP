@@ -12,7 +12,7 @@ public interface BikeService {
     List<BikeDto> getAllBikes();
 
     List<BikeDto> getBikesByBikeType(BikeType bikeType);
-    List<BikeEntity> getUnassignedBikes();
+    List<BikeDto> getUnassignedBikes();
 
     Boolean assignBikeToShowroom(Integer bikeId, Integer showroomId);
     Long getTotalBikeCount();

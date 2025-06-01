@@ -2,12 +2,7 @@ package com.bcp.yamaha.controller;
 
 import com.bcp.yamaha.constants.BikeType;
 import com.bcp.yamaha.constants.ScheduleType;
-import com.bcp.yamaha.dto.BikeDto;
-import com.bcp.yamaha.dto.FollowUpDto;
-import com.bcp.yamaha.dto.ShowroomDto;
-import com.bcp.yamaha.dto.UserDto;
-import com.bcp.yamaha.entity.AdminEntity;
-import com.bcp.yamaha.entity.BikeEntity;
+import com.bcp.yamaha.dto.*;
 import com.bcp.yamaha.service.admin.AdminService;
 import com.bcp.yamaha.service.bike.BikeService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
@@ -86,7 +81,7 @@ public class AdminController {
             return "redirect:/admin/login";
         }
 
-        Optional<AdminEntity> admin = adminService.findByEmail(email);
+        Optional<AdminDto> admin = adminService.findByEmail(email);
         if (!admin.isPresent()) {
             redirectAttributes.addFlashAttribute("error", "Email not registered");
             return "redirect:/admin/login";
@@ -139,7 +134,7 @@ public class AdminController {
 
         try {
             if (adminService.verifyOtp(email, otp)) {
-                AdminEntity admin = adminService.findByEmail(email)
+                AdminDto admin = adminService.findByEmail(email)
                         .orElseThrow(() -> new RuntimeException("Admin not found"));
                 session.setAttribute("loggedInAdminId", admin.getAdminId());
                 session.setAttribute("adminName", admin.getAdminName());
@@ -333,7 +328,7 @@ public class AdminController {
     public String showAssignmentForm(Model model, HttpSession session) {
         if (isAdminLoggedIn(session)) return "redirect:/admin/login";
         
-        List<BikeEntity> unassignedBikes = bikeService.getUnassignedBikes();
+        List<BikeDto> unassignedBikes = bikeService.getUnassignedBikes();
         List<ShowroomDto> showrooms = showroomService.getAllShowroom();
 
         model.addAttribute("unassignedBikes", unassignedBikes);
@@ -460,9 +455,6 @@ public class AdminController {
     // ========== USER MANAGEMENT ==========
     @GetMapping("/manage-users")
     public String manageUsers(@RequestParam(value = "scheduleType",required = false) String scheduleType, Model model, HttpSession session) {
-        /*if (session.getAttribute("loggedInAdminId") == null) {
-            return "redirect:/admin/login";
-        }*/
         if (isAdminLoggedIn(session)) {
             return "redirect:/admin/login";
         }

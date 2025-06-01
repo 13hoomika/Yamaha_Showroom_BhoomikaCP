@@ -1,11 +1,12 @@
 package com.bcp.yamaha.service.admin;
 
+import com.bcp.yamaha.dto.AdminDto;
 import com.bcp.yamaha.entity.AdminEntity;
 
 import java.util.Optional;
 
 public interface AdminService {
-    Optional<AdminEntity> findByEmail(String email);
+    Optional<AdminDto> findByEmail(String email);
     AdminEntity findById(int id);
 
     Boolean initializeAdmin();

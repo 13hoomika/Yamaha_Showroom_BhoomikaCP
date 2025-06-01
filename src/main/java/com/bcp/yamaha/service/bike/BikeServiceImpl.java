@@ -34,13 +34,6 @@ public class BikeServiceImpl implements BikeService{
             BikeEntity bikeEntity = new BikeEntity();
             BeanUtils.copyProperties(bikeDto, bikeEntity);
 
-            /*ShowroomEntity showroom= showroomRepository.findById(bikeDto.getShowroomId());
-            System.out.println("In service layer:  showroom = "+showroom );
-            if(showroom == null){
-                System.out.println("showroom is null!");
-            }else {
-                bikeEntity.setShowroomEntity(showroom);
-            }*/
             // Save to database
             bikeRepository.addBike(bikeEntity);
             return true;
@@ -51,10 +44,10 @@ public class BikeServiceImpl implements BikeService{
         }
     }
 
-//    @Override
-//    public BikeEntity getBikeById(Integer bikeId) {
-//        return bikeRepository.findById(bikeId);
-//    }
+    /*@Override
+    public BikeEntity getBikeById(Integer bikeId) {
+        return bikeRepository.findById(bikeId);
+    }*/
 
     @Override
     public List<BikeDto> getAllBikes() {
@@ -94,8 +87,15 @@ public class BikeServiceImpl implements BikeService{
 
 
     @Override
-    public List<BikeEntity> getUnassignedBikes() {
-        return bikeRepository.findUnassignedBikes();
+    public List<BikeDto> getUnassignedBikes() {
+        List<BikeEntity> bikeEntityList = bikeRepository.findUnassignedBikes();
+        List<BikeDto> bikeDtoList = new ArrayList<>();
+        for (BikeEntity entity : bikeEntityList) {
+            BikeDto dto = new BikeDto();
+            BeanUtils.copyProperties(entity, dto);
+            bikeDtoList.add(dto);
+        }
+        return bikeDtoList;
     }
 
     @Override
