@@ -186,9 +186,9 @@ public class AdminController {
     }
 
     @PostMapping("/registerUser")//form action
-    public String processUserRegister( @Valid
-                                       @ModelAttribute("userDto") UserDto userDto,
-                                       RedirectAttributes redirectAttributes) {
+    public String processUserRegister(
+            @ModelAttribute UserDto userDto,
+            RedirectAttributes redirectAttributes) {
 
         // capitalizeWords user nam
         if (userDto.getUserName() != null) {
@@ -196,9 +196,12 @@ public class AdminController {
             userDto.setUserName(formattedUserName);
         }
 
-        // Save user to database
+        Optional.ofNullable(userDto.getUserName())
+                .map(StringUtil::capitalizeWords)
+                .ifPresent(userDto::setUserName);
+
         try {
-            userService.registerUser(userDto);
+            UserDto savedUser = userService.registerUser(userDto);
             System.out.println("User added = "+ userDto);
             redirectAttributes.addFlashAttribute("successMessage", "User registered successfully");
         } catch (Exception e) {

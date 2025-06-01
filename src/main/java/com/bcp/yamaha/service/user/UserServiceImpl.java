@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public void registerUser(UserDto userDto) {
+    public UserDto  registerUser(UserDto userDto) {
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userDto, userEntity);
 //        userEntity.setInvalidLogInCount(-1);
@@ -71,6 +71,10 @@ public class UserServiceImpl implements UserService{
                 System.out.println("❌ Email sending failed.");
             }
         }
+        // Convert back to DTO before returning
+        UserDto responseDto = new UserDto();
+        BeanUtils.copyProperties(userEntity, responseDto);
+        return responseDto;
     }
 
     @Override
