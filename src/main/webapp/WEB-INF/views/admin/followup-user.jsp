@@ -132,7 +132,8 @@
                                                 <td>${log.followupDate}</td>
                                                 <td>
                                                     <span class="badge
-                                                        ${log.callStatus == 'Interested' ? 'bg-success' :
+                                                        ${log.callStatus == 'Interested' ? 'bg-primary' :
+                                                            log.callStatus == 'Registered' ? 'bg-success' :
                                                           log.callStatus == 'Not Interested' ? 'bg-danger' : 'bg-warning'}">
                                                         ${log.callStatus}
                                                     </span>
@@ -160,11 +161,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
 <script>
-    // Set default datetime to now
     document.addEventListener('DOMContentLoaded', function() {
-        const now = new Date();
-        const localDate = now.toISOString().slice(0, 10); // Format: yyyy-MM-dd
-                document.querySelector('input[type="date"]').value = localDate;
+        const dateInput = document.querySelector('input[name="followupDate"]');
+
+        if (dateInput) {
+            const today = new Date().toISOString().split("T")[0]; // Format: yyyy-MM-dd
+            dateInput.value = today; // Set default to today
+            dateInput.min = today;   // Prevent past dates
+        }
     });
 </script>
 </body>
