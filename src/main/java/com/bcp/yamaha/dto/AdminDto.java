@@ -1,5 +1,12 @@
 package com.bcp.yamaha.dto;
 
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class AdminDto {
     private int adminId;
     private String adminName;
