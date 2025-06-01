@@ -5,10 +5,9 @@
 <head>
     <title>User Login - Yamaha Showroom</title>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-login.css">
     <style>
         input[type="submit"] {
             background-color: var(--blue);
@@ -81,12 +80,8 @@
 <div class="container">
     <div class="login-box">
         <h2>User Login</h2>
-
-        <c:if test="${not empty success}">
-            <div class="alert alert-success">${message}</div>
-        </c:if>
         <c:if test="${not empty error}">
-            <div class="alert alert-danger">${error}</div>
+            <div class="alert alert-danger" id="errorAlert">${error}</div>
         </c:if>
 
         <form action="${pageContext.request.contextPath}/user/loginWithOtp" id="LoginForm" method="post">
@@ -196,6 +191,18 @@
                 e.preventDefault();
             }
         });
+
+        // --- FADING ERROR ---
+        const errorAlert = document.getElementById("errorAlert");
+        if (errorAlert) {
+            setTimeout(() => {
+                errorAlert.style.transition = "opacity 1s ease";
+                errorAlert.style.opacity = "0";
+                setTimeout(() => {
+                    errorAlert.style.display = "none";
+                }, 1000); // Wait for fade-out to finish before hiding it
+            }, 3000); // Wait 3 seconds before starting fade
+        }
     });
 </script>
 </body>
