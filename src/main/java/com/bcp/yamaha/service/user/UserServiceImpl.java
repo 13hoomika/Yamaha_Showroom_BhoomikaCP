@@ -8,6 +8,7 @@ import com.bcp.yamaha.exception.UserNotFoundException;
 import com.bcp.yamaha.repository.user.UserRepository;
 import com.bcp.yamaha.service.EmailService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
+import com.bcp.yamaha.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.regex.Pattern;
 
 @Service
 @Slf4j
@@ -164,14 +164,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean resetPassword(String email, String newPassword) {
-        Optional<UserEntity> optionalUser = userRepository.findUserByEmail(email);
-        if (!optionalUser.isPresent()) {
-            throw new UserNotFoundException("User not found with email: " + email);
-        }
+        userRepository.findUserByEmail(email)
+                .orElseThrow(() ->
+                        new UserNotFoundException("User not found. Please check your email or register first.")
+                );
+
         // Validate the new password
-        String PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
-        if (newPassword == null || !Pattern.matches(PASSWORD_REGEX, newPassword)) {
-            log.warn("Invalid New Password: {}", newPassword);
+        if (!ValidationUtil.isValidPassword(newPassword)) {
+            log.warn("Password validation failed for user: {}", email);
             log.warn("Invalid Password. Must be at least 8 characters long, include one uppercase letter, one lowercase letter, one digit, and one special character.");
             return false;
         }
