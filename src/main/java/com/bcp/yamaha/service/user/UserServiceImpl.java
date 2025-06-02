@@ -7,6 +7,7 @@ import com.bcp.yamaha.entity.UserEntity;
 import com.bcp.yamaha.exception.UserNotFoundException;
 import com.bcp.yamaha.repository.user.UserRepository;
 import com.bcp.yamaha.service.EmailService;
+import com.bcp.yamaha.service.OtpGeneratorService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
 import com.bcp.yamaha.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -29,18 +30,18 @@ public class UserServiceImpl implements UserService{
     @Autowired
     ShowroomService showroomService;
 
-//    @Autowired
-//    OtpGeneratorService otpGeneratorService;
+    @Autowired
+    OtpGeneratorService otpGeneratorService;
 
     @Autowired
     EmailService emailService;
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public String generateRandomPassword() {
+    /*public String generateRandomPassword() {
         int otp =  new Random().nextInt(900000) + 100000;
         return String.valueOf(otp);
-    }
+    }*/
 
     @Transactional
     @Override
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService{
         log.info("User registered: {}", userEntity.getUserEmail());
 
         if (isSaved){
-            String otp = generateRandomPassword();
+            String otp = otpGeneratorService.generateRandomPassword();
             String hashedOtp = passwordEncoder.encode(otp);
 
             userRepository.updatePassword(userEntity.getUserEmail(), hashedOtp);

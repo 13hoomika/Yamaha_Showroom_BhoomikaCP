@@ -4,6 +4,7 @@ import com.bcp.yamaha.dto.AdminDto;
 import com.bcp.yamaha.entity.AdminEntity;
 import com.bcp.yamaha.repository.admin.AdminRepository;
 import com.bcp.yamaha.service.EmailService;
+import com.bcp.yamaha.service.OtpGeneratorService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,14 +22,17 @@ public class AdminServiceImpl implements AdminService {
     private AdminRepository adminRepository;
 
     @Autowired
+    OtpGeneratorService otpGeneratorService;
+
+    @Autowired
     private EmailService emailService;
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public String generateRandomPassword() {
+    /*public String generateRandomPassword() {
         int otp =  new Random().nextInt(900000) + 100000;
         return String.valueOf(otp);
-    }
+    }*/
 
     @Transactional
     @Override
@@ -50,7 +54,7 @@ public class AdminServiceImpl implements AdminService {
     public boolean sendOtpToAdmin(String email) {
         Optional<AdminEntity> admin = adminRepository.findByEmail(email);
         if (admin.isPresent()){
-            String otp = generateRandomPassword();
+            String otp = otpGeneratorService.generateRandomPassword();
             adminRepository.updateOtp(email, otp, LocalDateTime.now());
             boolean emailSent = emailService.sendEmail(email, otp);
             if (emailSent) {
