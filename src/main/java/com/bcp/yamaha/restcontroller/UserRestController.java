@@ -26,6 +26,9 @@ public class UserRestController {
     @GetMapping(value = "/checkEmailValue/{email:.+}")
     public String getEmailCount(@PathVariable String email) {
         System.out.println("Received email in Controller: [" + email + "]");
+        if (!ValidationUtil.isValidEmail(email)){
+            return "Invalid email format";
+        }
 
         boolean isEmailExist = userService.existByEmail(email);
         System.out.println("isEmailExist: " + isEmailExist);
@@ -37,7 +40,7 @@ public class UserRestController {
     public String getPhCountForRegister(@PathVariable String phNo){
         System.out.println("Received phNo in Controller: [" + phNo + "]");
 
-        if (!ValidationUtil.isValidPhoneNumber(phNo)){
+        if (ValidationUtil.isValidPhoneNumber(phNo)){
             return "Invalid phone number format. phone number must be 10 digits and start with 9, 8, 7, or 6";
         }
         boolean isPhExist = userService.existByPhNumber(phNo);
@@ -53,7 +56,7 @@ public class UserRestController {
         System.out.println("Received DL Number: [" + dlNo + "]");
 
         // Validate format using regex (KA0120231234567 format)
-        if (!ValidationUtil.isValidDl(dlNo)) {
+        if (ValidationUtil.isValidDl(dlNo)) {
             return "Invalid DL number format (e.g., KA0120231234567)";
         }
 
@@ -70,7 +73,7 @@ public class UserRestController {
     public String getPhCountForUpdate(@PathVariable String phNo, @PathVariable String currentPh) {
         System.out.println("Received phNo: [" + phNo + "], CurrentPh: [" + currentPh + "]");
 
-        if (!ValidationUtil.isValidPhoneNumber(phNo)) {
+        if (ValidationUtil.isValidPhoneNumber(phNo)) {
             return "Invalid phone number, must be 10 digits and start with 9, 8, 7, or 6";
         }
 
@@ -88,7 +91,7 @@ public class UserRestController {
         System.out.println("Received DL Number: [" + dlNo + "], Current DL Number: [" + currentDlNo + "]");
 
         // Format validation (e.g., KA0120231234567)
-        if (!ValidationUtil.isValidDl(dlNo)) {
+        if (ValidationUtil.isValidDl(dlNo)) {
             return "Invalid DL number format (e.g., KA0120231234567)";
         }
 
