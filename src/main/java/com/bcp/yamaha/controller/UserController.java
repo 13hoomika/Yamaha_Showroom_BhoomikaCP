@@ -65,7 +65,7 @@ public class UserController {
         if (authenticatedUser != null ) {
             session.setAttribute("loggedInUser", authenticatedUser);
             log.info("User signed in successfully: {}", email);
-            return "redirect:/user/dashboard";
+            return "redirect:/user/bikes";
         }else {
             redirectAttributes.addFlashAttribute("error", "Invalid password. Please try again.");
             return "redirect:/user/login";
