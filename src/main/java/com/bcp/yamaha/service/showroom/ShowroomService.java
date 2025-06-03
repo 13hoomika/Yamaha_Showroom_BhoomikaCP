@@ -11,5 +11,8 @@ public interface ShowroomService {
 
     ShowroomDto getShowroomById(Integer showroomId);
 
+    boolean existByName(String showroomName);
+    boolean existByEmail(String email);
+
 //    void deleteById(int id);
 }

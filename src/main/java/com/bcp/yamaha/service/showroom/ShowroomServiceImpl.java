@@ -3,6 +3,7 @@ package com.bcp.yamaha.service.showroom;
 import com.bcp.yamaha.dto.ShowroomDto;
 import com.bcp.yamaha.entity.ShowroomEntity;
 import com.bcp.yamaha.repository.showroom.ShowroomRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional
 public class ShowroomServiceImpl implements ShowroomService {
@@ -41,7 +43,6 @@ public class ShowroomServiceImpl implements ShowroomService {
             //dto.setBikeCount(entity.getBikes() != null ? entity.getBikes().size() : 0);
             dtoList.add(dto);
         }
-        System.out.println("\nAll Showrooms from Service: " + dtoList);
         return dtoList;
     }
 
@@ -75,6 +76,22 @@ public class ShowroomServiceImpl implements ShowroomService {
             return dto;
         }
         return null;
+    }
+
+    @Override
+    public boolean existByName(String showroomName) {
+        System.out.println("checking showroom name existence in service..........");
+        boolean exists = showroomRepository.existByName(showroomName);
+        log.info("is emailExist in service: {}", showroomName);
+        return exists;
+    }
+
+    @Override
+    public boolean existByEmail(String email) {
+        System.out.println("invoking existByEmail in service..........");
+        boolean emailExist = showroomRepository.existByEmail(email);
+        System.out.println("is emailExist in service: " + emailExist);
+        return emailExist;
     }
 
     /*@Override
