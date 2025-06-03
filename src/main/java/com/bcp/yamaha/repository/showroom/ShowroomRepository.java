@@ -11,5 +11,9 @@ public interface ShowroomRepository {
     Long countAllShowroom();
     ShowroomEntity findById(Integer showroomId);
 
+    boolean existByName(String showroomName);
+
+    boolean existByEmail(String email);
+
 //    void deleteShowroom(int id);
 }

@@ -1,6 +1,7 @@
 package com.bcp.yamaha.repository.showroom;
 
 import com.bcp.yamaha.entity.ShowroomEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
+@Slf4j
 public class ShowroomRepositoryImpl implements ShowroomRepository{
     @PersistenceContext
     private EntityManager em;
@@ -26,7 +28,7 @@ public class ShowroomRepositoryImpl implements ShowroomRepository{
     @Override
     public List<ShowroomEntity> findAllShowroom() {
         List<ShowroomEntity> allShowrooms = em.createNamedQuery("findAllShowroom", ShowroomEntity.class).getResultList();
-        System.out.println("\nAll Showroom from Repo: " + allShowrooms);
+//        System.out.println("\nAll Showroom from Repo: " + allShowrooms);
         return allShowrooms;
     }
 
@@ -43,6 +45,41 @@ public class ShowroomRepositoryImpl implements ShowroomRepository{
             throw new RuntimeException("Showroom not found");
         }
         return showroom;
+    }
+
+    @Override
+    public boolean existByName(String showroomName) {
+        try {
+            String trimmedName = showroomName.trim();
+            log.debug("Checking showroom name in repo: [{}]", trimmedName);
+
+            Long count = em.createNamedQuery("showroomNameExist", Long.class)
+                    .setParameter("name", trimmedName)
+                    .getSingleResult();
+
+            log.debug("Showroom name count from repo: {}", count);
+            return count > 0;
+        } catch (Exception e) {
+            log.error("Database error while checking showroom name existence", e);
+            throw e;
+        }
+    }
+
+    @Override
+    public boolean existByEmail(String email) {
+        try {
+            System.out.println("Checking email in repo: [" + email + "]"); // Debugging
+
+            Long count = em.createNamedQuery("showroomEmailExist", Long.class)
+                    .setParameter("email", email.trim()) // Ensure no spaces
+                    .getSingleResult();
+
+            System.out.println("Email count from repo: " + count);
+            return count > 0;
+        } catch (Exception e) {
+            log.warn("Error checking email existence: {}", e.getMessage());
+            return false;
+        }
     }
 
     /*@Override
