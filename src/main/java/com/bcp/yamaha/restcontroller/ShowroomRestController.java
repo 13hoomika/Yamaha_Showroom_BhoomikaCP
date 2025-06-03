@@ -29,7 +29,7 @@ public class ShowroomRestController {
     @GetMapping(value = "/checkEmailValue/{email:.+}")
     public String getEmailCountAndValidate(@PathVariable String email) {
         System.out.println("Received showroom email in RestController: [" + email + "]");
-        if (ValidationUtil.isValidEmail(email)){
+        if (!ValidationUtil.isValidEmail(email)){
             return "Invalid email format";
         }
 

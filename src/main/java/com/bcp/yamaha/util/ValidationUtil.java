@@ -14,7 +14,7 @@ public class ValidationUtil {
     }
 
     public static boolean isValidEmail(String email) {
-        return email == null || !email.matches(EMAIL_REGEX);
+        return email != null && email.matches(EMAIL_REGEX);
     }
 
     public static boolean isValidPhoneNumber(String phoneNumber) {
