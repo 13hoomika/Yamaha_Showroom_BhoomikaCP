@@ -193,16 +193,16 @@
         });
 
         // --- FADING ERROR ---
-        const errorAlert = document.getElementById("errorAlert");
-        if (errorAlert) {
-            setTimeout(() => {
-                errorAlert.style.transition = "opacity 1s ease";
-                errorAlert.style.opacity = "0";
-                setTimeout(() => {
-                    errorAlert.style.display = "none";
-                }, 1000); // Wait for fade-out to finish before hiding it
-            }, 3000); // Wait 3 seconds before starting fade
-        }
+        //const errorAlert = document.getElementById("errorAlert");
+        // if (errorAlert) {
+        //    setTimeout(() => {
+        //        errorAlert.style.transition = "opacity 1s ease";
+        //        errorAlert.style.opacity = "0";
+        //        setTimeout(() => {
+        //            errorAlert.style.display = "none";
+        //        }, 1000); // Wait for fade-out to finish before hiding it
+        //    }, 3000); // Wait 3 seconds before starting fade
+        //}
     });
 </script>
 </body>
