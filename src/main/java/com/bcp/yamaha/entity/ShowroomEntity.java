@@ -16,6 +16,8 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "findAllShowroom", query = "SELECT DISTINCT s FROM ShowroomEntity s LEFT JOIN FETCH s.bikes"),
         @NamedQuery(name = "countAllShowroom", query = "SELECT COUNT(showroom) FROM ShowroomEntity showroom"),
+        @NamedQuery(name = "showroomNameExist", query = "SELECT COUNT(showroom) FROM ShowroomEntity showroom WHERE showroom.showroomName = :name"),
+        @NamedQuery(name = "showroomEmailExist", query = "SELECT COUNT(showroom) FROM ShowroomEntity showroom WHERE showroom.showroomEmail = :email"),
 //        @NamedQuery(name = "deleteShowroom", query = "DELETE FROM ShowroomEntity s WHERE s.showroomId = :id"),
 })
 public class ShowroomEntity extends AuditEntity{
