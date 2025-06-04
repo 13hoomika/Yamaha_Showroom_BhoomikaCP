@@ -59,3 +59,260 @@
 2025-06-04 10:07:54 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Returning profile data for user: komla@gmail.com
 2025-06-04 10:08:42 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Returning profile data for user: komla@gmail.com
 2025-06-04 10:09:12 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Logging out
+2025-06-04 15:08:30 DEBUG [main] c.b.y.configuration.WebInitializer - No ContextLoaderListener registered, as createRootApplicationContext() did not return an application context
+2025-06-04 15:08:32 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-04 15:08:32 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-06-04 15:08:32 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-06-04 15:08:33 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-06-04 15:08:34 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.0.Final
+2025-06-04 15:08:35 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-04 15:25:53 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Login attempt for email: komla@gmail.com
+2025-06-04 15:25:54 DEBUG [http-nio-8080-exec-6] c.b.y.service.user.UserServiceImpl - Initial user state - Count: 0, Locked: false, LastLogin: null
+2025-06-04 15:25:54 DEBUG [http-nio-8080-exec-6] c.b.y.service.user.UserServiceImpl - Committing login status update for user: komla@gmail.com
+2025-06-04 15:26:17 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Login attempt for email: komla@gmail.com
+2025-06-04 15:26:17 DEBUG [http-nio-8080-exec-1] c.b.y.service.user.UserServiceImpl - Initial user state - Count: 1, Locked: false, LastLogin: null
+2025-06-04 15:26:17 INFO  [http-nio-8080-exec-1] c.b.y.service.user.UserServiceImpl - User authenticated: komla@gmail.com
+2025-06-04 15:26:17 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - User signed in successfully: komla@gmail.com
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=back_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=front_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Streaming image back_YamahaR3.webp with content type image/webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Streaming image front_YamahaR3.webp with content type image/webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=right_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=left_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Streaming image left_YamahaR3.webp with content type image/webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Streaming image right_YamahaR3.webp with content type image/webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=front_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Streaming image front_R3.png with content type image/png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Successfully streamed image back_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Successfully streamed image left_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Successfully streamed image right_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Successfully streamed image front_YamahaR3.webp
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Successfully streamed image front_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-10] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=back_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-10] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-10] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-10] c.b.yamaha.controller.UserController - Streaming image back_R3.png with content type image/png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=left_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Streaming image left_R3.png with content type image/png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=right_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Streaming image right_R3.png with content type image/png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-10] c.b.yamaha.controller.UserController - Successfully streamed image back_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Successfully streamed image left_R3.png
+2025-06-04 15:26:18 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Successfully streamed image right_R3.png
+2025-06-04 15:26:33 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Returning profile data for user: komla@gmail.com
+2025-06-04 15:26:39 INFO  [http-nio-8080-exec-4] c.b.yamaha.controller.UserController - Controller updateProfileEmail started for email: komla@gmail.com
+2025-06-04 15:26:40 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Returning profile data for user: komla@gmail.com
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-4] c.b.yamaha.controller.UserController - Login attempt for email: komla@gmail.com
+2025-06-04 15:27:40 DEBUG [http-nio-8080-exec-4] c.b.y.service.user.UserServiceImpl - Initial user state - Count: 0, Locked: false, LastLogin: null
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-4] c.b.y.service.user.UserServiceImpl - User authenticated: komla@gmail.com
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-4] c.b.yamaha.controller.UserController - User signed in successfully: komla@gmail.com
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=front_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Streaming image front_YamahaR3.webp with content type image/webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Successfully streamed image front_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=back_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Streaming image back_YamahaR3.webp with content type image/webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Successfully streamed image back_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=left_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Streaming image left_YamahaR3.webp with content type image/webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Successfully streamed image left_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=right_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Streaming image right_YamahaR3.webp with content type image/webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Successfully streamed image right_YamahaR3.webp
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=front_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=back_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=left_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Streaming image front_R3.png with content type image/png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Streaming image left_R3.png with content type image/png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Streaming image back_R3.png with content type image/png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=right_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Streaming image right_R3.png with content type image/png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Successfully streamed image front_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Successfully streamed image back_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Successfully streamed image left_R3.png
+2025-06-04 15:27:40 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Successfully streamed image right_R3.png
+2025-06-04 15:27:45 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Returning profile data for user: komla@gmail.com
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=back_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=front_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Streaming image back_YamahaR3.webp with content type image/webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Streaming image front_YamahaR3.webp with content type image/webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Successfully streamed image back_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Successfully streamed image front_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=right_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=left_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=right_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=front_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=left_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=back_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Streaming image right_R3.png with content type image/png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Streaming image left_R3.png with content type image/png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Streaming image right_YamahaR3.webp with content type image/webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Successfully streamed image left_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Streaming image left_YamahaR3.webp with content type image/webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Successfully streamed image right_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Streaming image back_R3.png with content type image/png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Streaming image front_R3.png with content type image/png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Successfully streamed image left_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-1] c.b.yamaha.controller.UserController - Successfully streamed image right_YamahaR3.webp
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Successfully streamed image front_R3.png
+2025-06-04 15:27:49 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Successfully streamed image back_R3.png
+2025-06-04 15:27:54 INFO  [http-nio-8080-exec-4] c.b.yamaha.controller.UserController - Returning profile data for user: komla@gmail.com
+2025-06-04 15:27:57 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Logging out
+2025-06-04 19:03:18 DEBUG [main] c.b.y.configuration.WebInitializer - No ContextLoaderListener registered, as createRootApplicationContext() did not return an application context
+2025-06-04 19:03:18 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-04 19:03:19 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-06-04 19:03:19 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-06-04 19:03:20 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-06-04 19:03:20 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.0.Final
+2025-06-04 19:03:22 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-04 19:03:54 DEBUG [http-nio-8080-exec-8] com.bcp.yamaha.service.EmailService - Email sent successfully to: bhoomikacp24@gmail.com
+2025-06-04 19:11:26 DEBUG [http-nio-8080-exec-2] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [B]
+2025-06-04 19:11:26 DEBUG [http-nio-8080-exec-2] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:26 INFO  [http-nio-8080-exec-2] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: B
+2025-06-04 19:11:27 DEBUG [http-nio-8080-exec-7] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [B]
+2025-06-04 19:11:27 DEBUG [http-nio-8080-exec-7] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:27 INFO  [http-nio-8080-exec-7] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: B
+2025-06-04 19:11:28 DEBUG [http-nio-8080-exec-6] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Bw]
+2025-06-04 19:11:28 DEBUG [http-nio-8080-exec-6] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:28 INFO  [http-nio-8080-exec-6] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Bw
+2025-06-04 19:11:29 DEBUG [http-nio-8080-exec-4] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [B]
+2025-06-04 19:11:29 DEBUG [http-nio-8080-exec-4] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:29 INFO  [http-nio-8080-exec-4] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: B
+2025-06-04 19:11:29 DEBUG [http-nio-8080-exec-8] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Be]
+2025-06-04 19:11:29 DEBUG [http-nio-8080-exec-8] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:29 INFO  [http-nio-8080-exec-8] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Be
+2025-06-04 19:11:51 DEBUG [http-nio-8080-exec-10] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Ben]
+2025-06-04 19:11:51 DEBUG [http-nio-8080-exec-10] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:51 INFO  [http-nio-8080-exec-10] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Ben
+2025-06-04 19:11:52 DEBUG [http-nio-8080-exec-2] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Beng]
+2025-06-04 19:11:52 DEBUG [http-nio-8080-exec-2] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:52 INFO  [http-nio-8080-exec-2] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Beng
+2025-06-04 19:11:53 DEBUG [http-nio-8080-exec-3] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Benga]
+2025-06-04 19:11:53 DEBUG [http-nio-8080-exec-3] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:53 INFO  [http-nio-8080-exec-3] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Benga
+2025-06-04 19:11:53 DEBUG [http-nio-8080-exec-5] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Bengal]
+2025-06-04 19:11:53 DEBUG [http-nio-8080-exec-5] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:53 INFO  [http-nio-8080-exec-5] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Bengal
+2025-06-04 19:11:53 DEBUG [http-nio-8080-exec-9] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Bengalo]
+2025-06-04 19:11:53 DEBUG [http-nio-8080-exec-9] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:53 INFO  [http-nio-8080-exec-9] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Bengalo
+2025-06-04 19:11:54 DEBUG [http-nio-8080-exec-7] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Bengalor]
+2025-06-04 19:11:54 DEBUG [http-nio-8080-exec-7] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:54 INFO  [http-nio-8080-exec-7] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Bengalor
+2025-06-04 19:11:54 DEBUG [http-nio-8080-exec-6] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Bengalore]
+2025-06-04 19:11:54 DEBUG [http-nio-8080-exec-6] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:54 INFO  [http-nio-8080-exec-6] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Bengalore
+2025-06-04 19:11:55 DEBUG [http-nio-8080-exec-4] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Bengalore]
+2025-06-04 19:11:55 DEBUG [http-nio-8080-exec-4] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:55 INFO  [http-nio-8080-exec-4] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Bengalore
+2025-06-04 19:11:55 DEBUG [http-nio-8080-exec-8] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Bengalore W]
+2025-06-04 19:11:55 DEBUG [http-nio-8080-exec-8] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:55 INFO  [http-nio-8080-exec-8] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Bengalore W
+2025-06-04 19:11:55 DEBUG [http-nio-8080-exec-1] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Bengalore Wh]
+2025-06-04 19:11:55 DEBUG [http-nio-8080-exec-1] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:55 INFO  [http-nio-8080-exec-1] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Bengalore Wh
+2025-06-04 19:11:55 DEBUG [http-nio-8080-exec-10] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Bengalore Whe]
+2025-06-04 19:11:55 DEBUG [http-nio-8080-exec-10] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:55 INFO  [http-nio-8080-exec-10] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Bengalore Whe
+2025-06-04 19:11:56 DEBUG [http-nio-8080-exec-2] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Bengalore Whee]
+2025-06-04 19:11:56 DEBUG [http-nio-8080-exec-2] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:56 INFO  [http-nio-8080-exec-2] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Bengalore Whee
+2025-06-04 19:11:56 DEBUG [http-nio-8080-exec-3] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Bengalore Wheel]
+2025-06-04 19:11:56 DEBUG [http-nio-8080-exec-3] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:56 INFO  [http-nio-8080-exec-3] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Bengalore Wheel
+2025-06-04 19:11:56 DEBUG [http-nio-8080-exec-5] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Bengalore Wheels]
+2025-06-04 19:11:56 DEBUG [http-nio-8080-exec-5] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 0
+2025-06-04 19:11:56 INFO  [http-nio-8080-exec-5] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Bengalore Wheels
+2025-06-04 19:17:15 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Login attempt for email: komla@gmail.com
+2025-06-04 19:17:15 DEBUG [http-nio-8080-exec-5] c.b.y.service.user.UserServiceImpl - Initial user state - Count: 0, Locked: false, LastLogin: null
+2025-06-04 19:17:17 DEBUG [http-nio-8080-exec-5] c.b.y.service.user.UserServiceImpl - Committing login status update for user: komla@gmail.com
+2025-06-04 20:29:31 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Login attempt for email: komla@gmail.com
+2025-06-04 20:29:31 DEBUG [http-nio-8080-exec-2] c.b.y.service.user.UserServiceImpl - Initial user state - Count: 1, Locked: false, LastLogin: null
+2025-06-04 20:29:31 INFO  [http-nio-8080-exec-2] c.b.y.service.user.UserServiceImpl - User authenticated: komla@gmail.com
+2025-06-04 20:29:31 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - User signed in successfully: komla@gmail.com
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=front_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Streaming image front_YamahaR3.webp with content type image/webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-3] c.b.yamaha.controller.UserController - Successfully streamed image front_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=left_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=back_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Streaming image back_YamahaR3.webp with content type image/webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Streaming image left_YamahaR3.webp with content type image/webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-6] c.b.yamaha.controller.UserController - Successfully streamed image back_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-9] c.b.yamaha.controller.UserController - Successfully streamed image left_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Received request for image: bikeId=1, imageName=right_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Streaming image right_YamahaR3.webp with content type image/webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-5] c.b.yamaha.controller.UserController - Successfully streamed image right_YamahaR3.webp
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-10] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=front_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=back_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-10] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\back_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=left_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-10] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\front_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Streaming image back_R3.png with content type image/png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\left_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-10] c.b.yamaha.controller.UserController - Streaming image front_R3.png with content type image/png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Streaming image left_R3.png with content type image/png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Received request for image: bikeId=2, imageName=right_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Attempting to load file from path: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Image file FOUND: D:\06 GO19ROM Aug19\Project Phase\BikeShowroom Project draft\archive of bike showroom\Yamaha_Showroom_BhoomikaCP - trying 4404\src\main\webapp\static\images\bike-images\right_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-2] c.b.yamaha.controller.UserController - Successfully streamed image back_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Streaming image right_R3.png with content type image/png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-10] c.b.yamaha.controller.UserController - Successfully streamed image front_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-8] c.b.yamaha.controller.UserController - Successfully streamed image left_R3.png
+2025-06-04 20:29:33 INFO  [http-nio-8080-exec-7] c.b.yamaha.controller.UserController - Successfully streamed image right_R3.png
+2025-06-04 20:33:53 INFO  [http-nio-8080-exec-4] c.b.yamaha.controller.UserController - Logging out
