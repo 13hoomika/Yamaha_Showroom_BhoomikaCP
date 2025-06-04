@@ -1,6 +1,6 @@
 package com.bcp.yamaha.util;
 
-public class StringUtil {
+public class FormatUtil {
     public static String capitalize(String input) {
         if (input == null || input.isEmpty()) return input;
         input = input.trim().toLowerCase();
