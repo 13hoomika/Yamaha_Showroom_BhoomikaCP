@@ -1,0 +1,129 @@
+2025-06-03 21:30:58 DEBUG [main] c.b.y.configuration.WebInitializer - No ContextLoaderListener registered, as createRootApplicationContext() did not return an application context
+2025-06-03 21:30:59 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-03 21:30:59 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-06-03 21:31:00 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-06-03 21:31:02 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-06-03 21:31:05 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.0.Final
+2025-06-03 21:31:08 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-03 21:31:33 DEBUG [http-nio-8080-exec-6] com.bcp.yamaha.service.EmailService - Email sent successfully to: bhoomikacp24@gmail.com
+2025-06-03 21:35:10 WARN  [http-nio-8080-exec-5] o.s.web.servlet.PageNotFound - No mapping for GET /Yamaha_Showroom_BhoomikaCP/checkShowroomName/Perfect%20Riders
+2025-06-03 21:37:17 DEBUG [main] c.b.y.configuration.WebInitializer - No ContextLoaderListener registered, as createRootApplicationContext() did not return an application context
+2025-06-03 21:37:18 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-03 21:37:18 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-06-03 21:37:18 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-06-03 21:37:20 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-06-03 21:37:22 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.0.Final
+2025-06-03 21:37:26 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-03 21:37:45 DEBUG [http-nio-8080-exec-1] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Perfect Riders]
+2025-06-03 21:37:45 DEBUG [http-nio-8080-exec-1] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 1
+2025-06-03 21:37:45 INFO  [http-nio-8080-exec-1] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Perfect Riders
+2025-06-03 21:38:13 DEBUG [http-nio-8080-exec-4] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Perfect Riders]
+2025-06-03 21:38:13 DEBUG [http-nio-8080-exec-4] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 1
+2025-06-03 21:38:13 INFO  [http-nio-8080-exec-4] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Perfect Riders
+2025-06-03 21:49:28 DEBUG [main] c.b.y.configuration.WebInitializer - No ContextLoaderListener registered, as createRootApplicationContext() did not return an application context
+2025-06-03 21:49:29 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-03 21:49:29 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-06-03 21:49:30 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-06-03 21:49:31 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-06-03 21:49:32 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.0.Final
+2025-06-03 21:49:34 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-03 21:49:35 WARN  [main] o.s.w.c.s.AnnotationConfigWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'userRestController' method 
+com.bcp.yamaha.restcontroller.UserRestController#getEmailCount(String)
+to {GET [/checkEmailValue/{email:.+}]}: There is already 'showroomRestController' bean method
+com.bcp.yamaha.restcontroller.ShowroomRestController#getEmailCountAndValidate(String) mapped.
+2025-06-03 21:49:35 ERROR [main] o.s.web.servlet.DispatcherServlet - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'userRestController' method 
+com.bcp.yamaha.restcontroller.UserRestController#getEmailCount(String)
+to {GET [/checkEmailValue/{email:.+}]}: There is already 'showroomRestController' bean method
+com.bcp.yamaha.restcontroller.ShowroomRestController#getEmailCountAndValidate(String) mapped.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:929)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:591)
+	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:702)
+	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:578)
+	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:530)
+	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:170)
+	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1134)
+	at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:986)
+	at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:4864)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5173)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:717)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:690)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:706)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:631)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1830)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:112)
+	at org.apache.catalina.startup.HostConfig.deployDescriptors(HostConfig.java:526)
+	at org.apache.catalina.startup.HostConfig.deployApps(HostConfig.java:425)
+	at org.apache.catalina.startup.HostConfig.start(HostConfig.java:1576)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:309)
+	at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:123)
+	at org.apache.catalina.util.LifecycleBase.setStateInternal(LifecycleBase.java:423)
+	at org.apache.catalina.util.LifecycleBase.setState(LifecycleBase.java:366)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:936)
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:843)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1384)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1374)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:909)
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:262)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:421)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:930)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.startup.Catalina.start(Catalina.java:772)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:342)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:473)
+Caused by: java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'userRestController' method 
+com.bcp.yamaha.restcontroller.UserRestController#getEmailCount(String)
+to {GET [/checkEmailValue/{email:.+}]}: There is already 'showroomRestController' bean method
+com.bcp.yamaha.restcontroller.ShowroomRestController#getEmailCountAndValidate(String) mapped.
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.validateMethodMapping(AbstractHandlerMethodMapping.java:671)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:636)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.registerHandlerMethod(AbstractHandlerMethodMapping.java:332)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:420)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:76)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lambda$detectHandlerMethods$2(AbstractHandlerMethodMapping.java:299)
+	at java.util.LinkedHashMap.forEach(LinkedHashMap.java:684)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.detectHandlerMethods(AbstractHandlerMethodMapping.java:297)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.processCandidateBean(AbstractHandlerMethodMapping.java:266)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.initHandlerMethods(AbstractHandlerMethodMapping.java:225)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.afterPropertiesSet(AbstractHandlerMethodMapping.java:213)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.afterPropertiesSet(RequestMappingHandlerMapping.java:205)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
+	... 57 common frames omitted
+2025-06-03 22:07:05 DEBUG [main] c.b.y.configuration.WebInitializer - No ContextLoaderListener registered, as createRootApplicationContext() did not return an application context
+2025-06-03 22:07:07 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-03 22:07:07 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-06-03 22:07:07 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-06-03 22:07:09 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-06-03 22:07:11 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.0.Final
+2025-06-03 22:07:17 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-03 22:09:36 DEBUG [http-nio-8080-exec-1] com.bcp.yamaha.service.EmailService - Email sent successfully to: bhoomikacp24@gmail.com
+2025-06-03 22:15:29 DEBUG [http-nio-8080-exec-2] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Perfect Riders]
+2025-06-03 22:15:29 DEBUG [http-nio-8080-exec-2] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 1
+2025-06-03 22:15:29 INFO  [http-nio-8080-exec-2] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Perfect Riders
+2025-06-03 22:16:43 DEBUG [http-nio-8080-exec-4] c.b.y.r.s.ShowroomRepositoryImpl - Checking showroom name in repo: [Perfect Riders]
+2025-06-03 22:16:43 DEBUG [http-nio-8080-exec-4] c.b.y.r.s.ShowroomRepositoryImpl - Showroom name count from repo: 1
+2025-06-03 22:16:43 INFO  [http-nio-8080-exec-4] c.b.y.s.showroom.ShowroomServiceImpl - is emailExist in service: Perfect Riders
