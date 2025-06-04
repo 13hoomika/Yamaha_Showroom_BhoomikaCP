@@ -29,6 +29,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -388,43 +390,42 @@ public class AdminController {
             return "redirect:/admin/login";
         }
 
-        String uploadDir = "D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP\\src\\main\\webapp\\static\\images\\showroom-Images\\";
-
+        // Get the real path to upload directory
+        String uploadDir = session.getServletContext().getRealPath("/static/images/showroom-Images/");
         Files.createDirectories(Paths.get(uploadDir)); // Ensure upload dir exists
+
+        // Format for filename date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+        String currentDateTime = LocalDateTime.now().format(formatter);
 
         if (multipartFile != null && !multipartFile.isEmpty()) {
             String originalFilename = multipartFile.getOriginalFilename();
-
             if (originalFilename != null && originalFilename.contains(".")) {
                 String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
                 String newFileName = showroomDto.getShowroomName().replaceAll("[^a-zA-Z0-9]", "_") +
-                        "_" + System.currentTimeMillis() + extension;
+                        "_" + currentDateTime + extension;
+
                 Path path = Paths.get(uploadDir + newFileName);
                 Files.write(path, multipartFile.getBytes());
+
                 showroomDto.setShowroomImg(newFileName);
-                System.out.println("✔️ Image uploaded: " + newFileName);
+                log.info("Image uploaded: {}", newFileName);
             } else {
-                System.out.println("❌ Invalid image file.");
+                log.warn("Invalid image file.");
             }
         } else {
-            System.out.println("❌ Image not provided.");
+            log.warn("No image file provided.");
         }
 
         // capitalizeWords showroom name if applicable
-        if (showroomDto != null) {
-            String formattedShowroomName = StringUtil.capitalizeWords(showroomDto.getShowroomName());
-            showroomDto.setShowroomName(formattedShowroomName);
+        showroomDto.setShowroomName(FormatUtil.capitalizeWords(showroomDto.getShowroomName()));
+        showroomDto.setShowroomManager(FormatUtil.capitalizeWords(showroomDto.getShowroomManager()));
+        showroomDto.setShowroomAddress(FormatUtil.capitalizeWords(showroomDto.getShowroomAddress()));
 
-            String formattedShowroomManager = StringUtil.capitalizeWords(showroomDto.getShowroomManager());
-            showroomDto.setShowroomManager(formattedShowroomManager);
-
-            String formattedShowroomAddress = StringUtil.capitalizeWords(showroomDto.getShowroomAddress());
-            showroomDto.setShowroomAddress(formattedShowroomAddress);
-        }
-
+        //save
         boolean isAdded = showroomService.addShowroom(showroomDto);
         if (isAdded) {
-            System.out.println("added showroom dto: " + showroomDto);
+            log.info("added showroom dto: {}", showroomDto);
             redirectAttributes.addFlashAttribute("showroomSuccessMessage", "Showroom added successfully!");
             return "redirect:/admin/manage-showrooms";
         } else {
