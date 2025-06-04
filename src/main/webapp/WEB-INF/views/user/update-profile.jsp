@@ -54,8 +54,7 @@
                     <div class="col-md-6">
                         <label for="userName" class="form-label">Name</label>
                         <input type="text" class="form-control" id="userName" name="userName"
-                               placeholder="Enter name" value="${profile.userName}" onchange="validateUserName()" required
-                        oninput="validateUserName()">
+                               placeholder="Enter name" value="${profile.userName}" onchange="validateName('userName','userNameError','/user/checkUserName/')" required>
                         <span id="userNameError" class="validation-error""></span>
                     </div>
 
