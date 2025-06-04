@@ -46,7 +46,7 @@ function checkPhNoForRegister() {
    console.log(checkPhValue);
    if (checkPhValue != "") {
        var xhttp = new XMLHttpRequest();
-       xhttp.open("GET", contextPath + "/checkPhValue/" + checkPhValue);
+       xhttp.open("GET", contextPath + "/user/checkPhValue/" + checkPhValue);
        xhttp.send();
        xhttp.onload = function () {
            console.log(this.responseText);
@@ -67,7 +67,7 @@ function validateDrivingLicense() {
 
     if (checkDlInput != "") {
          var xhttp = new XMLHttpRequest();
-         xhttp.open("GET", contextPath + "/checkDlNumber/" + checkDlInput);
+         xhttp.open("GET", contextPath + "/user/checkDlNumber/" + checkDlInput);
          xhttp.send();
          xhttp.onload = function () {
              console.log(this.responseText);
@@ -91,7 +91,7 @@ function checkPhNoForUpdate() {
 
     // AJAX or fetch to check uniqueness
     if (phone !== current) {
-        fetch(contextPath + "/checkPhValue/" + phone + "/" + current)
+        fetch(contextPath + "/user/checkPhValue/" + phone + "/" + current)
             .then(res => res.text())
             .then(msg => {
                 errorSpan.innerText = msg;
@@ -114,7 +114,7 @@ function checkDlNoForUpdate() {
     // Only check with server if changed
     if (dl !== current) {
         const xhttp = new XMLHttpRequest();
-        xhttp.open("GET", contextPath + "/checkDlNumber/" + dl + "/" + current, true);
+        xhttp.open("GET", contextPath + "/user/checkDlNumber/" + dl + "/" + current, true);
         xhttp.send();
         xhttp.onload = function () {
             console.log("DL Check Response:", this.responseText);
