@@ -38,26 +38,29 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="showroomName" class="form-label">Showroom Name</label>
-                                <input type="text" class="form-control" id="showroomName" name="showroomName"
+                                <input type="text" class="form-control" id="showroomName" name="showroomName" placeholder="Enter showroom name"
                                         oninput="validateName('showroomName', 'showroomNameError', '/showroom/checkShowroomName/')" required>
                                 <span id="showroomNameError" class="validation-error"></span>
                             </div>
                             <div class="col-md-6">
                                 <label for="showroomManager" class="form-label">Manager</label>
-                                <input type="text" class="form-control" id="showroomManager" name="showroomManager" required>
+                                <input type="text" class="form-control" id="showroomManager" name="showroomManager"
+                                    placeholder="Enter manager name" required>
                             </div>
                             <div class="col-12">
                                 <label for="showroomAddress" class="form-label">Full Address</label>
-                                <textarea class="form-control" id="showroomAddress" name="showroomAddress" rows="2" required></textarea>
+                                <textarea class="form-control" id="showroomAddress" name="showroomAddress" rows="2"
+                                    placeholder="Enter full showroom address" required></textarea>
                             </div>
                             <div class="col-md-6">
-                                <label for="showroomPhone" class="form-label">Contact Phone</label>
-                                <input type="tel" class="form-control" id="showroomPhone" name="showroomPhone" required>
+                                <label for="showroomPhone" class="form-label">Contact Number</label>
+                                <input type="tel" class="form-control" id="showroomPhone" name="showroomPhone"
+                                    placeholder="Enter contact number" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="showroomEmail" class="form-label">Contact Email</label>
                                 <input type="email" class="form-control" id="showroomEmail" name="showroomEmail"
-                                           oninput="checkEmail('showroomEmail', 'emailError', '/showroom/checkEmailValue/')" required>
+                                    placeholder="Enter contact email" oninput="checkEmail('showroomEmail', 'emailError', '/showroom/checkEmailValue/')" required>
                                 <span id="emailError" class="validation-error"></span>
                             </div>
                             <div class="col-md-12">
