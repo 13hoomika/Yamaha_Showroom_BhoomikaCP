@@ -8,7 +8,7 @@ import com.bcp.yamaha.service.bike.BikeService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
 import com.bcp.yamaha.service.user.FollowUpService;
 import com.bcp.yamaha.service.user.UserService;
-import com.bcp.yamaha.util.StringUtil;
+import com.bcp.yamaha.util.FormatUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -192,12 +191,12 @@ public class AdminController {
 
         /*// capitalizeWords user name
         if (userDto.getUserName() != null) {
-            String formattedUserName = StringUtil.capitalizeWords(userDto.getUserName());
+            String formattedUserName = FormatUtil.capitalizeWords(userDto.getUserName());
             userDto.setUserName(formattedUserName);
         }*/
 
         Optional.ofNullable(userDto.getUserName())
-                .map(StringUtil::capitalizeWords)
+                .map(FormatUtil::capitalizeWords)
                 .ifPresent(userDto::setUserName);
 
         try {
@@ -252,10 +251,8 @@ public class AdminController {
             bikeDto.setImages(images);
             System.out.println(bikeDto);
 
-            if (bikeDto != null) {
-                String formattedModel = StringUtil.capitalizeWords(bikeDto.getBikeModel());
-                bikeDto.setBikeModel(formattedModel);
-            }
+            String formattedModel = FormatUtil.capitalizeWords(bikeDto.getBikeModel());
+            bikeDto.setBikeModel(formattedModel);
 
             try {
                 bikeService.addBike(bikeDto);
