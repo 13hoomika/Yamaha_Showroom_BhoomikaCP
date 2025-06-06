@@ -44,45 +44,45 @@
                     <form action="registerUser" method="post">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="userName" class="form-label">Name</label>
+                                <label for="userName" class="form-label required-field" >Name</label>
                                 <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter name" required
                                 oninput="validateUserName()">
                                 <span id="userNameError" class="validation-error""></span>
                             </div>
 
                             <div class="col-md-6">
-                                <label for="userEmail" class="form-label">Email</label>
+                                <label for="userEmail" class="form-label required-field" >Email</label>
                                 <input type="email" class="form-control" id="userEmail" name="userEmail"
                                     placeholder="youremail@gmail.com" oninput="checkEmail()" required>
                                 <span id="emailError" class="validation-error""></span>
                             </div>
 
                             <div class="col-md-4">
-                                <label for="userAge" class="form-label">Age</label>
+                                <label for="userAge" class="form-label required-field" >Age</label>
                                 <input type="number" class="form-control" id="userAge" name="userAge" placeholder="Your age" required>
                             </div>
 
                             <div class="col-md-8">
-                                <label for="userPhoneNumber" class="form-label">Phone</label>
+                                <label for="userPhoneNumber" class="form-label required-field" >Phone</label>
                                 <input type="tel" class="form-control" id="userPhoneNumber" name="userPhoneNumber"
                                     placeholder="10 digit phone" onchange="checkPhNoForRegister()" required>
                                 <span id="phNoError" class="validation-error""></span>
                             </div>
 
                             <div class="col-md-12">
-                                <label for="userAddress" class="form-label">Address</label>
+                                <label for="userAddress" class="form-label required-field" >Address</label>
                                 <input type="text" class="form-control" id="userAddress" name="userAddress" placeholder="Enter address" required>
                             </div>
 
                             <div class="col-md-12">
-                                <label for="drivingLicenseNumber" class="form-label">Driving License Number</label>
+                                <label for="drivingLicenseNumber" class="form-label required-field" >Driving License Number</label>
                                 <input type="text" class="form-control" id="drivingLicenseNumber" name="drivingLicenseNumber" placeholder="KA1234567890123" required
                                 onchange="validateDrivingLicense()">
-                                <span id="dlNoError" class="validation-error""></span>
+                                <span id="dlNoError" class="validation-error"></span>
                             </div>
 
                             <div class="col-md-4">
-                                <label for="bikeType" class="form-label">Bike Type</label>
+                                <label for="bikeType" class="form-label required-field" >Bike Type</label>
                                 <select class="form-select" id="bikeType" name="bikeType">
                                     <option value="">Select</option>
                                     <c:forEach var="type" items="${bikeTypes}">
@@ -92,7 +92,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <label for="showroom" class="form-label">Showroom</label>
+                                <label for="showroom" class="form-label required-field" >Showroom</label>
                                 <select class="form-select" id="showroom" name="showroomId" required>
                                     <option value="">Select Showroom</option>
                                     <c:forEach items="${showrooms}" var="showroom">
@@ -104,7 +104,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <label for="scheduleType" class="form-label">Schedule</label>
+                                <label for="scheduleType" class="form-label required-field" >Schedule</label>
                                 <select class="form-select" id="scheduleType" name="scheduleType">
                                     <option value="">Select</option>
                                     <c:forEach var="type" items="${scheduleTypeList}">
@@ -115,11 +115,11 @@
 
                             <div id="scheduleDetails" class="row g-3 d-none mt-2">
                                 <div class="col-md-6">
-                                    <label for="scheduleDate" class="form-label">Preferred Date</label>
+                                    <label for="scheduleDate" class="form-label required-field" >Preferred Date</label>
                                     <input type="date" class="form-control" id="scheduleDate" name="scheduleDate" min="">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="scheduleTime" class="form-label">Preferred Time</label>
+                                    <label for="scheduleTime" class="form-label required-field" >Preferred Time</label>
                                     <input type="time" class="form-control" id="scheduleTime" name="scheduleTime" min="09:00" max="17:00">
                                     <small class="text-muted">Select between 9:00 AM and 5:00 PM</small>
                                 </div>

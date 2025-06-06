@@ -181,6 +181,11 @@ body {
   border-color: box-shadow: 0 0 0 0.25rem var(--blue-shadow);
 }
 
+.required-field::after {
+    content: " *";
+    color: red;
+}
+
 /* Tables */
 .table {
   width: 100%;
