@@ -56,7 +56,8 @@
                             <div class="col-md-6">
                                 <label for="showroomPhone" class="form-label">Contact Number</label>
                                 <input type="tel" class="form-control" id="showroomPhone" name="showroomPhone"
-                                    placeholder="Enter contact number" required>
+                                    placeholder="Enter contact number" onchange="checkPhNo('showroomPhone','ContactError','/showroom/checkPhValue/')" required>
+                                <span id="ContactError" class="validation-error"></span>
                             </div>
                             <div class="col-md-6">
                                 <label for="showroomEmail" class="form-label">Contact Email</label>
@@ -138,14 +139,14 @@
      const showroomImg = document.getElementById('imageInput').value.trim();
 
      const nameError = document.getElementById('showroomNameError').innerText;
-     //const phError = document.getElementById('phNoError').innerText;
+     const ContactError = document.getElementById('ContactError').innerText;
      const emailError = document.getElementById('emailError').innerText;
      const managerError = document.getElementById('managerError').innerText;
 
      const submitBtn = document.getElementById('submitBtn');
 
      const allRequiredFilled = name && email && phone && manager && address && showroomImg;
-     const noErrors = !nameError &&  !emailError && !managerError; //&& !phError;
+     const noErrors = !nameError &&  !emailError && !managerError && !ContactError;
 
      if (allRequiredFilled && noErrors) {
          submitBtn.disabled = false;

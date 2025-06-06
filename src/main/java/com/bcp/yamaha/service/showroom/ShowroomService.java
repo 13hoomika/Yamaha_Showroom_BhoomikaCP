@@ -14,5 +14,7 @@ public interface ShowroomService {
     boolean existByName(String showroomName);
     boolean existByEmail(String email);
 
+    boolean existByPhNumber(String showroomPhone);
+
 //    void deleteById(int id);
 }

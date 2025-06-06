@@ -94,6 +94,11 @@ public class ShowroomServiceImpl implements ShowroomService {
         return emailExist;
     }
 
+    @Override
+    public boolean existByPhNumber(String showroomPhone) {
+        return showroomRepository.existByPhno(showroomPhone);
+    }
+
     /*@Override
     public void deleteById(int id) {
         showroomRepository.deleteShowroom(id);

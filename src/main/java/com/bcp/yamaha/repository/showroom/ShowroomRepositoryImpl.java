@@ -82,6 +82,19 @@ public class ShowroomRepositoryImpl implements ShowroomRepository{
         }
     }
 
+    @Override
+    public boolean existByPhno(String showroomPhone) {
+        try {
+            Long count = em.createNamedQuery("showroomPhNoExist", Long.class)
+                    .setParameter("ph", showroomPhone)
+                    .getSingleResult();
+            return count > 0; // Return true if phone number exists, false otherwise
+        } catch (Exception e) {
+            log.warn("Error checking phone number existence:{}", e.getMessage());
+            return false;
+        }
+    }
+
     /*@Override
     public void deleteShowroom(int id) {
         em.createNamedQuery("deleteShowroom").setParameter("id",id).executeUpdate();

@@ -15,5 +15,7 @@ public interface ShowroomRepository {
 
     boolean existByEmail(String email);
 
+    boolean existByPhno(String showroomPhone);
+
 //    void deleteShowroom(int id);
 }
