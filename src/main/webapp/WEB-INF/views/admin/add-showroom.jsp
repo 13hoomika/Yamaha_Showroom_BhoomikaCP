@@ -45,7 +45,8 @@
                             <div class="col-md-6">
                                 <label for="showroomManager" class="form-label">Manager</label>
                                 <input type="text" class="form-control" id="showroomManager" name="showroomManager"
-                                    placeholder="Enter manager name" required>
+                                    placeholder="Enter manager name"  oninput="validateName('showroomManager', 'managerError', '/showroom/checkManagerName/')" required>
+                                <span id="managerError" class="validation-error"></span>
                             </div>
                             <div class="col-12">
                                 <label for="showroomAddress" class="form-label">Full Address</label>
@@ -139,12 +140,12 @@
      const nameError = document.getElementById('showroomNameError').innerText;
      //const phError = document.getElementById('phNoError').innerText;
      const emailError = document.getElementById('emailError').innerText;
+     const managerError = document.getElementById('managerError').innerText;
 
      const submitBtn = document.getElementById('submitBtn');
 
      const allRequiredFilled = name && email && phone && manager && address && showroomImg;
-     const noErrors = !nameError &&  !emailError;
-     //&& !phError;
+     const noErrors = !nameError &&  !emailError && !managerError; //&& !phError;
 
      if (allRequiredFilled && noErrors) {
          submitBtn.disabled = false;

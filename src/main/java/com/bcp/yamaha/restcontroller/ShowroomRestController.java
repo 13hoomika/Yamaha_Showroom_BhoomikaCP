@@ -38,4 +38,16 @@ public class ShowroomRestController {
 
         return isEmailExist ? "email already exists" : "";
     }
+
+    @GetMapping("/checkManagerName/{showroomManager}")
+    public String validateShowroomManagere(@PathVariable String showroomManager) {
+        System.out.println("Received showroomName in RestController: [" + showroomManager + "]");
+
+        if (!ValidationUtil.isValidShowroomName(showroomManager)) {
+            return "Invalid format. Each word must start with uppercase followed by lowercase letters (e.g., Mahesh Gupta)";
+        }
+
+        return "";
+    }
+
 }
