@@ -46,15 +46,15 @@
                             <div class="col-md-6">
                                 <label for="userName" class="form-label required-field" >Name</label>
                                 <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter name" required
-                                oninput="validateUserName()">
-                                <span id="userNameError" class="validation-error""></span>
+                                oninput="validateName('userName','userNameError','/user/checkUserName/')">
+                                <span id="userNameError" class="validation-error"></span>
                             </div>
 
                             <div class="col-md-6">
                                 <label for="userEmail" class="form-label required-field" >Email</label>
                                 <input type="email" class="form-control" id="userEmail" name="userEmail"
-                                    placeholder="youremail@gmail.com" oninput="checkEmail()" required>
-                                <span id="emailError" class="validation-error""></span>
+                                    placeholder="youremail@gmail.com" oninput="checkEmail('userEmail','emailError','/user/checkEmailValue/')" required>
+                                <span id="emailError" class="validation-error"></span>
                             </div>
 
                             <div class="col-md-4">
@@ -65,8 +65,8 @@
                             <div class="col-md-8">
                                 <label for="userPhoneNumber" class="form-label required-field" >Phone</label>
                                 <input type="tel" class="form-control" id="userPhoneNumber" name="userPhoneNumber"
-                                    placeholder="10 digit phone" onchange="checkPhNoForRegister()" required>
-                                <span id="phNoError" class="validation-error""></span>
+                                    placeholder="10 digit phone number" onchange="checkPhNoForRegister('userPhoneNumber','phNoError','/user/checkPhValue/')" required>
+                                <span id="phNoError" class="validation-error"></span>
                             </div>
 
                             <div class="col-md-12">
