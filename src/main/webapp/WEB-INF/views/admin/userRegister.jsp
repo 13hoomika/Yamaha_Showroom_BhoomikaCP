@@ -65,7 +65,7 @@
                             <div class="col-md-8">
                                 <label for="userPhoneNumber" class="form-label required-field" >Phone</label>
                                 <input type="tel" class="form-control" id="userPhoneNumber" name="userPhoneNumber"
-                                    placeholder="10 digit phone number" onchange="checkPhNoForRegister('userPhoneNumber','phNoError','/user/checkPhValue/')" required>
+                                    placeholder="10 digit phone number" onchange="checkPhNo('userPhoneNumber','phNoError','/user/checkPhValue/')" required>
                                 <span id="phNoError" class="validation-error"></span>
                             </div>
 

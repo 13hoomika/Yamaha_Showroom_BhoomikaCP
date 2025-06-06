@@ -41,20 +41,20 @@ function checkEmail(inputId, errorId, endpoint) {
 }
 
 // Function to validate phone number
-function checkPhNoForRegister() {
-   var checkPhValue = document.getElementById("userPhoneNumber").value;
+function checkPhNo(inputId, errorId, endpoint) {
+   var checkPhValue = document.getElementById(inputId).value;
    console.log(checkPhValue);
    if (checkPhValue != "") {
        var xhttp = new XMLHttpRequest();
-       xhttp.open("GET", contextPath + "/user/checkPhValue/" + checkPhValue);
+       xhttp.open("GET", contextPath + endpoint + checkPhValue);
        xhttp.send();
        xhttp.onload = function () {
            console.log(this.responseText);
-           document.getElementById("phNoError").innerHTML = this.responseText;
+           document.getElementById(errorId).innerHTML = this.responseText;
            validateForm(); // Call validateForm after AJAX response
        };
    } else {
-       document.getElementById("phNoError").innerHTML = ""; // Clear error if field is empty
+       document.getElementById(errorId).innerHTML = ""; // Clear error if field is empty
        validateForm(); // Call validateForm to recheck form state
    }
 }
