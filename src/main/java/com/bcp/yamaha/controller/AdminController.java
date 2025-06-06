@@ -6,7 +6,7 @@ import com.bcp.yamaha.dto.*;
 import com.bcp.yamaha.service.admin.AdminService;
 import com.bcp.yamaha.service.bike.BikeService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
-import com.bcp.yamaha.service.user.FollowUpService;
+import com.bcp.yamaha.service.followup.FollowUpService;
 import com.bcp.yamaha.service.user.UserService;
 import com.bcp.yamaha.util.FormatUtil;
 import lombok.extern.slf4j.Slf4j;

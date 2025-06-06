@@ -1,10 +1,9 @@
-package com.bcp.yamaha.service.user;
+package com.bcp.yamaha.service.followup;
 
 import com.bcp.yamaha.dto.FollowUpDto;
-import com.bcp.yamaha.dto.UserDto;
 import com.bcp.yamaha.entity.FollowUpEntity;
 import com.bcp.yamaha.entity.UserEntity;
-import com.bcp.yamaha.repository.user.FollowUpRepository;
+import com.bcp.yamaha.repository.followup.FollowUpRepository;
 import com.bcp.yamaha.repository.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

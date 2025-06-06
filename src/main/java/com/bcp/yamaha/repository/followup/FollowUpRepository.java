@@ -1,4 +1,4 @@
-package com.bcp.yamaha.repository.user;
+package com.bcp.yamaha.repository.followup;
 
 import com.bcp.yamaha.entity.FollowUpEntity;
 

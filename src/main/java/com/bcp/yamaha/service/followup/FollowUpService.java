@@ -1,4 +1,4 @@
-package com.bcp.yamaha.service.user;
+package com.bcp.yamaha.service.followup;
 
 import com.bcp.yamaha.dto.FollowUpDto;
 

@@ -1,12 +1,10 @@
-package com.bcp.yamaha.repository.user;
+package com.bcp.yamaha.repository.followup;
 
 import com.bcp.yamaha.entity.FollowUpEntity;
-import com.bcp.yamaha.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Collections;
 import java.util.List;
 
 
