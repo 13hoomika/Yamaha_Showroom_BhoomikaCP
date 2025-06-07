@@ -80,6 +80,25 @@ function validateDrivingLicense() {
     }
 }
 
+function checkAge(inputId, errorId, endpoint) {
+    const ageValue = document.getElementById(inputId).value.trim();
+    console.log("Checking age:", ageValue);
+
+    if (ageValue !== "") {
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("GET", contextPath + endpoint + ageValue, true);
+        xhttp.send();
+        xhttp.onload = function () {
+            console.log("Age Validation response:", this.responseText);
+            document.getElementById(errorId).innerText = this.responseText;
+            validateForm();
+        };
+    } else {
+        document.getElementById(errorId).innerText = "";
+        validateForm();
+    }
+}
+
 /* ============================= Update User ======================================= */
 function checkPhNoForUpdate() {
     const phoneField = document.getElementById('userPhoneNumber');

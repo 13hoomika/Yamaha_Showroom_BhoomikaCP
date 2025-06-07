@@ -72,7 +72,15 @@ public class UserRestController {
         return ResponseEntity.ok(dlExists? "Driving License number already exists" : "");
     }
 
-        return "";
+    @GetMapping(value = "/checkAge/{age}") //"URI template" using curly braces {} to denote a path variable.
+    public ResponseEntity<String> validateUserAge(@PathVariable int age) {
+        log.debug("Received age: [{}]", age);
+
+        if (age < 18 || age > 100) {
+            return ResponseEntity.badRequest().body("Age must be between 18 and 100");// Return 400 Bad Request
+        }
+
+        return ResponseEntity.ok("");// Return 200 OK
     }
 
     /* ========================== Update User ========================== */

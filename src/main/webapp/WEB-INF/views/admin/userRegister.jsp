@@ -59,7 +59,10 @@
 
                             <div class="col-md-4">
                                 <label for="userAge" class="form-label required-field" >Age</label>
-                                <input type="number" class="form-control" id="userAge" name="userAge" placeholder="Your age" required>
+                                <input type="number" class="form-control" id="userAge" name="userAge"
+                                    placeholder="Your age" min="1" max="120"
+                                    oninput= "checkAge('userAge','ageError','/user/checkAge/')" required>
+                                <span id="ageError" class="validation-error"></span>
                             </div>
 
                             <div class="col-md-8">
@@ -199,11 +202,12 @@
      const nameError = document.getElementById('userNameError').innerText;
      const phError = document.getElementById('phNoError').innerText;
      const dlError = document.getElementById('dlNoError').innerText;
+     const ageError = document.getElementById('ageError').innerText;
 
      const submitBtn = document.getElementById('submitBtn');
 
      const allRequiredFilled = name && email && phone && age && address && license && showroom && schedule;
-     const noErrors = !nameError && !emailError && !phError && !dlError;
+     const noErrors = !nameError && !emailError && !phError && !dlError && !ageError;
 
      if (allRequiredFilled && noErrors) {
          submitBtn.disabled = false;
