@@ -210,6 +210,10 @@ public class UserController {
                                RedirectAttributes redirectAttributes,
                                HttpServletRequest request) {
         UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            redirectAttributes.addFlashAttribute("error", "Session expired. Please log in again.");
+            return "user/user-login";
+        }
 
         if (avatar != null && !avatar.isEmpty()) {
             try {
