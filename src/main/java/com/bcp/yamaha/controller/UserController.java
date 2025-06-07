@@ -205,7 +205,10 @@ public class UserController {
     }
 
     @PostMapping("/uploadAvatar")
-    public String uploadAvatar(@RequestParam("avatar") MultipartFile avatar, HttpSession session,RedirectAttributes redirectAttributes) {
+    public String uploadAvatar(@RequestParam("avatar") MultipartFile avatar,
+                               HttpSession session,
+                               RedirectAttributes redirectAttributes,
+                               HttpServletRequest request) {
         UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
 
         if (avatar != null && !avatar.isEmpty()) {
@@ -258,7 +261,9 @@ public class UserController {
         } else {
             redirectAttributes.addFlashAttribute("error", "No file selected.");
         }
-        return "redirect:/user/dashboard";
+        // Get the previous page URL from Referer header
+        String referer = request.getHeader("Referer");
+        return "redirect:" + (referer != null ? referer : "/user/dashboard");
     }
 
     @GetMapping("/logout")
