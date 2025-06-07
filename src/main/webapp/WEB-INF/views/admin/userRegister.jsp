@@ -46,14 +46,14 @@
                             <div class="col-md-6">
                                 <label for="userName" class="form-label required-field" >Name</label>
                                 <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter name" required
-                                oninput="validateName('userName','userNameError','/user/checkUserName/')">
+                                onchange="validateName('userName','userNameError','/user/checkUserName/')">
                                 <span id="userNameError" class="validation-error"></span>
                             </div>
 
                             <div class="col-md-6">
                                 <label for="userEmail" class="form-label required-field" >Email</label>
                                 <input type="email" class="form-control" id="userEmail" name="userEmail"
-                                    placeholder="youremail@gmail.com" oninput="checkEmail('userEmail','emailError','/user/checkEmailValue/')" required>
+                                    placeholder="youremail@gmail.com" onchange="checkEmail('userEmail','emailError','/user/checkEmailValue/')" required>
                                 <span id="emailError" class="validation-error"></span>
                             </div>
 
