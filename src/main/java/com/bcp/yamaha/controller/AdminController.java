@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +36,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -54,6 +59,9 @@ public class AdminController {
 
     @Autowired
     FollowUpService followUpService;
+
+    @Autowired
+    private ServletContext servletContext;
 
     @PostConstruct
     public void setupAdmin() {
@@ -236,40 +244,52 @@ public class AdminController {
     @PostMapping("/add-bike")
     public String addBike(
             @ModelAttribute BikeDto bikeDto,
-            HttpSession session) {
+            HttpServletRequest request,
+            HttpSession session) throws IOException {
 
-            List<MultipartFile> multipartFile = bikeDto.getMultipartFileList();
-            multipartFile.forEach(System.out::println);
-            List<String> images = new ArrayList<>();
-            for (MultipartFile file : multipartFile) {
-                images.add(file.getOriginalFilename());
-                Path path = Paths.get("D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP\\src\\main\\webapp\\static\\images\\bike-images\\" +file.getOriginalFilename());
+        List<MultipartFile> multipartFile = bikeDto.getMultipartFileList();
+        multipartFile.forEach(System.out::println);
+        List<String> images = new ArrayList<>();
+
+        String formattedModel = FormatUtil.capitalizeWords(bikeDto.getBikeModel());
+        bikeDto.setBikeModel(formattedModel);
+
+        String uploadDir = request.getServletContext().getRealPath("/static/images/bike-images/");
+        String dateStr = new SimpleDateFormat("yyyyMMdd").format(new Date());
+
+        for (MultipartFile file : multipartFile) {
+            if (!file.isEmpty()) {
+                String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+                String newFileName = formattedModel.replaceAll("\\s+", "") + "_" + dateStr + extension;
+
+                images.add(newFileName);
+                Path path = Paths.get(uploadDir, newFileName);
                 try {
                     Files.write(path, file.getBytes());
                 } catch (IOException e) {
                     log.error("Error adding image: {}", e.getMessage(), e);
                 }
             }
-            bikeDto.setImages(images);
-            System.out.println(bikeDto);
+        }
 
-            String formattedModel = FormatUtil.capitalizeWords(bikeDto.getBikeModel());
-            bikeDto.setBikeModel(formattedModel);
+        bikeDto.setImages(images);
 
-            try {
-                bikeService.addBike(bikeDto);
-                session.setAttribute("success", "Bike added successfully!");
-                return "redirect:/admin/manage-bikes";
-            } catch (Exception e) {
-                e.printStackTrace();
-                session.setAttribute("errorMsg", "Failed to save bike: " + e.getMessage());
-            return "redirect:/admin/add-bike";
+        try {
+            bikeService.addBike(bikeDto);
+            session.setAttribute("success", "Bike added successfully!");
+            return "redirect:/admin/manage-bikes";
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("error", "Failed to save bike: " + e.getMessage());
+        return "redirect:/admin/add-bike";
         }
     }
+
     @GetMapping("bikeImage")
     public void downloadBikeImage(HttpServletResponse response, @RequestParam String imageName) {
         response.setContentType("image/jpg");
-        File file = new File("D:\\06 GO19ROM Aug19\\Project Phase\\BikeShowroom Project draft\\Yamaha_Showroom_BhoomikaCP\\src\\main\\webapp\\static\\images\\bike-images\\" + imageName);
+        String uploadDir = servletContext.getRealPath("/static/images/bike-images/");
+        File file = new File(uploadDir + File.separator + imageName);
         try {
             InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
             ServletOutputStream outputStream = response.getOutputStream();
