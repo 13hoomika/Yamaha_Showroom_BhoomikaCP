@@ -5,6 +5,7 @@ import com.bcp.yamaha.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,38 +19,37 @@ public class UserRestController {
     UserService userService;
 
     @GetMapping("/checkUserName/{userName}")
-    public String validateUserName(@PathVariable String userName) {
-        System.out.println("Received userName: [" + userName + "]");
+    public ResponseEntity<String> validateUserName(@PathVariable String userName) {
         log.debug("Received userName: [{}]", userName);
 
         if (!ValidationUtil.isValidUserName(userName)) {
-            return "Invalid name format. Each word must start with uppercase followed by lowercase letters (e.g., John Doe)";
+            return ResponseEntity.ok("Invalid name format. Each word must start with uppercase followed by lowercase letters (e.g., John Doe)");
         }
-        return "";
+        return ResponseEntity.ok("");
     }
 
-
     @GetMapping(value = "/checkEmailValue/{email:.+}")
-    public String getEmailCount(@PathVariable String email) {
-        System.out.println("Received email in Controller: [" + email + "]");
+    public ResponseEntity<String> checkEmailValue(@PathVariable String email) {
         log.debug("Received email in Controller: [{}]", email);
+
         if (!ValidationUtil.isValidEmail(email)){
-            return "Invalid email format";
+            // For an invalid format, it's better to return a 400 Bad Request
+            return ResponseEntity.badRequest().body("Invalid email format");
         }
 
         boolean isEmailExist = userService.existByEmail(email);
         log.debug("isEmailExist: {}", isEmailExist);
 
-        return isEmailExist ? "email already exists" : "";
+        // Return 200 OK with a message indicating the email already exists
+        return ResponseEntity.ok(isEmailExist ? "Email already exists" : "");
     }
 
     @GetMapping(value = "/checkPhValue/{phNo}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getPhCountForRegister(@PathVariable String phNo){
-        System.out.println("Received phNo in Controller: [" + phNo + "]");
+    public ResponseEntity<String> getPhCountForRegister(@PathVariable String phNo){
         log.debug("Received phNo in Controller: [{}]", phNo);
 
         if (ValidationUtil.isValidPhoneNumber(phNo)){
-            return "Invalid phone number format. phone number must be 10 digits and start with 9, 8, 7, or 6";
+            return ResponseEntity.badRequest().body("Invalid phone number format. phone number must be 10 digits and start with 9, 8, 7, or 6");
         }
         boolean isPhExist = userService.existByPhNumber(phNo);
         log.debug("isPhExist: {}", isPhExist);
@@ -59,59 +59,57 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/checkDlNumber/{dlNo}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String checkDrivingLicenseNumberForRegister(@PathVariable String dlNo) {
-        System.out.println("Received DL Number: [" + dlNo + "]");
+    public ResponseEntity<String> checkDrivingLicenseNumberForRegister(@PathVariable String dlNo) {
         log.debug("Received DL Number: [{}]", dlNo);
 
         // Validate format using regex (KA0120231234567 format)
         if (ValidationUtil.isValidDl(dlNo)) {
-            return "Invalid DL number format (e.g., KA0120231234567)";
+            return ResponseEntity.badRequest().body("Invalid DL number format (e.g., KA0120231234567)");
         }
 
-        boolean exists = userService.existsByDrivingLicenseNumber(dlNo);
-        if (exists){
-            return "Driving License number already exists";
-        }
+        boolean dlExists = userService.existsByDrivingLicenseNumber(dlNo);
+
+        return ResponseEntity.ok(dlExists? "Driving License number already exists" : "");
+    }
 
         return "";
     }
 
     /* ========================== Update User ========================== */
     @GetMapping(value = "/checkPhValue/{phNo}/{currentPh}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getPhCountForUpdate(@PathVariable String phNo, @PathVariable String currentPh) {
-        System.out.println("Received phNo: [" + phNo + "], CurrentPh: [" + currentPh + "]");
+    public ResponseEntity<String> getPhCountForUpdate(@PathVariable String phNo, @PathVariable String currentPh) {
         log.debug("Received phNo: [{}], CurrentPh: [{}]", phNo, currentPh);
 
-        if (ValidationUtil.isValidPhoneNumber(phNo)) {
-            return "Invalid phone number, must be 10 digits and start with 9, 8, 7, or 6";
+        if (!ValidationUtil.isValidPhoneNumber(phNo)) {
+            return ResponseEntity.badRequest().body("Invalid phone number, must be 10 digits and start with 9, 8, 7, or 6");
         }
 
         if (phNo.equals(currentPh)) {
             // User hasn't changed their phone number — no validation error
-            return "";
+            return ResponseEntity.ok("");
         }
 
         boolean isPhExist = userService.existByPhNumber(phNo);
-        return isPhExist ? "phone number already exists" : "";
+
+        return ResponseEntity.ok(isPhExist ? "Phone number already exists" : "");
     }
 
     @GetMapping(value = "/checkDlNumber/{dlNo}/{currentDlNo}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String checkDrivingLicenseNumberForUpdate(@PathVariable String dlNo, @PathVariable String currentDlNo) {
-        System.out.println("Received DL Number: [" + dlNo + "], Current DL Number: [" + currentDlNo + "]");
+    public ResponseEntity<String> checkDrivingLicenseNumberForUpdate(@PathVariable String dlNo, @PathVariable String currentDlNo) {
         log.debug("Received DL Number: [{}], Current DL Number: [{}]", dlNo, currentDlNo);
 
         // Format validation (e.g., KA0120231234567)
-        if (ValidationUtil.isValidDl(dlNo)) {
-            return "Invalid DL number format (e.g., KA0120231234567)";
+        if (!ValidationUtil.isValidDl(dlNo)) {
+            return ResponseEntity.badRequest().body("Invalid DL number format (e.g., KA0120231234567)");
         }
 
         // If no change in DL number, it's valid
         if (dlNo.equalsIgnoreCase(currentDlNo)) {
-            return "";
+            return ResponseEntity.ok("");
         }
 
         // Check if DL already exists
         boolean exists = userService.existsByDrivingLicenseNumber(dlNo);
-        return exists ? "Driving License number already exists" : "";
+        return ResponseEntity.ok(exists ? "Driving License number already exists" : "");
     }
 }
