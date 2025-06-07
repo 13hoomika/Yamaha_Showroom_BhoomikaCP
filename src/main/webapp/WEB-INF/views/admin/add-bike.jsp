@@ -77,6 +77,12 @@
             <div class="card">
                 <div class="card-body">
                     <form id="bikeForm" action="${pageContext.request.contextPath}/admin/add-bike" method="post" enctype="multipart/form-data">
+                        <c:if test="${not empty success}">
+                            <div class="alert alert-success">${success}</div>
+                        </c:if>
+                        <c:if test="${not empty error}">
+                            <div class="alert alert-danger">${error}</div>
+                        </c:if>
                         <div class="row g-3">
                             <!-- Bike Model -->
                             <div class="col-md-6">
