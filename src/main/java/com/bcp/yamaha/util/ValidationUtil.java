@@ -18,14 +18,14 @@ public class ValidationUtil {
     }
 
     public static boolean isValidPhoneNumber(String phoneNumber) {
-        return phoneNumber == null || !phoneNumber.matches(PHONE_REGEX);
+        return phoneNumber != null || phoneNumber.matches(PHONE_REGEX);
     }
 
     public static boolean isValidUserName(String userName) {
         return userName != null && userName.matches(NAME_REGEX);
     }
     public static boolean isValidDl(String dlNo) {
-        return dlNo == null || !dlNo.matches(DL_REGEX);
+        return dlNo != null || dlNo.matches(DL_REGEX);
     }
 
     public static boolean isValidShowroomName(String showroomName) {
