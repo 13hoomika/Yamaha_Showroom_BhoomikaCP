@@ -37,10 +37,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-
 @Controller
 @RequestMapping("/admin")
 @Slf4j
@@ -61,7 +57,7 @@ public class AdminController {
     FollowUpService followUpService;
 
     @Autowired
-    private ServletContext servletContext;
+    ServletContext servletContext;
 
     @PostConstruct
     public void setupAdmin() {
@@ -277,8 +273,6 @@ public class AdminController {
             String formattedModel = FormatUtil.capitalizeWords(bikeDto.getBikeModel());
             bikeDto.setBikeModel(formattedModel);
 
-        String uploadDir = request.getServletContext().getRealPath("/static/images/bike-images/");
-        String dateStr = new SimpleDateFormat("yyyyMMdd").format(new Date());
             try {
                 bikeService.addBike(bikeDto);
                 session.setAttribute("success", "Bike added successfully!");
@@ -289,23 +283,66 @@ public class AdminController {
             return "redirect:/admin/add-bike";
         }
     }*/
+    @PostMapping("/add-bike")
+    public String addBike(
+            @ModelAttribute BikeDto bikeDto,
+            HttpSession session) {
+
+        List<MultipartFile> multipartFile = bikeDto.getMultipartFileList();
+        List<String> images = new ArrayList<>();
+
+        // Get the real path using ServletContext
+        String uploadDir = servletContext.getRealPath("/static/images/bike-images/");
+
+        try {
+            Files.createDirectories(Paths.get(uploadDir)); // Ensure directory exists
+        } catch (IOException e) {
+            log.error("Could not create upload directory", e);
+        }
+
+        // Get current date for filename
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String currentDate = LocalDate.now().format(dateFormatter);
+
+        // Clean model name for filename (remove special chars, replace spaces)
+        String cleanModelName = bikeDto.getBikeModel()
+                .replaceAll("[^a-zA-Z0-9]", " ") // Replace special chars with space
+                .trim()
+                .replaceAll(" +", "_"); // Replace multiple spaces with single underscore
 
         for (MultipartFile file : multipartFile) {
             if (!file.isEmpty()) {
-                String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-                String newFileName = formattedModel.replaceAll("\\s+", "") + "_" + dateStr + extension;
+                String originalFilename = file.getOriginalFilename();
 
-                images.add(newFileName);
-                Path path = Paths.get(uploadDir, newFileName);
+                // Extract file extension
+                String extension = "";
+                if (originalFilename != null && originalFilename.contains(".")) {
+                    extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                }
+
+                // Generate new filename: model_date_originalName
+                String newFilename = String.format("%s_%s_%s%s",
+                        cleanModelName,
+                        currentDate,
+                        // Keep original name but remove extension
+                        originalFilename != null ? originalFilename.replace(extension, "") : "image",
+                        extension);
+
+                images.add(newFilename);
+                Path path = Paths.get(uploadDir + newFilename);
+
                 try {
                     Files.write(path, file.getBytes());
+                    log.info("Saved image: {}", newFilename);
                 } catch (IOException e) {
-                    log.error("Error adding image: {}", e.getMessage(), e);
+                    log.error("Error saving image: {}", e.getMessage(), e);
                 }
             }
         }
 
         bikeDto.setImages(images);
+        String formattedModel = FormatUtil.capitalizeWords(bikeDto.getBikeModel());
+        bikeDto.setBikeModel(formattedModel);
 
         try {
             bikeService.addBike(bikeDto);
@@ -314,18 +351,24 @@ public class AdminController {
         } catch (Exception e) {
             e.printStackTrace();
             session.setAttribute("error", "Failed to save bike: " + e.getMessage());
-        return "redirect:/admin/add-bike";
+            return "redirect:/admin/add-bike";
         }
     }
 
     @GetMapping("bikeImage")
-    public void downloadBikeImage(HttpServletResponse response, @RequestParam String imageName) {
+    public void downloadBikeImage(@RequestParam String imageName, HttpServletResponse response, HttpServletRequest request) throws IOException {
         response.setContentType("image/jpg");
-        String uploadDir = servletContext.getRealPath("/static/images/bike-images/");
-        File file = new File(uploadDir + File.separator + imageName);
-        try {
-            InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-            ServletOutputStream outputStream = response.getOutputStream();
+        // Get the real path to the image
+        String imagePath = request.getServletContext().getRealPath("/static/images/bike-images/" + imageName);
+        File file = new File(imagePath);
+
+        if (!file.exists()) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
+        try (InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+             ServletOutputStream outputStream = response.getOutputStream()) {
             IOUtils.copy(inputStream, outputStream);
             response.flushBuffer();
         } catch (IOException e) {
