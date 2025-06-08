@@ -241,21 +241,54 @@ public class AdminController {
         return "admin/add-bike";
     }
 
-    @PostMapping("/add-bike")
+    /*@PostMapping("/add-bike")
     public String addBike(
             @ModelAttribute BikeDto bikeDto,
-            HttpServletRequest request,
-            HttpSession session) throws IOException {
+            HttpSession session,
+            HttpServletRequest request) {
 
         List<MultipartFile> multipartFile = bikeDto.getMultipartFileList();
-        multipartFile.forEach(System.out::println);
         List<String> images = new ArrayList<>();
+        multipartFile.forEach(System.out::println);
 
-        String formattedModel = FormatUtil.capitalizeWords(bikeDto.getBikeModel());
-        bikeDto.setBikeModel(formattedModel);
+        // Get the real path to the webapp's static/images/bike-images directory
+        String uploadDir = request.getServletContext().getRealPath("/static/images/bike-images/");
+
+        try {
+            Files.createDirectories(Paths.get(uploadDir)); // Ensure directory exists
+        } catch (IOException e) {
+            log.error("Could not create upload directory", e);
+        }
+
+        for (MultipartFile file : multipartFile) {
+            if (!file.isEmpty()) {
+                String originalFilename = file.getOriginalFilename();
+                images.add(originalFilename);
+                Path path = Paths.get(uploadDir + originalFilename);
+                try {
+                    Files.write(path, file.getBytes());
+                } catch (IOException e) {
+                    log.error("Error adding image: {}", e.getMessage(), e);
+                }
+            }
+        }
+            bikeDto.setImages(images);
+
+            String formattedModel = FormatUtil.capitalizeWords(bikeDto.getBikeModel());
+            bikeDto.setBikeModel(formattedModel);
 
         String uploadDir = request.getServletContext().getRealPath("/static/images/bike-images/");
         String dateStr = new SimpleDateFormat("yyyyMMdd").format(new Date());
+            try {
+                bikeService.addBike(bikeDto);
+                session.setAttribute("success", "Bike added successfully!");
+                return "redirect:/admin/manage-bikes";
+            } catch (Exception e) {
+                e.printStackTrace();
+                session.setAttribute("error", "Failed to save bike: " + e.getMessage());
+            return "redirect:/admin/add-bike";
+        }
+    }*/
 
         for (MultipartFile file : multipartFile) {
             if (!file.isEmpty()) {
