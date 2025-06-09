@@ -621,17 +621,19 @@ public class AdminController {
             @PathVariable("type") String type,
             @PathVariable("id") int id,
             HttpServletRequest req) {
+        String contextPath = req.getContextPath();
 
         switch (type.toLowerCase()) {
             case "user":
                 userService.deleteById(id);
                 return new RedirectView(req.getContextPath() + "/admin/manage-users");
+                return new RedirectView(contextPath + "/admin/manage-users");
             case "bike":
 //                bikeService.deleteById(id);
-                return new RedirectView(req.getContextPath() + "/admin/manage-bikes");
+                return new RedirectView(contextPath + "/admin/manage-bikes");
             case "showroom":
 //                showroomService.deleteById(id);
-                return new RedirectView(req.getContextPath() + "/admin/manage-showrooms");
+                return new RedirectView(contextPath + "/admin/manage-showrooms");
             default:
                 throw new IllegalArgumentException("Invalid type: " + type);
         }
