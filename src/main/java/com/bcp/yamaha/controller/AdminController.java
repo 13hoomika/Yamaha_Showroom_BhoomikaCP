@@ -3,6 +3,7 @@ package com.bcp.yamaha.controller;
 import com.bcp.yamaha.constants.BikeType;
 import com.bcp.yamaha.constants.ScheduleType;
 import com.bcp.yamaha.dto.*;
+import com.bcp.yamaha.exception.NotFoundException;
 import com.bcp.yamaha.service.admin.AdminService;
 import com.bcp.yamaha.service.bike.BikeService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
@@ -627,9 +628,14 @@ public class AdminController {
 
         switch (type.toLowerCase()) {
             case "user":
-                userService.deleteUserAndFollowups(id);
-                log.info("Successfully deleted user ID {}", id);
-                redirectAttributes.addFlashAttribute("success", "User deleted successfully");
+                try {
+                    userService.deleteUserAndFollowups(id);
+                    log.info("Successfully deleted item ID {}", id);
+                    redirectAttributes.addFlashAttribute("success", "User deleted.");
+                } catch (NotFoundException e) {
+                    log.error("Unexpected error while deleting user ID {}: {}", id, e.getMessage(), e);
+                    redirectAttributes.addFlashAttribute("error", "Unexpected error occurred.");
+                }
                 return new RedirectView(contextPath + "/admin/manage-users");
             case "bike":
 //                bikeService.deleteById(id);
