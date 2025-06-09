@@ -17,4 +17,5 @@ public interface BikeService {
     Boolean assignBikeToShowroom(Integer bikeId, Integer showroomId);
     Long getTotalBikeCount();
 
+    void deleteShowroomById(int showroomId, String showroomUploadPath);
 }

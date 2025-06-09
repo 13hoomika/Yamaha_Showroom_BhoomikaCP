@@ -95,8 +95,8 @@ public class ShowroomRepositoryImpl implements ShowroomRepository{
         }
     }
 
-    /*@Override
-    public void deleteShowroom(int id) {
-        em.createNamedQuery("deleteShowroom").setParameter("id",id).executeUpdate();
-    }*/
+    @Override
+    public void removeShowroom(ShowroomEntity showroom) {
+        em.remove(showroom);
+    }
 }

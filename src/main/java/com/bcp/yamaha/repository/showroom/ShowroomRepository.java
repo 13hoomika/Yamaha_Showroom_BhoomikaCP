@@ -12,10 +12,8 @@ public interface ShowroomRepository {
     ShowroomEntity findById(Integer showroomId);
 
     boolean existByName(String showroomName);
-
     boolean existByEmail(String email);
-
     boolean existByPhno(String showroomPhone);
 
-//    void deleteShowroom(int id);
+    void removeShowroom(ShowroomEntity showroom);
 }

@@ -16,5 +16,5 @@ public interface ShowroomService {
 
     boolean existByPhNumber(String showroomPhone);
 
-//    void deleteById(int id);
+    void deleteShowroomById(int id, String showroomUploadPath);
 }

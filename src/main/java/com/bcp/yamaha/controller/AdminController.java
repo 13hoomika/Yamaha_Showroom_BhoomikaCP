@@ -625,6 +625,8 @@ public class AdminController {
             RedirectAttributes redirectAttributes) {
 
         String contextPath = req.getContextPath();
+        String bikeUploadPath = req.getServletContext().getRealPath("/static/images/bike-images/");
+        String showroomUploadPath = req.getServletContext().getRealPath("/static/images/showroom-Images/");
 
         switch (type.toLowerCase()) {
             case "user":
@@ -641,7 +643,17 @@ public class AdminController {
 //                bikeService.deleteById(id);
                 return new RedirectView(contextPath + "/admin/manage-bikes");
             case "showroom":
-//                showroomService.deleteById(id);
+                try {
+                    showroomService.deleteShowroomById(id, showroomUploadPath);
+                    redirectAttributes.addFlashAttribute("success", "Showroom deleted successfully.");
+                    return new RedirectView(contextPath + "/admin/manage-showrooms");
+                } catch (NotFoundException  e) {
+                    log.warn("Showroom not found: {}", e.getMessage());
+                    redirectAttributes.addFlashAttribute("error", "Showroom not found.");
+                } catch (Exception e) {
+                    log.error("Unexpected error while deleting showroom ID {}: {}", id, e.getMessage(), e);
+                    redirectAttributes.addFlashAttribute("error", "Unexpected error occurred.");
+                }
                 return new RedirectView(contextPath + "/admin/manage-showrooms");
             default:
                 throw new IllegalArgumentException("Invalid type: " + type);

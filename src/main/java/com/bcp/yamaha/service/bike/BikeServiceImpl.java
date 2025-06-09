@@ -4,6 +4,7 @@ import com.bcp.yamaha.constants.BikeType;
 import com.bcp.yamaha.dto.BikeDto;
 import com.bcp.yamaha.entity.BikeEntity;
 import com.bcp.yamaha.entity.ShowroomEntity;
+import com.bcp.yamaha.exception.NotFoundException;
 import com.bcp.yamaha.repository.bike.BikeRepository;
 import com.bcp.yamaha.repository.showroom.ShowroomRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,5 +153,35 @@ public class BikeServiceImpl implements BikeService{
 
     public Long getTotalBikeCount() {
         return bikeRepository.countAllBikes();
+    }
+
+    @Override
+    public void deleteShowroomById(int showroomId, String showroomUploadPath) {
+        ShowroomEntity showroom = showroomRepository.findById(showroomId);
+        if (showroom == null){
+            throw new NotFoundException("Showroom ID: " + showroomId + " not found with ");
+        }
+
+        for (BikeEntity bike : showroom.getBikes()){
+            log.info("Unassigning bike '{}' (ID: {}) from showroom '{}'",
+                    bike.getBikeModel(), bike.getBikeId(), showroom.getShowroomName());
+            bike.setShowroomEntity(null);
+        }
+
+        // Delete showroom image from file system
+        if (showroom.getShowroomImg() != null) {
+            File imageFile = new File(showroomUploadPath + showroom.getShowroomImg());
+            if (imageFile.exists()) {
+                if (imageFile.delete()) {
+                    log.info("Deleted showroom image: {}", imageFile.getName());
+                } else {
+                    log.warn("Failed to delete showroom image: {}", imageFile.getName());
+                }
+            }
+        }
+
+        // Delete showroom from DB
+        showroomRepository.removeShowroom(showroom);
+        log.info("Deleted showroom with ID {}", showroomId);
     }
 }

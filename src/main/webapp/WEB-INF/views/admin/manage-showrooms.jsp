@@ -35,6 +35,14 @@
             <!-- Showroom List Table -->
             <div class="card">
                 <div class="card-body">
+                    <c:if test="${not empty success}">
+                        <div class="alert alert-success alert-dismissible">${success}</div>
+                    </c:if>
+
+                    <c:if test="${not empty error}">
+                        <div class="alert alert-danger alert-dismissible">${error}</div>
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    </c:if>
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead class="table-light">
@@ -44,7 +52,7 @@
                                     <th>Manager</th>
                                     <th>Contact</th>
                                     <th>Bike Count</th>
-                                    <!-- <th>Actions</th> -->
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,13 +63,13 @@
                                         <td>${showroom.showroomManager}</td>
                                         <td>${showroom.showroomPhone}</td>
                                         <td>${showroom.bikeCount}</td>
-                                        <!-- <td class="text-center align-middle">
+                                        <td class="text-center align-middle">
                                             <a href="${pageContext.request.contextPath}/admin/delete/showroom/${showroom.showroomId}"
                                                class="icon-btn"
                                                onclick="return confirm('Are you sure you want to delete this showroom?');">
                                                 <i class="fas fa-trash-alt icon-delete"></i>
                                             </a>
-                                        </td> -->
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -75,5 +83,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/alerts.js"></script>
 </body>
 </html>
