@@ -620,13 +620,16 @@ public class AdminController {
     public RedirectView deleteById(
             @PathVariable("type") String type,
             @PathVariable("id") int id,
-            HttpServletRequest req) {
+            HttpServletRequest req,
+            RedirectAttributes redirectAttributes) {
+
         String contextPath = req.getContextPath();
 
         switch (type.toLowerCase()) {
             case "user":
-                userService.deleteById(id);
-                return new RedirectView(req.getContextPath() + "/admin/manage-users");
+                userService.deleteUserAndFollowups(id);
+                log.info("Successfully deleted user ID {}", id);
+                redirectAttributes.addFlashAttribute("success", "User deleted successfully");
                 return new RedirectView(contextPath + "/admin/manage-users");
             case "bike":
 //                bikeService.deleteById(id);

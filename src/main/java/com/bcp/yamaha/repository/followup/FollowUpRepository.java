@@ -10,4 +10,6 @@ public interface FollowUpRepository {
     List<FollowUpEntity> findByUserId(int userId);
 
     List<FollowUpEntity> findAllFollowUps();
+
+    int deleteByUserId(int userId);
 }

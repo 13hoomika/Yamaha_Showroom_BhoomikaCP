@@ -47,6 +47,14 @@
             <!-- User List Table -->
             <div class="card">
                 <div class="card-body">
+                    <c:if test="${not empty success}">
+                        <div class="alert alert-success alert-dismissible">${success}</div>
+                    </c:if>
+
+                    <c:if test="${not empty error}">
+                        <div class="alert alert-danger alert-dismissible">${error}</div>
+                    </c:if>
+
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead class="table-light">
@@ -116,5 +124,6 @@
 <!-- JavaScript Libraries -->
 <script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/alerts.js"></script>
 </body>
 </html>

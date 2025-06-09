@@ -20,7 +20,7 @@ public interface UserService {
 
     boolean updateProfile(UserDto uerDto);
 
-    void deleteById(int id);
+    void deleteUserAndFollowups(int userId);
 
     boolean existByEmail(String email);
     boolean existByPhNumber(String phNumber);

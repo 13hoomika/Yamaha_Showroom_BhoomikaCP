@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -16,8 +15,8 @@ import java.time.LocalDateTime;
 @Table(name = "yamaha_followup")
 @NamedQueries({
     @NamedQuery(name = "findByUserId", query = "SELECT f FROM FollowUpEntity f WHERE f.user.userId = :userId ORDER BY f.followupDate DESC"),
-    @NamedQuery(name = "findAllFollowUps", query = "SELECT f FROM FollowUpEntity f JOIN FETCH f.user")
-
+    @NamedQuery(name = "findAllFollowUps", query = "SELECT f FROM FollowUpEntity f JOIN FETCH f.user"),
+    @NamedQuery(name = "deleteByUserId", query = "DELETE FROM FollowUpEntity f WHERE f.user.userId = :userId")
 })
 public class FollowUpEntity extends AuditEntity{
     @Id
@@ -25,7 +24,6 @@ public class FollowUpEntity extends AuditEntity{
     @Column(name = "followup_id")
     private int followUpId;
 
-//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @ManyToOne(fetch = FetchType.LAZY) // Changed cascade and added fetch type
     @JoinColumn(name = "userId",  referencedColumnName = "userId")
     private UserEntity user;

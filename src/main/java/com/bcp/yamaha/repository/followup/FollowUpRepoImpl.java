@@ -41,4 +41,10 @@ public class FollowUpRepoImpl implements FollowUpRepository{
         return em.createNamedQuery("findAllFollowUps", FollowUpEntity.class).getResultList();
     }
 
+    @Override
+    public int deleteByUserId(int userId) {
+        return em.createNamedQuery("deleteByUserId")
+                .setParameter("userId",userId)
+                .executeUpdate();
+    }
 }

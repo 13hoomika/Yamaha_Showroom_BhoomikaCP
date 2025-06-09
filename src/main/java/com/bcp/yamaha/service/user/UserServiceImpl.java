@@ -5,6 +5,7 @@ import com.bcp.yamaha.dto.ShowroomDto;
 import com.bcp.yamaha.dto.UserDto;
 import com.bcp.yamaha.entity.UserEntity;
 import com.bcp.yamaha.exception.UserNotFoundException;
+import com.bcp.yamaha.repository.followup.FollowUpRepository;
 import com.bcp.yamaha.repository.user.UserRepository;
 import com.bcp.yamaha.service.EmailService;
 import com.bcp.yamaha.service.OtpGeneratorService;
@@ -35,6 +36,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    FollowUpRepository followUpRepository;
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -220,13 +224,6 @@ public class UserServiceImpl implements UserService{
         return isUpdated;
     }
 
-
-    @Override
-    public void deleteById(int id) {
-        userRepository.deleteById(id);
-        System.out.println("user deleted successfully");
-    }
-
     @Override
     public boolean existByEmail(String email) {
         System.out.println("invoking existByEmail in service..........");
@@ -265,4 +262,10 @@ public class UserServiceImpl implements UserService{
         return true;
     }
 
+    @Override
+    public void deleteUserAndFollowups(int userId){
+        followUpRepository.deleteByUserId(userId);
+        userRepository.deleteById(userId);
+        System.out.println("UserService: user ID "+ userId +" deleted successfully");
+    }
 }
