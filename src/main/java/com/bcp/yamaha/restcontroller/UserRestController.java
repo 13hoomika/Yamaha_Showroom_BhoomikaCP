@@ -48,7 +48,7 @@ public class UserRestController {
     public ResponseEntity<String> getPhCountForRegister(@PathVariable String phNo){
         log.debug("Received phNo in Controller: [{}]", phNo);
 
-        if (ValidationUtil.isValidPhoneNumber(phNo)){
+        if (!ValidationUtil.isValidPhoneNumber(phNo)){
             return ResponseEntity.badRequest().body("Invalid phone number format. phone number must be 10 digits and start with 9, 8, 7, or 6");
         }
         boolean isPhExist = userService.existByPhNumber(phNo);
@@ -63,7 +63,7 @@ public class UserRestController {
         log.debug("Received DL Number: [{}]", dlNo);
 
         // Validate format using regex (KA0120231234567 format)
-        if (ValidationUtil.isValidDl(dlNo)) {
+        if (!ValidationUtil.isValidDl(dlNo)) {
             return ResponseEntity.badRequest().body("Invalid DL number format (e.g., KA0120231234567)");
         }
 
