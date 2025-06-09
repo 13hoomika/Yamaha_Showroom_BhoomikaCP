@@ -68,6 +68,7 @@ public class UserRestController {
         }
 
         boolean dlExists = userService.existsByDrivingLicenseNumber(dlNo);
+        log.debug("dlExists: {}", dlExists);
 
         return ResponseEntity.ok(dlExists? "Driving License number already exists" : "");
     }
