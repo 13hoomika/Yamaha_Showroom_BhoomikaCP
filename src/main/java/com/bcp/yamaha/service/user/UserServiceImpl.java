@@ -4,7 +4,7 @@ import com.bcp.yamaha.constants.ScheduleType;
 import com.bcp.yamaha.dto.ShowroomDto;
 import com.bcp.yamaha.dto.UserDto;
 import com.bcp.yamaha.entity.UserEntity;
-import com.bcp.yamaha.exception.UserNotFoundException;
+import com.bcp.yamaha.exception.NotFoundException;
 import com.bcp.yamaha.repository.followup.FollowUpRepository;
 import com.bcp.yamaha.repository.user.UserRepository;
 import com.bcp.yamaha.service.EmailService;
@@ -171,7 +171,7 @@ public class UserServiceImpl implements UserService{
     public boolean resetPassword(String email, String newPassword) {
         userRepository.findUserByEmail(email)
                 .orElseThrow(() ->
-                        new UserNotFoundException("User not found. Please check your email or register first.")
+                        new NotFoundException("User not found. Please check your email or register first.")
                 );
 
         // Validate the new password

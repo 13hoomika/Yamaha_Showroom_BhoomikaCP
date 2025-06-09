@@ -1,7 +1,7 @@
 package com.bcp.yamaha.controller;
 
 import com.bcp.yamaha.dto.UserDto;
-import com.bcp.yamaha.exception.UserNotFoundException;
+import com.bcp.yamaha.exception.NotFoundException;
 import com.bcp.yamaha.service.bike.BikeService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
 import com.bcp.yamaha.service.user.UserService;
@@ -108,7 +108,7 @@ public class UserController {
             } else {
                 redirectAttributes.addFlashAttribute("error", "Failed to update password, Invalid Password Must be at least 8 characters long, include one uppercase letter, one lowercase letter, one digit, and one special character.");
             }
-        } catch (UserNotFoundException e) {
+        } catch (NotFoundException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "An error occurred: " + e.getMessage());
