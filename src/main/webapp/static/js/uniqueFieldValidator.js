@@ -43,7 +43,7 @@ function checkEmail(inputId, errorId, endpoint) {
 // Function to validate phone number
 function checkPhNo(inputId, errorId, endpoint) {
    var checkPhValue = document.getElementById(inputId).value;
-   console.log("Checking showroom contact no:",checkPhValue);
+   console.log("Checking ph no:",checkPhValue);
    if (checkPhValue) {
        var xhttp = new XMLHttpRequest();
        xhttp.open("GET", contextPath + endpoint + checkPhValue, true);
