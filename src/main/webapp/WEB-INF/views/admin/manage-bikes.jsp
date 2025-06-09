@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-style.css">
 </head>
 <body>
 <div class="wrapper">
@@ -68,6 +68,15 @@
                         <c:if test="${empty bikeList}">
                             <div class="alert alert-warning">No bikes found in the database</div>
                         </c:if>
+                        <c:if test="${not empty success}">
+                          <div class="alert alert-success alert-dismissible">${success}</div>
+                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        </c:if>
+
+                        <c:if test="${not empty error}">
+                            <div class="alert alert-danger alert-dismissible">${error}</div>
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        </c:if>
 
                         <table class="table table-hover">
                             <thead class="table-light">
@@ -110,5 +119,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/alerts.js"></script>
 </body>
 </html>

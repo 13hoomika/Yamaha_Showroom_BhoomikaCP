@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
     <!-- style.css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-style.css">
 </head>
 <body>
 <div class="wrapper">

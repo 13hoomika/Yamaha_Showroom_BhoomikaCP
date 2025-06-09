@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-style.css">
 </head>
 <body>
 <div class="wrapper">
