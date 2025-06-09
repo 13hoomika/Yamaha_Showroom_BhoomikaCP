@@ -81,7 +81,7 @@
     <div class="login-box">
         <h2>User Login</h2>
         <c:if test="${not empty error}">
-            <div class="alert alert-danger" id="errorAlert">${error}</div>
+            <div class="alert alert-danger">${error}</div>
         </c:if>
 
         <form action="${pageContext.request.contextPath}/user/loginWithOtp" id="LoginForm" method="post">
@@ -191,18 +191,6 @@
                 e.preventDefault();
             }
         });
-
-        // --- FADING ERROR ---
-        //const errorAlert = document.getElementById("errorAlert");
-        // if (errorAlert) {
-        //    setTimeout(() => {
-        //        errorAlert.style.transition = "opacity 1s ease";
-        //        errorAlert.style.opacity = "0";
-        //        setTimeout(() => {
-        //            errorAlert.style.display = "none";
-        //        }, 1000); // Wait for fade-out to finish before hiding it
-        //    }, 3000); // Wait 3 seconds before starting fade
-        //}
     });
 </script>
 </body>
