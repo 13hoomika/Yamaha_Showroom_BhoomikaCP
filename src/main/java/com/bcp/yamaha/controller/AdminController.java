@@ -597,7 +597,6 @@ public class AdminController {
             @RequestParam("id") int userId,
             @RequestParam String callStatus,
             @RequestParam String notes,
-//            @RequestParam LocalDateTime rescheduleDate,
             RedirectAttributes redirectAttributes) {
 
         FollowUpDto followUpLogDto = new FollowUpDto();
@@ -605,7 +604,6 @@ public class AdminController {
         followUpLogDto.setFollowupDate(LocalDate.now());
         followUpLogDto.setCallStatus(callStatus);
         followUpLogDto.setNotes(notes);
-//        followUpLogDto.setRescheduleDate(rescheduleDate);
 
         boolean saveFollowUp = followUpService.saveFollowUp(followUpLogDto);
         if (saveFollowUp){
