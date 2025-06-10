@@ -17,4 +17,6 @@ public interface BikeRepository {
     long countByShowroomId(Integer showroomId);
 
     BikeEntity findById(Integer bikeId);
+
+    void removeBikeById(Integer bikeId);
 }

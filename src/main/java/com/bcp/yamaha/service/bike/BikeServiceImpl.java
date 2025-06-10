@@ -63,8 +63,6 @@ public class BikeServiceImpl implements BikeService{
             if (entity.getShowroomEntity() != null) {
                 dto.setAvailableInShowroom(entity.getShowroomEntity().getShowroomName());
             }
-
-            System.out.println("dto: " + dto);
             bikeDtoList.add(dto);
         }
         return bikeDtoList;
@@ -104,36 +102,27 @@ public class BikeServiceImpl implements BikeService{
     public Boolean assignBikeToShowroom(Integer bikeId, Integer showroomId) {
         // Validate input parameters
         if (bikeId == null || showroomId == null) {
-            System.out.println("Error: Bike ID or Showroom ID cannot be null");
+            log.error("Bike ID or Showroom ID cannot be null");
             return false;
         }
 
         try {
             // Get bike entity with null check
             BikeEntity bike = bikeRepository.findById(bikeId);
-            if (bike == null) {
-                System.out.println("Error: Bike not found with ID: " + bikeId);
-                return false;
-            }
-            System.out.println("Found bike: " + bike.getBikeModel());
+            if (bike == null) throw new NotFoundException("Bike with ID: " + bikeId +" not found");
 
             // Get showroom entity with null check
             ShowroomEntity showroom = showroomRepository.findById(showroomId);
-            if (showroom == null) {
-                System.out.println("Error: Showroom not found with ID: " + showroomId);
-                return false;
-            }
-            System.out.println("Found showroom: " + showroom.getShowroomName());
+            if (showroom == null) throw new NotFoundException("Showroom with ID: " + showroomId +" not found");
 
             // Check bike count limit
             if (showroom.getBikeCount() >= 5) {
-                System.out.println("Error: Showroom " + showroom.getShowroomName() +
+                System.out.println(showroom.getShowroomName() + "Showroom " +
                         " already has maximum 5 bikes");
                 return false;
             }
 
             // Assign bike to showroom
-//            bike.setAvailableShowroom(showroom);
             bike.setShowroomEntity(showroom);
             bikeRepository.addBike(bike);
 
@@ -141,12 +130,10 @@ public class BikeServiceImpl implements BikeService{
             showroom.setBikeCount(showroom.getBikeCount() + 1);
             showroomRepository.addShowroom(showroom);
 
-            System.out.println("Successfully assigned bike " + bike.getBikeModel() +
-                    " to showroom " + showroom.getShowroomName());
+            log.info("Successfully assigned bike {} to showroom {}", bike.getBikeModel(), showroom.getShowroomName());
             return true;
         } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
-            log.error("error !!{}", String.valueOf(e));
+            log.error("Unexpected error while assigning bike to showroom {}", e.getMessage());
             return false;
         }
     }
@@ -156,32 +143,27 @@ public class BikeServiceImpl implements BikeService{
     }
 
     @Override
-    public void deleteShowroomById(int showroomId, String showroomUploadPath) {
-        ShowroomEntity showroom = showroomRepository.findById(showroomId);
-        if (showroom == null){
-            throw new NotFoundException("Showroom ID: " + showroomId + " not found with ");
-        }
+    public void deleteBikeById(Integer bikeId, String uploadPath) {
+        BikeEntity bike = bikeRepository.findById(bikeId);
+        if (bike == null) throw new NotFoundException("Bike with ID: " + bikeId +" not found");
 
-        for (BikeEntity bike : showroom.getBikes()){
-            log.info("Unassigning bike '{}' (ID: {}) from showroom '{}'",
-                    bike.getBikeModel(), bike.getBikeId(), showroom.getShowroomName());
-            bike.setShowroomEntity(null);
-        }
+        if (bike.getImages() != null){
+            for (String imageName : bike.getImages()){
+                if (imageName == null || imageName.trim().isEmpty()) continue;
 
-        // Delete showroom image from file system
-        if (showroom.getShowroomImg() != null) {
-            File imageFile = new File(showroomUploadPath + showroom.getShowroomImg());
-            if (imageFile.exists()) {
-                if (imageFile.delete()) {
-                    log.info("Deleted showroom image: {}", imageFile.getName());
-                } else {
-                    log.warn("Failed to delete showroom image: {}", imageFile.getName());
+                File imageFile = new File(uploadPath, imageName);
+                if (imageFile.exists()){
+                    boolean deleted = imageFile.delete();
+                    if (!deleted){
+                        log.warn("Failed to delete image file: {}", imageFile.getAbsolutePath());
+                    }
+                    log.info("Deleted image: {}", imageFile.getAbsolutePath());
+                }else {
+                    log.warn("Image file not found: {}", imageFile.getAbsolutePath());
                 }
             }
         }
-
-        // Delete showroom from DB
-        showroomRepository.removeShowroom(showroom);
-        log.info("Deleted showroom with ID {}", showroomId);
+        bikeRepository.removeBikeById(bikeId);
     }
+
 }

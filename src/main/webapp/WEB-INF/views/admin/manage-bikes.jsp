@@ -70,12 +70,10 @@
                         </c:if>
                         <c:if test="${not empty success}">
                           <div class="alert alert-success alert-dismissible">${success}</div>
-                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         </c:if>
 
                         <c:if test="${not empty error}">
                             <div class="alert alert-danger alert-dismissible">${error}</div>
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         </c:if>
 
                         <table class="table table-hover">

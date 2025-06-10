@@ -640,7 +640,16 @@ public class AdminController {
                 }
                 return new RedirectView(contextPath + "/admin/manage-users");
             case "bike":
-//                bikeService.deleteById(id);
+                try {
+                    bikeService.deleteBikeById(id, bikeUploadPath);
+                    redirectAttributes.addFlashAttribute("success", "Bike deleted successfully.");
+                } catch (NotFoundException e) {
+                    log.warn("Bike not found during delete: {}", e.getMessage());
+                    redirectAttributes.addFlashAttribute("error", "Bike not found.");
+                } catch (Exception e) {
+                    log.error("Unexpected error while deleting bike ID {}: {}", id, e.getMessage(), e);
+                    redirectAttributes.addFlashAttribute("error", "Unexpected error occurred.");
+                }
                 return new RedirectView(contextPath + "/admin/manage-bikes");
             case "showroom":
                 try {

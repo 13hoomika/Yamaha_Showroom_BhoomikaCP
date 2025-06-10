@@ -2,6 +2,8 @@ package com.bcp.yamaha.repository.bike;
 
 import com.bcp.yamaha.constants.BikeType;
 import com.bcp.yamaha.entity.BikeEntity;
+import com.bcp.yamaha.entity.ShowroomEntity;
+import com.bcp.yamaha.exception.NotFoundException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -60,5 +62,18 @@ public class BikeRepositoryImpl implements BikeRepository {
         return em.find(BikeEntity.class,bikeId);
     }
 
+    @Override
+    public void removeBikeById(Integer bikeId) {
+        BikeEntity bike = em.find(BikeEntity.class, bikeId);
+        if (bike == null)
+            throw new NotFoundException("Bike with ID: " + bikeId + " not found ");
 
+        ShowroomEntity showroom = bike.getShowroomEntity();
+        if (showroom != null){
+            int currentCount = showroom.getBikeCount();
+            showroom.setBikeCount(Math.max(0,currentCount - 1));
+            em.merge(showroom);
+        }
+        em.remove(bike);
+    }
 }
