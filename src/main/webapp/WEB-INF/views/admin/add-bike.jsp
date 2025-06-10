@@ -78,10 +78,10 @@
                 <div class="card-body">
                     <form id="bikeForm" action="${pageContext.request.contextPath}/admin/add-bike" method="post" enctype="multipart/form-data">
                         <c:if test="${not empty success}">
-                            <div class="alert alert-success">${success}</div>
+                            <div class="alert alert-success alert-dismissible">${success}</div>
                         </c:if>
                         <c:if test="${not empty error}">
-                            <div class="alert alert-danger">${error}</div>
+                            <div class="alert alert-danger alert-dismissible">${error}</div>
                         </c:if>
                         <div class="row g-3">
                             <!-- Bike Model -->
@@ -210,6 +210,7 @@
 
 <script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/alerts.js"></script>
 <script>
     // Image preview functionality for all image inputs
     function setupImagePreview(inputId, previewId) {
