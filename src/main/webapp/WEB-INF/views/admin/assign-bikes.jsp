@@ -27,17 +27,17 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4><i class="bi bi-bicycle me-2"></i>Assign Bikes to Showrooms</h4>
                 <a href="${pageContext.request.contextPath}/admin/view-allBikes" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left-short me-1"></i> Back to List
+                    <i class="bi bi-arrow-left me-1"></i> Back to List
                 </a>
             </div>
 
             <div class="card">
                 <div class="card-body">
                     <c:if test="${not empty success}">
-                        <div class="alert alert-success">${success}</div>
+                        <div class="alert alert-success alert-dismissible">${success}</div>
                     </c:if>
                     <c:if test="${not empty error}">
-                        <div class="alert alert-danger">${error}</div>
+                        <div class="alert alert-danger alert-dismissible">${error}</div>
                     </c:if>
 
                     <form method="post" action="${pageContext.request.contextPath}/admin/assign-bike">
@@ -81,6 +81,7 @@
 
 <script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/alerts.js"></script>
 <script>
     document.getElementById('bikeImages').addEventListener('change', function() {
         if (this.files.length > 5) {
