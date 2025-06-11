@@ -3,6 +3,10 @@ package com.bcp.yamaha.util;
 import java.util.regex.Pattern;
 
 public class ValidationUtil {
+    //Constants
+    private static final int MAX_FIELD_LENGTH = 25;
+
+    //Regex Patterns
     private static final String PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
     public static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
     private static final String PHONE_REGEX = "^[6-9]\\d{9}$";
