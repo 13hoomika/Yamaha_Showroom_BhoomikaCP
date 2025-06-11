@@ -41,7 +41,7 @@ public class ShowroomRestController {
     }
 
     @GetMapping("/checkManagerName/{showroomManager}")
-    public String validateShowroomManagere(@PathVariable String showroomManager) {
+    public String validateShowroomManager(@PathVariable String showroomManager) {
         System.out.println("Received showroomName in RestController: [" + showroomManager + "]");
 
         if (!ValidationUtil.isValidShowroomName(showroomManager)) {
