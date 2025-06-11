@@ -15,6 +15,8 @@ public interface BikeService {
 
     Boolean assignBikeToShowroom(Integer bikeId, Integer showroomId);
     Long getTotalBikeCount();
+    
+    boolean existByBikeModel(String bikeModel);
 
     void deleteBikeById(Integer bikeId, String uploadPath);
 }

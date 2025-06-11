@@ -65,6 +65,25 @@ public class BikeRepositoryImpl implements BikeRepository {
     }
 
     @Override
+    public boolean existByName(String bikeModel) {
+        System.out.println("------------> inside repo: existByName()");
+        try {
+            String trimmedName = bikeModel.trim();
+            log.debug("Checking bikeModel in repo: [{}]", trimmedName);
+
+            Long count = em.createNamedQuery("bikeModelExist", Long.class)
+                    .setParameter("bikeModel", trimmedName)
+                    .getSingleResult();
+
+            log.debug("Bike Model count from repo: {}", count);
+            return count > 0;
+        } catch (Exception e) {
+            log.error("Database error while checking bike model existence", e);
+            throw e;
+        }
+    }
+
+    @Override
     public void removeBikeById(Integer bikeId) {
         BikeEntity bike = em.find(BikeEntity.class, bikeId);
         if (bike == null)
