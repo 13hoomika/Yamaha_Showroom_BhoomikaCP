@@ -52,4 +52,17 @@ public class ValidationUtil {
         if (!bikeModel.matches(BIKE_MODEL_REGEX)) return "Invalid bike model format";
         return null;
     }
+    public static String validateBikeColor(String bikeColor) {
+        if (bikeColor == null || bikeColor.trim().isEmpty()) {
+            return "Bike color cannot be empty.";
+        }
+        if (bikeColor.length() > MAX_FIELD_LENGTH) {
+            return "Bike color cannot exceed " + MAX_FIELD_LENGTH +" characters.";
+        }
+        if (!Pattern.matches(NAME_REGEX, bikeColor)) { // NAME_REGEX assumes "Firstname Lastname" format
+            return "Invalid color format. Please use standard characters (e.g., Red, Matte Black).";
+        }
+        return null;
+    }
+
 }
