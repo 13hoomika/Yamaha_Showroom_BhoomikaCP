@@ -19,7 +19,8 @@ import java.util.List;
         @NamedQuery(name = "countAllBikes", query = "SELECT COUNT(bikes) FROM BikeEntity bikes"),
         @NamedQuery(name = "findByBikeType",query = "SELECT b FROM BikeEntity b WHERE b.bikeType = :type"),
         @NamedQuery(name = "findUnassignedBikes",query = "SELECT b FROM BikeEntity b WHERE b.showroomEntity IS NULL"),
-        @NamedQuery(name = "countByShowroomId",query = "SELECT COUNT(b) FROM BikeEntity b WHERE b.showroomEntity.showroomId = :showroomId")
+        @NamedQuery(name = "countByShowroomId",query = "SELECT COUNT(b) FROM BikeEntity b WHERE b.showroomEntity.showroomId = :showroomId"),
+        @NamedQuery(name = "bikeModelExist", query = "SELECT COUNT(bike) FROM BikeEntity bike WHERE bike.bikeModel = :bikeModel"),
 })
 
 
