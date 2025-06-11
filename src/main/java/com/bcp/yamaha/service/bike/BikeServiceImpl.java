@@ -143,6 +143,14 @@ public class BikeServiceImpl implements BikeService{
     }
 
     @Override
+    public boolean existByBikeModel(String bikeModel) {
+        System.out.println("checking bikeModel existence in service..........");
+        boolean exists = bikeRepository.existByName(bikeModel);
+        log.info("is existByBikeModel in service: {}", exists);
+        return exists;
+    }
+
+    @Override
     public void deleteBikeById(Integer bikeId, String uploadPath) {
         BikeEntity bike = bikeRepository.findById(bikeId);
         if (bike == null) throw new NotFoundException("Bike with ID: " + bikeId +" not found");
