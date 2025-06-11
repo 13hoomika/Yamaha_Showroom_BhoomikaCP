@@ -13,6 +13,13 @@ public class ValidationUtil {
     private static final String NAME_REGEX = "^([A-Z][a-z]{0,19})(\\s[A-Z][a-z]{0,19}){0,4}$";
     private static final String DL_REGEX = "^[A-Z]{2}[0-9]{2}[0-9]{4}[0-9]{7}$";
 
+    // New: Bike Model Validation Regex
+    private static final String BIKE_MODEL_REGEX =
+            "^[A-Za-z0-9]+(?:[- ][A-Za-z0-9]+)*\\s(?:V\\d+|Ver\\s\\d+(?:\\.\\d+)?|FI|DLX|Hybrid|S|FI\\sHybrid|DLX\\sVer\\s\\d+(?:\\.\\d+)?)?" +  // Base model (e.g., "R15", "FZ-S")
+                    // Version (e.g., "V4", "Ver 2.0")
+                    "$";  // Suffixes
+
+    // === Validation Methods ===
     public static boolean isValidPassword(String password) {
         return password != null && Pattern.matches(PASSWORD_REGEX, password);
     }
@@ -37,5 +44,12 @@ public class ValidationUtil {
 
     public static boolean isValidShowroomName(String showroomName) {
         return showroomName != null && showroomName.matches(NAME_REGEX);
+    }
+
+    public static String validateBikeModel(String bikeModel) {
+        if (bikeModel == null) return "Bike model cannot be null";
+        if (bikeModel.length() > MAX_FIELD_LENGTH) return "Bike model cannot exceed  " + MAX_FIELD_LENGTH + " characters";
+        if (!bikeModel.matches(BIKE_MODEL_REGEX)) return "Invalid bike model format";
+        return null;
     }
 }
