@@ -18,5 +18,7 @@ public interface BikeRepository {
 
     BikeEntity findById(Integer bikeId);
 
+    boolean existByName(String bikeModel);
+
     void removeBikeById(Integer bikeId);
 }

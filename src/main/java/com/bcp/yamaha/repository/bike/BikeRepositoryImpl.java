@@ -4,6 +4,7 @@ import com.bcp.yamaha.constants.BikeType;
 import com.bcp.yamaha.entity.BikeEntity;
 import com.bcp.yamaha.entity.ShowroomEntity;
 import com.bcp.yamaha.exception.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
+@Slf4j
 public class BikeRepositoryImpl implements BikeRepository {
 
     @PersistenceContext
