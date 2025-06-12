@@ -22,9 +22,11 @@ public class UserRestController {
     public ResponseEntity<String> validateUserName(@PathVariable String userName) {
         log.debug("Received userName: [{}]", userName);
 
-        if (!ValidationUtil.isValidUserName(userName)) {
-            return ResponseEntity.ok("Invalid name format. Each word must start with uppercase followed by lowercase letters (e.g., John Doe)");
+        String validationError = ValidationUtil.validateName(userName);
+        if (validationError != null){
+            return ResponseEntity.badRequest().body(validationError);
         }
+
         return ResponseEntity.ok("");
     }
 
@@ -32,9 +34,10 @@ public class UserRestController {
     public ResponseEntity<String> checkEmailValue(@PathVariable String email) {
         log.debug("Received email in Controller: [{}]", email);
 
-        if (!ValidationUtil.isValidEmail(email)){
+        String validationError = ValidationUtil.validateEmail(email);
+        if (validationError != null) {
             // For an invalid format, it's better to return a 400 Bad Request
-            return ResponseEntity.badRequest().body("Invalid email format");
+            return ResponseEntity.badRequest().body(validationError);
         }
 
         boolean isEmailExist = userService.existByEmail(email);
@@ -48,9 +51,11 @@ public class UserRestController {
     public ResponseEntity<String> getPhCountForRegister(@PathVariable String phNo){
         log.debug("Received phNo in Controller: [{}]", phNo);
 
-        if (!ValidationUtil.isValidPhoneNumber(phNo)){
-            return ResponseEntity.badRequest().body("Invalid phone number format. phone number must be 10 digits and start with 9, 8, 7, or 6");
+        String validationError = ValidationUtil.validPhoneNumber(phNo);
+        if (validationError != null) {
+            return ResponseEntity.badRequest().body(validationError);
         }
+
         boolean isPhExist = userService.existByPhNumber(phNo);
         log.debug("isPhExist: {}", isPhExist);
 
@@ -62,9 +67,9 @@ public class UserRestController {
     public ResponseEntity<String> checkDrivingLicenseNumberForRegister(@PathVariable String dlNo) {
         log.debug("Received DL Number: [{}]", dlNo);
 
-        // Validate format using regex (KA0120231234567 format)
-        if (!ValidationUtil.isValidDl(dlNo)) {
-            return ResponseEntity.badRequest().body("Invalid DL number format (e.g., KA0120231234567)");
+        String validationError = ValidationUtil.validateDl(dlNo);
+        if (validationError != null) {
+            return ResponseEntity.badRequest().body(validationError);
         }
 
         boolean dlExists = userService.existsByDrivingLicenseNumber(dlNo);
@@ -89,8 +94,9 @@ public class UserRestController {
     public ResponseEntity<String> getPhCountForUpdate(@PathVariable String phNo, @PathVariable String currentPh) {
         log.debug("Received phNo: [{}], CurrentPh: [{}]", phNo, currentPh);
 
-        if (!ValidationUtil.isValidPhoneNumber(phNo)) {
-            return ResponseEntity.badRequest().body("Invalid phone number, must be 10 digits and start with 9, 8, 7, or 6");
+        String validationError = ValidationUtil.validPhoneNumber(phNo);
+        if (validationError != null) {
+            return ResponseEntity.badRequest().body(validationError);
         }
 
         if (phNo.equals(currentPh)) {
@@ -108,8 +114,9 @@ public class UserRestController {
         log.debug("Received DL Number: [{}], Current DL Number: [{}]", dlNo, currentDlNo);
 
         // Format validation (e.g., KA0120231234567)
-        if (!ValidationUtil.isValidDl(dlNo)) {
-            return ResponseEntity.badRequest().body("Invalid DL number format (e.g., KA0120231234567)");
+        String validationError = ValidationUtil.validateDl(dlNo);
+        if (validationError != null) {
+            return ResponseEntity.badRequest().body(validationError);
         }
 
         // If no change in DL number, it's valid
