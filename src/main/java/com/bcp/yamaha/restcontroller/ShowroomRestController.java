@@ -30,8 +30,10 @@ public class ShowroomRestController {
     @GetMapping(value = "/checkEmailValue/{email:.+}")
     public String getEmailCountAndValidate(@PathVariable String email) {
         System.out.println("Received showroom email in RestController: [" + email + "]");
-        if (!ValidationUtil.isValidEmail(email)){
-            return "Invalid email";
+
+        String validationError = ValidationUtil.validateEmail(email);
+        if (validationError != null) {
+            return validationError;
         }
 
         boolean isEmailExist = showroomService.existByEmail(email);
