@@ -13,11 +13,12 @@ public class ValidationUtil {
     private static final String NAME_REGEX = "^([A-Z][a-z]{0,19})(\\s[A-Z][a-z]{0,19}){0,4}$";
     private static final String DL_REGEX = "^[A-Z]{2}[0-9]{2}[0-9]{4}[0-9]{7}$";
 
-    // New: Bike Model Validation Regex
     private static final String BIKE_MODEL_REGEX =
             "^[A-Za-z0-9]+(?:[- ][A-Za-z0-9]+)*\\s(?:V\\d+|Ver\\s\\d+(?:\\.\\d+)?|FI|DLX|Hybrid|S|FI\\sHybrid|DLX\\sVer\\s\\d+(?:\\.\\d+)?)?" +  // Base model (e.g., "R15", "FZ-S")
                     // Version (e.g., "V4", "Ver 2.0")
                     "$";  // Suffixes
+            // Base model (e.g., "R15", "FZ-S") & Version (e.g., "V4", "Ver 2.0") Suffixes
+            "^[A-Za-z0-9]+(?:[- ][A-Za-z0-9]+)*\\s(?:V\\d+|Ver\\s\\d+(?:\\.\\d+)?|FI|DLX|Hybrid|S|FI\\sHybrid|DLX\\sVer\\s\\d+(?:\\.\\d+)?)?$";
 
     // === Validation Methods ===
     public static boolean isValidPassword(String password) {
