@@ -70,7 +70,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4><i class="bi bi-bicycle me-2"></i>Add New Bike</h4>
                 <a href="${pageContext.request.contextPath}/admin/view-allBikes" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left-short me-1"></i> Back to List
+                    <i class="bi bi-arrow-left me-1"></i> Back to List
                 </a>
             </div>
 
@@ -87,7 +87,9 @@
                             <!-- Bike Model -->
                             <div class="col-md-6">
                                 <label for="bikeModel" class="form-label required-field">Model</label>
-                                <input type="text" class="form-control" id="bikeModel" name="bikeModel" placeholder="Enter Bike model Name" required>
+                                <input type="text" class="form-control" id="bikeModel" name="bikeModel" placeholder="Enter Bike model Name"
+                                        oninput="validateName('bikeModel', 'bikeModelError', '/bike/checkBikeModel/')" required>
+                                <span id="bikeModelError" class="validation-error"></span>
                             </div>
 
                             <!-- Bike Type -->
@@ -134,7 +136,9 @@
                             <!-- Color -->
                             <div class="col-md-4">
                                 <label for="bikeColor" class="form-label required-field">Color</label>
-                                <input type="text" class="form-control" id="bikeColor" name="bikeColor" required>
+                                <input type="text" class="form-control" id="bikeColor" name="bikeColor"
+                                        oninput="validateName('bikeColor', 'bikeColorError', '/bike/checkBikeColor/')" required>
+                                <span id="bikeColorError" class="validation-error"></span>
                             </div>
 
                             <!-- Showroom Availability
@@ -192,7 +196,7 @@
 
                             <!-- Form Buttons -->
                             <div class="col-12 mt-4">
-                                <button type="submit" class="btn btn-primary me-2">
+                                <button type="submit"  id="submitBtn" class="btn btn-primary me-2">
                                     <i class="bi bi-floppy me-1"></i> Save Bike
                                 </button>
                                 <button type="reset" class="btn btn-outline-secondary">
@@ -207,10 +211,13 @@
         </div>
     </div>
 </div>
-
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
 <script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/admin-sidebar.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/alerts.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/uniqueFieldValidator.js"></script>
 <script>
     // Image preview functionality for all image inputs
     function setupImagePreview(inputId, previewId) {
@@ -250,19 +257,65 @@
     }
 
     // Initialize previews for all image inputs
-    document.addEventListener('DOMContentLoaded', function() {
-        setupImagePreview('frontImage', 'frontPreview');
-        setupImagePreview('backImage', 'backPreview');
-        setupImagePreview('leftImage', 'leftPreview');
-        setupImagePreview('rightImage', 'rightPreview');
+        document.addEventListener('DOMContentLoaded', function() {
+            setupImagePreview('frontImage', 'frontPreview');
+            setupImagePreview('backImage', 'backPreview');
+            setupImagePreview('leftImage', 'leftPreview');
+            setupImagePreview('rightImage', 'rightPreview');
 
-        // Reset form handling
-        document.querySelector('button[type="reset"]').addEventListener('click', function() {
-            document.querySelectorAll('.image-preview-container').forEach(container => {
-                container.innerHTML = '';
+            // Reset form handling
+            document.querySelector('button[type="reset"]').addEventListener('click', function() {
+                document.querySelectorAll('.image-preview-container').forEach(container => {
+                    container.innerHTML = '';
+                });
             });
+
+            // Input listeners
+            document.getElementById('bikeModel').addEventListener('input', validateForm);
+            document.getElementById('bikeType').addEventListener('input', validateForm);
+            document.getElementById('bikePrice').addEventListener('input', validateForm);
+            document.getElementById('bikeYear').addEventListener('input', validateForm);
+            document.getElementById('engineCapacity').addEventListener('input', validateForm);
+            document.getElementById('mileage').addEventListener('input', validateForm);
+            document.getElementById('fuelTankCapacity').addEventListener('input', validateForm);
+            document.getElementById('bikeColor').addEventListener('input', validateForm);
+            document.getElementById('bikeDescription').addEventListener('input', validateForm);
+            document.getElementById('frontImage').addEventListener('input', validateForm);
+            document.getElementById('backImage').addEventListener('input', validateForm);
+            document.getElementById('leftImage').addEventListener('input', validateForm);
+            document.getElementById('rightImage').addEventListener('input', validateForm);
         });
-    });
+
+        // Function to validate the entire form
+       function validateForm() {
+         const model = document.getElementById('bikeModel').value.trim();
+         const bikeTypes = document.getElementById('bikeType').value.trim();
+         const price = document.getElementById('bikePrice').value.trim();
+         const yr = document.getElementById('bikeYear').value.trim();
+         const engine = document.getElementById('engineCapacity').value.trim();
+         const ml = document.getElementById('mileage').value.trim();
+         const tankCapacity = document.getElementById('fuelTankCapacity').value.trim();
+         const color = document.getElementById('bikeColor').value.trim();
+         const description = document.getElementById('bikeDescription').value.trim();
+         const frontImg = document.getElementById('frontImage').value.trim();
+         const backImg = document.getElementById('backImage').value.trim();
+         const leftImg = document.getElementById('leftImage').value.trim();
+         const rightImg = document.getElementById('rightImage').value.trim();
+
+         const nameError = document.getElementById('bikeModelError').innerText;
+         //const phError = document.getElementById('bikeColorError').innerText;
+
+         const submitBtn = document.getElementById('submitBtn');
+
+         const allRequiredFilled = model && bikeTypes && price && yr && engine && ml && tankCapacity && color && description && frontImg && backImg & leftImg && rightImg;
+         const noErrors = !bikeModelError &&  !bikeColorError;
+
+         if (allRequiredFilled && noErrors) {
+             submitBtn.disabled = false;
+         } else {
+             submitBtn.disabled = true;
+         }
+       }
 </script>
 </body>
 </html>
