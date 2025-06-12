@@ -17,8 +17,9 @@ public class ShowroomRestController {
     public String validateShowroomName(@PathVariable String showroomName) {
         System.out.println("Received showroomName in RestController: [" + showroomName + "]");
 
-        if (!ValidationUtil.isValidShowroomName(showroomName)) {
-            return "Invalid format. Each word must start with uppercase followed by lowercase letters (e.g., Yamaha Motors)";
+        String validationError = ValidationUtil.validShowroomName(showroomName);
+        if (validationError != null){
+            return validationError;
         }
 
         boolean isShowroomExist = showroomService.existByName(showroomName);
@@ -32,7 +33,7 @@ public class ShowroomRestController {
         System.out.println("Received showroom email in RestController: [" + email + "]");
 
         String validationError = ValidationUtil.validateEmail(email);
-        if (validationError != null) {
+        if (validationError != null){
             return validationError;
         }
 
@@ -46,8 +47,9 @@ public class ShowroomRestController {
     public String validateShowroomManager(@PathVariable String showroomManager) {
         System.out.println("Received showroomName in RestController: [" + showroomManager + "]");
 
-        if (!ValidationUtil.isValidShowroomName(showroomManager)) {
-            return "Invalid Name. Each word must start with uppercase followed by lowercase letters (e.g., Mahesh Gupta)";
+        String validationError = ValidationUtil.validateName(showroomManager);
+        if (validationError != null){
+            return validationError;
         }
 
         return "";
@@ -57,9 +59,11 @@ public class ShowroomRestController {
     public String getPhCountForRegister(@PathVariable String showroomPhone){
         System.out.println("Received phNo in RestController: [" + showroomPhone + "]");
 
-        if (ValidationUtil.isValidPhoneNumber(showroomPhone)){
-            return "Phone number must be 10 digits and start with 9, 8, 7, or 6";
+        String validationError = ValidationUtil.validPhoneNumber(showroomPhone);
+        if (validationError != null) {
+            return validationError;
         }
+
         boolean isPhExist = showroomService.existByPhNumber(showroomPhone);
         System.out.println("isPhExist: "+ isPhExist);
         if(isPhExist){
