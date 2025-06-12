@@ -4,6 +4,7 @@ import com.bcp.yamaha.constants.ScheduleType;
 import com.bcp.yamaha.dto.ShowroomDto;
 import com.bcp.yamaha.dto.UserDto;
 import com.bcp.yamaha.entity.UserEntity;
+import com.bcp.yamaha.exception.InvalidPasswordException;
 import com.bcp.yamaha.exception.NotFoundException;
 import com.bcp.yamaha.repository.followup.FollowUpRepository;
 import com.bcp.yamaha.repository.user.UserRepository;
@@ -175,10 +176,10 @@ public class UserServiceImpl implements UserService{
                 );
 
         // Validate the new password
-        if (!ValidationUtil.isValidPassword(newPassword)) {
-            log.warn("Password validation failed for user: {}", email);
-            log.warn("Invalid Password. Must be at least 8 characters long, include one uppercase letter, one lowercase letter, one digit, and one special character.");
-            return false;
+        String passwordValidationError = ValidationUtil.validatePassword(newPassword);
+        if (passwordValidationError != null) { // If validationError is not null, it means there's an error
+            log.warn("Password validation failed for user: {}. Reason: {}", email, passwordValidationError);
+            throw new InvalidPasswordException(passwordValidationError);
         }
 
         String hashedPassword = passwordEncoder.encode(newPassword);
