@@ -255,7 +255,7 @@ public class UserRepositoryImpl implements UserRepository{
         }
     }
 
-    @Override
+/*    @Override
     public void updateUserProfileImage(int userId, String profileImagePath) {
         UserEntity user = em.find(UserEntity.class, userId);
         if (user != null) {

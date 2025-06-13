@@ -27,7 +27,7 @@ public interface UserRepository{
     boolean existByPhNumber(String phNumber);
     boolean existsByDrivingLicenseNumber(String dlNo);
 
-    void updateUserProfileImage(int userId, String profileImagePath);
+//    void updateUserProfileImage(int userId, String profileImagePath);
 
     /*void updateAccountLockStatus(UserEntity user);
     void updateLoginAttemptData(UserEntity user);
