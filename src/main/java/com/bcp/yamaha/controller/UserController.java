@@ -276,7 +276,7 @@ public class UserController {
     @GetMapping("/logout")
     public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
         session.invalidate();
-        log.info("Logging out");
+        log.info("User Logging out");
         redirectAttributes.addFlashAttribute("logoutMessage", "You have been logged out.");
         return "redirect:/";
     }
