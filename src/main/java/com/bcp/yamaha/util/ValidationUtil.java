@@ -11,7 +11,8 @@ public class ValidationUtil {
     public static final String EMAIL_REGEX = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$";
     private static final String PHONE_REGEX = "^[6-9]\\d{9}$";
     private static final String NAME_REGEX = "^([A-Z][a-z]{0,19})(\\s[A-Z][a-z]{0,19}){0,4}$";
-    private static final String DL_REGEX = "^[A-Z]{2}[0-9]{2}[0-9]{4}[0-9]{7}$";
+    private static final String DL_REGEX = "^[A-Z]{2}\\d{2}\\d{4}\\d{7}$";
+//    private static final String DL_REGEX = "^[A-Z]{2}[0-9]{2}[0-9]{4}[0-9]{7}$";
 
     private static final String BIKE_MODEL_REGEX =
             // Base model (e.g., "R15", "FZ-S") & Version (e.g., "V4", "Ver 2.0") Suffixes
