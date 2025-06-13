@@ -13,20 +13,18 @@ public interface UserRepository{
     Optional<UserEntity> findUserByEmail(String email);
 //    UserEntity findUserByName(String name);
     UserEntity findById(int userId);
-
     List<UserEntity> findAllUser();
+    List<UserEntity> findByScheduleType(ScheduleType scheduleType);
+
     Long countAllUsers();
 
-    List<UserEntity> findByScheduleType(ScheduleType scheduleType);
     boolean updatePassword(String email, String hashedPassword);
-
     boolean updateProfile(UserEntity updatedEntity);
 
     void deleteById(int id);
 
     boolean existByEmail(String email);
     boolean existByPhNumber(String phNumber);
-
     boolean existsByDrivingLicenseNumber(String dlNo);
 
     void updateUserProfileImage(int userId, String profileImagePath);
