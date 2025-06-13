@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -63,10 +64,9 @@ public class UserEntity extends AuditEntity{
     @Column(name = "profile_img")
     private String profileImage;
 
-    /*@Column(name = "invalid_logInCount")
-    private Integer invalidLogInCount;
-    @Column(name = "account_locked")
-    private Boolean accountLocked = false;
-    @Column(name="last_logIn", columnDefinition = "TIMESTAMP(6)")
-    private LocalDateTime lastLogIn;*/
+    @Column(nullable = false)
+    private int invalidLogInCount;
+    private Instant lastLogIn;
+    @Column(nullable = false)
+    private boolean accountLocked;
 }
