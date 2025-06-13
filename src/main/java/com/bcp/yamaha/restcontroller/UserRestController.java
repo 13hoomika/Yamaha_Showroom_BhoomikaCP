@@ -6,10 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -63,8 +60,8 @@ public class UserRestController {
 
     }
 
-    @GetMapping(value = "/checkDlNumber/{dlNo}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> checkDrivingLicenseNumberForRegister(@PathVariable String dlNo) {
+    @GetMapping(value = "/checkDlNumber", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> checkDrivingLicenseNumberForRegister(@RequestParam String dlNo) {
         log.debug("Received DL Number: [{}]", dlNo);
 
         String validationError = ValidationUtil.validateDl(dlNo);
@@ -75,7 +72,7 @@ public class UserRestController {
         boolean dlExists = userService.existsByDrivingLicenseNumber(dlNo);
         log.debug("dlExists: {}", dlExists);
 
-        return ResponseEntity.ok(dlExists? "Driving License number already exists" : "");
+        return ResponseEntity.ok(dlExists ? "Driving License number already exists" : "");
     }
 
     @GetMapping(value = "/checkAge/{age}") //"URI template" using curly braces {} to denote a path variable.
