@@ -1,6 +1,7 @@
 package com.bcp.yamaha.controller;
 
 import com.bcp.yamaha.dto.UserDto;
+import com.bcp.yamaha.exception.InvalidPasswordException;
 import com.bcp.yamaha.exception.NotFoundException;
 import com.bcp.yamaha.service.bike.BikeService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
@@ -61,12 +62,14 @@ public class UserController {
         }
 
         // Validate login
-        UserDto authenticatedUser  = userService.validateAndLogIn(email, password);
-        if (authenticatedUser != null ) {
+        log.info("Login attempt for email: {}", email);
+        try {
+            UserDto authenticatedUser = userService.validateAndLogIn(email, password);
             session.setAttribute("loggedInUser", authenticatedUser);
             log.info("User signed in successfully: {}", email);
             return "redirect:/user/bikes";
-        }else {
+
+        } catch (NotFoundException | InvalidPasswordException e) {
             redirectAttributes.addFlashAttribute("error", "Invalid password. Please try again.");
             return "redirect:/user/login";
         }
