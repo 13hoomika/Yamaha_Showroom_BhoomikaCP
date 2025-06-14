@@ -132,23 +132,6 @@ public class UserRepositoryImpl implements UserRepository{
         return em.find(UserEntity.class,userId);
     }
 
-    /*@Override
-    public void updateUser(UserEntity userEmail) {
-        try {
-            UserEntity managedUser = em.find(UserEntity.class, userEmail.getUserId());
-            if (managedUser != null) {
-                // Only update OTP-related fields
-                managedUser.setOtp(userEmail.getOtp());
-                managedUser.setOtpGenerated(userEmail.getOtpGenerated());
-                managedUser.setOtpExpired(userEmail.isOtpExpired());
-                em.merge(managedUser);
-            }
-        } catch (Exception e) {
-            System.out.println("Error updating user: " + e.getMessage());
-            throw new RuntimeException("Failed to update user");
-        }
-    }*/
-
     @Override
     public void deleteById(int id) {
         em.createNamedQuery("deleteUser").setParameter("id",id).executeUpdate();
