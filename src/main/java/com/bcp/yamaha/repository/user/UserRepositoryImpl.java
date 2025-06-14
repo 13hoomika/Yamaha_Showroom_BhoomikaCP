@@ -106,18 +106,17 @@ public class UserRepositoryImpl implements UserRepository{
                 existingEntity.setUserAddress(updatedEntity.getUserAddress());
                 existingEntity.setDrivingLicenseNumber(updatedEntity.getDrivingLicenseNumber());
 
-                /*existingEntity.setInvalidLogInCount(updatedEntity.getInvalidLogInCount());
+                existingEntity.setInvalidLogInCount(updatedEntity.getInvalidLogInCount());
+                existingEntity.setLastLogIn(updatedEntity.getLastLogIn());
                 existingEntity.setAccountLocked(updatedEntity.isAccountLocked());
-                existingEntity.setLastLogIn(updatedEntity.getLastLogIn());*/
 
                 em.merge(existingEntity);
-                /*//Set updatedBy and updatedTime AFTER the merge is successful
-                existingEntity.setUpdateBy(updatedEntity.getUserName());
-                existingEntity.setUpdatedTime(LocalDateTime.now());
+                //Set updatedBy and updatedTime AFTER the merge is successful
+//                existingEntity.setUpdateBy(updatedEntity.getUserName());
+                existingEntity.setLastModifiedDateTime(LocalDateTime.now());
 
                 // Merge again to save updatedBy and updatedTime
-                em.merge(existingEntity);*/
-                isUpdated = true;
+                em.merge(existingEntity);
                 return true;
             }
         } catch (Exception e) {
