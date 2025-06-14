@@ -16,6 +16,7 @@ public interface UserService {
     List<UserDto> getUsersByScheduleType(ScheduleType scheduleType);
 
     UserDto validateAndLogIn(String email, String password);
+    void updateLoginStatusAndCommit(UserEntity user);
     boolean resetPassword(String email, String newPassword);
 
     boolean updateProfile(UserDto uerDto);

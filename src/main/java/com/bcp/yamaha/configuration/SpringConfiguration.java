@@ -60,6 +60,8 @@ public class SpringConfiguration implements WebMvcConfigurer {
         properties.setProperty("hibernate.show_sql","true");
         properties.setProperty("hibernate.hbm2ddl.auto","update");
         properties.setProperty("hibernate.SQL","DEBUG");
+        properties.setProperty("logging.level.org.hibernate.SQL","DEBUG"); // Add this to your logging configuration
+        properties.setProperty("logging.level.org.hibernate.type.descriptor.sql.BasicBinder","TRACE"); // Add this for parameter values
         return properties;
     }
 
