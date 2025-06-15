@@ -1,5 +1,7 @@
 package com.bcp.yamaha.util;
 
+import java.time.Duration;
+
 public class FormatUtil {
     public static String capitalize(String input) {
         if (input == null || input.isEmpty()) return input;
@@ -20,6 +22,18 @@ public class FormatUtil {
             }
         }
         return result.toString().trim();
+    }
+
+    public static String formatDuration(Duration duration) {
+        long minutes = duration.toMinutes();
+        long seconds = duration.minusMinutes(minutes).getSeconds();
+
+        if (minutes > 0) {
+            return String.format("%d minute%s %d second%s",
+                    minutes, minutes != 1 ? "s" : "",
+                    seconds, seconds != 1 ? "s" : "");
+        }
+        return String.format("%d second%s", seconds, seconds != 1 ? "s" : "");
     }
 
 }
