@@ -70,7 +70,7 @@ public class UserController {
             return "redirect:/user/bikes";
 
         } catch (NotFoundException | InvalidPasswordException e) {
-            redirectAttributes.addFlashAttribute("error", "Invalid password. Please try again.");
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/user/login";
         }
     }
