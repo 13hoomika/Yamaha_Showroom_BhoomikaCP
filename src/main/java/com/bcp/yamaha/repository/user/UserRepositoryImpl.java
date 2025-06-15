@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public Boolean saveUser(UserEntity userEntity) {
         try {
-            if (userEntity.getUserId() == 0) {
+            if (em.contains(userEntity)) {
                 em.persist(userEntity);
             } else {
                 em.merge(userEntity);
