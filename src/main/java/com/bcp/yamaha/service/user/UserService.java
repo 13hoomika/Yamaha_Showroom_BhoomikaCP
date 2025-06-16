@@ -2,6 +2,8 @@ package com.bcp.yamaha.service.user;
 
 import com.bcp.yamaha.constants.ScheduleType;
 import com.bcp.yamaha.dto.UserDto;
+import com.bcp.yamaha.entity.UserEntity;
+
 import java.util.List;
 
 

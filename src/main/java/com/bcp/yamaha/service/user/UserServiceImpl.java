@@ -41,6 +41,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     FollowUpRepository followUpRepository;
 
+    @Autowired // Inject the service into itself for @Transactional(REQUIRES_NEW) to work
+    private UserService userServiceProxy; // This is a common pattern for self-invocation of transactional methods
+
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     /*public String generateRandomPassword() {
