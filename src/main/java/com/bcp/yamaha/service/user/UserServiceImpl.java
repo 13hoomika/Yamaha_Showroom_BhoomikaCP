@@ -56,7 +56,8 @@ public class UserServiceImpl implements UserService{
     public UserDto  registerUser(UserDto userDto) {
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userDto, userEntity);
-//        userEntity.setInvalidLogInCount(-1);
+        userEntity.setInvalidLogInCount(-1);
+        userEntity.setAccountLocked(false);
 
         if (userDto.getShowroomId() != null) {
             ShowroomDto showroom = showroomService.getShowroomById(userDto.getShowroomId());
