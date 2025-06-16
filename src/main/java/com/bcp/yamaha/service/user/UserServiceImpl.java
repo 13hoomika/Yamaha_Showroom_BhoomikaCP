@@ -105,7 +105,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDto getUserByEmail(String email) {
-        System.out.println("============= UserService : getUserByEmail() ===================");
         UserDto userDto = new UserDto();
         Optional<UserEntity> userByEmail = userRepository.findUserByEmail(email);
 
@@ -116,7 +115,6 @@ public class UserServiceImpl implements UserService{
             log.error("UserEntity is null for email:{}", email);
             return null;
         }
-
     }
 
     @Override
