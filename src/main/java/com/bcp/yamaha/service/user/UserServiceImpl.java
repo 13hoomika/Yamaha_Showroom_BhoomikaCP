@@ -75,10 +75,10 @@ public class UserServiceImpl implements UserService{
             userRepository.updatePassword(userEntity.getUserEmail(), hashedOtp);
             boolean emailSent = emailService.sendEmail(userEntity.getUserEmail(), otp);
             if (emailSent) {
-                System.out.println("✅ OTP sent to email: " + userEntity.getUserEmail());
+                System.out.println("OTP sent to email: " + userEntity.getUserEmail());
                 System.out.println("otp: " + otp);
             } else {
-                System.out.println("❌ Email sending failed.");
+                System.out.println("Email sending failed.");
             }
         }
         // Convert back to DTO before returning
