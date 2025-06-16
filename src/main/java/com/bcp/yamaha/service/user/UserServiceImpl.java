@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService{
         return userDtoList;
     }
 
-    @Override
+    /*@Override
     public UserDto validateAndLogIn(String email, String password) {
         System.out.println("============= UserService : validateAndLogIn() ===================");
         Optional<UserEntity> user = userRepository.findUserByEmail(email);
@@ -169,6 +169,7 @@ public class UserServiceImpl implements UserService{
         }
         return null;
     }
+    }*/
 
     @Override
     public boolean resetPassword(String email, String newPassword) {
