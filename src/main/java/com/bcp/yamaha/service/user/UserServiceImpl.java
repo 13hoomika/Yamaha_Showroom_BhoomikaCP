@@ -11,14 +11,18 @@ import com.bcp.yamaha.repository.user.UserRepository;
 import com.bcp.yamaha.service.EmailService;
 import com.bcp.yamaha.service.OtpGeneratorService;
 import com.bcp.yamaha.service.showroom.ShowroomService;
+import com.bcp.yamaha.util.FormatUtil;
 import com.bcp.yamaha.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -168,8 +172,93 @@ public class UserServiceImpl implements UserService{
             log.error("No user found with email: {}", email);
         }
         return null;
-    }
     }*/
+
+    private static final int MAX_LOGIN_ATTEMPTS = 3;
+    private static final Duration LOCK_DURATION = Duration.ofMinutes(3);
+
+    @Transactional// The main login method is transactional
+    @Override
+    public UserDto validateAndLogIn(String email, String password) {
+        System.out.println("============= UserService : validateAndLogIn() ===================");
+
+        UserEntity user = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> {
+                    log.warn("Login attempt failed: No user with email {}", email);
+                    return new NotFoundException("User not found. Please check your email or register first.");
+                });
+
+        log.debug("Initial user state - Count: {}, Locked: {}, LastLogin: {}",
+                user.getInvalidLogInCount(), user.isAccountLocked(), user.getLastLogIn());
+
+        // 2. Check if account is locked
+        if (user.isAccountLocked()) {
+            Instant now = Instant.now();
+            Instant unlockTime = user.getLastLogIn();
+
+            if (unlockTime != null && now.isBefore(unlockTime)) {
+                Duration remainingTime = Duration.between(now, unlockTime);
+                String remainingTimeFormatted = FormatUtil.formatDuration(remainingTime);
+
+                log.warn("Locked account attempted login: {}", email);
+                throw new InvalidPasswordException("Account is locked. Try again after " + remainingTimeFormatted);
+            } else {
+                // Unlock the account immediately and commit this change
+                user.setAccountLocked(false);
+                user.setInvalidLogInCount(0);
+                user.setLastLogIn(null);
+                // Call a method that will manage its own transaction to persist this unlock
+                // The current transaction (from validateAndLogIn) will then proceed.
+                userServiceProxy.updateLoginStatusAndCommit(user); // Call the new method
+                log.info("Account unlocked automatically: {}", email);
+            }
+        }
+
+        // 3. Validate password
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            int newCount = user.getInvalidLogInCount() + 1;
+            user.setInvalidLogInCount(newCount);
+
+            if (newCount >= MAX_LOGIN_ATTEMPTS) {
+                user.setAccountLocked(true);
+                user.setLastLogIn(Instant.now().plus(LOCK_DURATION)); // Lock for 3 minutes
+                log.warn("Account locked due to {} failed attempts: {}", newCount, email);
+            }
+
+            // --- IMPORTANT: Persist the failed login attempt *before* throwing the exception ---
+            // This will commit the changes to invalidLogInCount, accountLocked, and lastLogIn
+            userServiceProxy.updateLoginStatusAndCommit(user); // Call the new method
+
+            throw new InvalidPasswordException(
+                    newCount < MAX_LOGIN_ATTEMPTS
+                            ? "Invalid password. " + (MAX_LOGIN_ATTEMPTS - newCount) + " attempt(s) remaining."
+                            : "Account locked due to 3 failed attempts. Try again later."
+            );
+        }
+
+        // Successful login: reset counters and commit
+        user.setInvalidLogInCount(0);
+        user.setAccountLocked(false); // Ensure it's not locked on successful login
+        user.setLastLogIn(null);
+
+        // Since validateAndLogIn is @Transactional, these changes will be committed when it returns successfully
+        log.info("User authenticated: {}", user.getUserEmail());
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(user, userDto);
+        return userDto;
+    }
+
+    /**
+     * This method is responsible for updating the login status (count, locked, last login)
+     * and committing these changes in a NEW, independent transaction.
+     * This prevents rollback if the calling method (e.g., validateAndLogIn) later throws an exception.
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void updateLoginStatusAndCommit(UserEntity user) {
+        log.debug("Committing login status update for user: {}", user.getUserEmail());
+        userRepository.saveUser(user);
+    }
+
 
     @Override
     public boolean resetPassword(String email, String newPassword) {
