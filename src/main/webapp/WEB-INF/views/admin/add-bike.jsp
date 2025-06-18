@@ -77,11 +77,11 @@
             <div class="card">
                 <div class="card-body">
                     <form id="bikeForm" action="${pageContext.request.contextPath}/admin/add-bike" method="post" enctype="multipart/form-data">
-                        <c:if test="${not empty success}">
-                            <div class="alert alert-success alert-dismissible">${success}</div>
+                        <c:if test="${not empty successMessage}">
+                            <div class="alert alert-success alert-dismissible">${successMessage}</div>
                         </c:if>
-                        <c:if test="${not empty error}">
-                            <div class="alert alert-danger alert-dismissible">${error}</div>
+                        <c:if test="${not empty errorMessage}">
+                            <div class="alert alert-danger alert-dismissible">${errorMessage}</div>
                         </c:if>
                         <div class="row g-3">
                             <!-- Bike Model -->
@@ -179,7 +179,7 @@
                                     <!-- Left Image -->
                                     <div class="col-md-6 mb-3">
                                         <label for="leftImage" class="form-label">Left Side View</label>
-                                        <input class="form-control" type="file" name="multipartFileList" id="leftImage" accept="image/*" />
+                                        <input class="form-control" type="file" name="multipartFileList" id="leftImage" required accept="image/*" />
                                         <div class="form-text">Clear image showing the left side</div>
                                         <div class="image-preview-container" id="leftPreview"></div>
                                     </div>
@@ -187,7 +187,7 @@
                                     <!-- Right Image -->
                                     <div class="col-md-6 mb-3">
                                         <label for="rightImage" class="form-label">Right Side View</label>
-                                        <input class="form-control" type="file" name="multipartFileList" id="rightImage" accept="image/*" />
+                                        <input class="form-control" type="file" name="multipartFileList" id="rightImage" required accept="image/*" />
                                         <div class="form-text">Clear image showing the right side</div>
                                         <div class="image-preview-container" id="rightPreview"></div>
                                     </div>
@@ -284,42 +284,58 @@
             document.getElementById('backImage').addEventListener('input', validateForm);
             document.getElementById('leftImage').addEventListener('input', validateForm);
             document.getElementById('rightImage').addEventListener('input', validateForm);
-
-            validateForm();
         });
 
         // Function to validate the entire form
-       function validateForm() {
-         const model = document.getElementById('bikeModel').value.trim();
-         const bikeTypes = document.getElementById('bikeType').value.trim();
-         const price = document.getElementById('bikePrice').value.trim();
-         const year = document.getElementById('bikeYear').value.trim();
-         const engine = document.getElementById('engineCapacity').value.trim();
-         const mileage = document.getElementById('mileage').value.trim();
-         const tankCapacity = document.getElementById('fuelTankCapacity').value.trim();
-         const color = document.getElementById('bikeColor').value.trim();
-         const description = document.getElementById('bikeDescription').value.trim();
-         const frontImg = document.getElementById('frontImage').value.trim();
-         const backImg = document.getElementById('backImage').value.trim();
-         const leftImg = document.getElementById('leftImage').value.trim();
-         const rightImg = document.getElementById('rightImage').value.trim();
+        function validateForm() {
+            // Get all field values
+            const model = document.getElementById('bikeModel').value.trim();
+            const bikeType = document.getElementById('bikeType').value.trim();
+            const price = document.getElementById('bikePrice').value.trim();
+            const year = document.getElementById('bikeYear').value.trim();
+            const engine = document.getElementById('engineCapacity').value.trim();
+            const mileage = document.getElementById('mileage').value.trim();
+            const tankCapacity = document.getElementById('fuelTankCapacity').value.trim();
+            const color = document.getElementById('bikeColor').value.trim();
+            const description = document.getElementById('bikeDescription').value.trim();
 
-         // Get error messages (empty string means no error)
-         const modelError = document.getElementById('bikeModelError').innerText;
-         const colorError = document.getElementById('bikeColorError').innerText;
+            // Check file inputs (all are required)
+            const frontImg = document.getElementById('frontImage').files.length > 0;
+            const backImg = document.getElementById('backImage').files.length > 0;
+            const leftImg = document.getElementById('leftImage').files.length > 0;
+            const rightImg = document.getElementById('rightImage').files.length > 0;
 
-         const submitBtn = document.getElementById('submitBtn');
+             // Get error messages
+             const modelError = document.getElementById('bikeModelError').innerText;
+             const colorError = document.getElementById('bikeColorError').innerText;
 
-         // Check required fields (description and side images are optional)
-         const allRequiredFilled = model && bikeTypes && price && year && engine && ml && tankCapacity && color && description && frontImg && backImg & leftImg && rightImg;
+             const submitBtn = document.getElementById('submitBtn');
 
-         // Check if there are no validation errors
-         const noErrors = !modelError &&  !colorError;
+             // Check required fields
+             const allRequiredFilled = model && bikeType && price && year && engine &&
+                              mileage && tankCapacity && color && description &&
+                              frontImg && backImg && leftImg && rightImg;
 
-         console.log('Required filled:', allRequiredFilled, 'No errors:', noErrors);
-         console.log('Model error:', modelError, 'Color error:', colorError);
+             // Check if there are no validation errors
+             const noErrors = !modelError && !colorError;
 
-         submitBtn.disabled = !(allRequiredFilled && noErrors);
+            // For debugging:
+            console.log('Required fields filled:', allRequiredFilled);
+            console.log('No errors:', noErrors);
+            console.log('Model error:', modelError);
+            console.log('Color error:', colorError);
+
+             // Enable button only if ALL fields are filled and no errors
+             submitBtn.disabled = !(allRequiredFilled && noErrors);
+
+             // Debugging logs
+             console.log('All fields status:', {
+                 model, bikeType, price, year, engine,
+                 mileage, tankCapacity, color, description,
+                 frontImg, backImg, leftImg, rightImg
+             });
+             console.log('Errors:', {modelError, colorError});
+             console.log('Button should be enabled:', allRequiredFilled && noErrors);
        }
 </script>
 </body>
