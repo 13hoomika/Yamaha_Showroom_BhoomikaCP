@@ -15,8 +15,7 @@ public class ValidationUtil {
 //    private static final String DL_REGEX = "^[A-Z]{2}[0-9]{2}[0-9]{4}[0-9]{7}$";
 
     private static final String BIKE_MODEL_REGEX =
-            // Base model (e.g., "R15", "FZ-S") & Version (e.g., "V4", "Ver 2.0") Suffixes
-            "^[A-Za-z0-9]+(?:[- ][A-Za-z0-9]+)*\\s(?:V\\d+|Ver\\s\\d+(?:\\.\\d+)?|FI|DLX|Hybrid|S|FI\\sHybrid|DLX\\sVer\\s\\d+(?:\\.\\d+)?)?$";
+            "^([A-Z][a-z0-9]{0,19})(?:[- ]([A-Z]{2,}|[A-Z][a-z0-9]{0,19}|\\d{1,4})){0,5}(?:\\s(V\\d+(\\.\\d+)?|Ver\\s\\d+(\\.\\d+)?|FI(\\sHybrid)?|DLX(\\sVer\\s\\d+(\\.\\d+)?)?|Hybrid|S))?$";
 
     // === Validation Methods ===
     public static String validatePassword(String password) {
@@ -100,11 +99,15 @@ public class ValidationUtil {
     }
 
     public static String validateBikeModel(String bikeModel) {
-        if (bikeModel == null) return "Bike model cannot be null";
-        if (bikeModel.length() > MAX_FIELD_LENGTH) return "Bike model cannot exceed  " + MAX_FIELD_LENGTH + " characters";
-        if (!bikeModel.matches(BIKE_MODEL_REGEX)) return "Invalid bike model format";
-        return null;
+        if (bikeModel == null)
+            return "Bike model cannot be null";
+        if (bikeModel.length() > MAX_FIELD_LENGTH)
+            return "Bike model cannot exceed " + MAX_FIELD_LENGTH + " characters";
+        if (!bikeModel.matches(BIKE_MODEL_REGEX))
+            return "Invalid bike model. Allowed formats: 'Ray Z', 'Ray ZR 125', 'FZ-S FI Ver 4.0'";
+        return null; // Valid
     }
+
     public static String validateBikeColor(String bikeColor) {
         if (bikeColor == null || bikeColor.trim().isEmpty()) {
             return "Bike color cannot be empty.";
