@@ -287,7 +287,7 @@ public class AdminController {
     @PostMapping("/add-bike")
     public String addBike(
             @ModelAttribute BikeDto bikeDto,
-            HttpSession session) {
+            RedirectAttributes redirectAttributes) {
 
         List<MultipartFile> multipartFile = bikeDto.getMultipartFileList();
         List<String> images = new ArrayList<>();
@@ -347,11 +347,11 @@ public class AdminController {
 
         try {
             bikeService.addBike(bikeDto);
-            session.setAttribute("success", "Bike added successfully!");
+            redirectAttributes.addFlashAttribute("success", "Bike added successfully!");
             return "redirect:/admin/manage-bikes";
         } catch (Exception e) {
             e.printStackTrace();
-            session.setAttribute("error", "Failed to save bike: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("error", "Failed to save bike: " + e.getMessage());
             return "redirect:/admin/add-bike";
         }
     }
