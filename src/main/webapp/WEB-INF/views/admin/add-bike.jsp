@@ -88,7 +88,7 @@
                             <div class="col-md-6">
                                 <label for="bikeModel" class="form-label required-field">Model</label>
                                 <input type="text" class="form-control" id="bikeModel" name="bikeModel" placeholder="Enter Bike model Name"
-                                        oninput="validateName('bikeModel', 'bikeModelError', '/bike/checkBikeModel/')" required>
+                                        onchange="validateName('bikeModel', 'bikeModelError', '/bike/checkBikeModel/')" required>
                                 <span id="bikeModelError" class="validation-error"></span>
                             </div>
 
@@ -180,7 +180,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="leftImage" class="form-label">Left Side View</label>
                                         <input class="form-control" type="file" name="multipartFileList" id="leftImage" accept="image/*" />
-                                        <div class="form-text">Optional image showing the left side</div>
+                                        <div class="form-text">Clear image showing the left side</div>
                                         <div class="image-preview-container" id="leftPreview"></div>
                                     </div>
 
@@ -188,7 +188,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="rightImage" class="form-label">Right Side View</label>
                                         <input class="form-control" type="file" name="multipartFileList" id="rightImage" accept="image/*" />
-                                        <div class="form-text">Optional image showing the right side</div>
+                                        <div class="form-text">Clear image showing the right side</div>
                                         <div class="image-preview-container" id="rightPreview"></div>
                                     </div>
                                 </div>
@@ -196,7 +196,7 @@
 
                             <!-- Form Buttons -->
                             <div class="col-12 mt-4">
-                                <button type="submit"  id="submitBtn" class="btn btn-primary me-2">
+                                <button type="submit" id="submitBtn" class="btn btn-primary me-2" disabled>
                                     <i class="bi bi-floppy me-1"></i> Save Bike
                                 </button>
                                 <button type="reset" class="btn btn-outline-secondary">
@@ -284,6 +284,8 @@
             document.getElementById('backImage').addEventListener('input', validateForm);
             document.getElementById('leftImage').addEventListener('input', validateForm);
             document.getElementById('rightImage').addEventListener('input', validateForm);
+
+            validateForm();
         });
 
         // Function to validate the entire form
@@ -291,9 +293,9 @@
          const model = document.getElementById('bikeModel').value.trim();
          const bikeTypes = document.getElementById('bikeType').value.trim();
          const price = document.getElementById('bikePrice').value.trim();
-         const yr = document.getElementById('bikeYear').value.trim();
+         const year = document.getElementById('bikeYear').value.trim();
          const engine = document.getElementById('engineCapacity').value.trim();
-         const ml = document.getElementById('mileage').value.trim();
+         const mileage = document.getElementById('mileage').value.trim();
          const tankCapacity = document.getElementById('fuelTankCapacity').value.trim();
          const color = document.getElementById('bikeColor').value.trim();
          const description = document.getElementById('bikeDescription').value.trim();
@@ -302,19 +304,22 @@
          const leftImg = document.getElementById('leftImage').value.trim();
          const rightImg = document.getElementById('rightImage').value.trim();
 
-         const nameError = document.getElementById('bikeModelError').innerText;
-         //const phError = document.getElementById('bikeColorError').innerText;
+         // Get error messages (empty string means no error)
+         const modelError = document.getElementById('bikeModelError').innerText;
+         const colorError = document.getElementById('bikeColorError').innerText;
 
          const submitBtn = document.getElementById('submitBtn');
 
-         const allRequiredFilled = model && bikeTypes && price && yr && engine && ml && tankCapacity && color && description && frontImg && backImg & leftImg && rightImg;
-         const noErrors = !bikeModelError &&  !bikeColorError;
+         // Check required fields (description and side images are optional)
+         const allRequiredFilled = model && bikeTypes && price && year && engine && ml && tankCapacity && color && description && frontImg && backImg & leftImg && rightImg;
 
-         if (allRequiredFilled && noErrors) {
-             submitBtn.disabled = false;
-         } else {
-             submitBtn.disabled = true;
-         }
+         // Check if there are no validation errors
+         const noErrors = !modelError &&  !colorError;
+
+         console.log('Required filled:', allRequiredFilled, 'No errors:', noErrors);
+         console.log('Model error:', modelError, 'Color error:', colorError);
+
+         submitBtn.disabled = !(allRequiredFilled && noErrors);
        }
 </script>
 </body>
