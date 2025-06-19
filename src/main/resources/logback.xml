@@ -1,37 +1,98 @@
+<!--
 <configuration>
 
-    <!-- Define the log file path -->
+    &lt;!&ndash; Define the log file path &ndash;&gt;
     <property name="LOG_FILE" value="logs/app.log" />
 
-    <!-- Console Appender (Print logs in console) -->
+    &lt;!&ndash; Console Appender (Print logs in console) &ndash;&gt;
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- Rolling File Appender (Save logs in a file & rotate daily) -->
+    &lt;!&ndash; Rolling File Appender (Save logs in a file & rotate daily) &ndash;&gt;
     <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-<!--        <file>${LOG_FILE}</file>-->
+&lt;!&ndash;        <file>${LOG_FILE}</file>&ndash;&gt;
         <file>D:/06 GO19ROM Aug19/Project Phase/BikeShowroom Project draft/VelocityBikes_Bhoomika/logs/velocityBikeShowroom.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/app-%d{yyyy-MM-dd}.log</fileNamePattern> <!-- Daily log files -->
-            <maxHistory>7</maxHistory> <!-- Keep logs for the last 7 days -->
-            <totalSizeCap>100MB</totalSizeCap> <!-- Limit total log size to 100MB -->
+            <fileNamePattern>logs/app-%d{yyyy-MM-dd}.log</fileNamePattern> &lt;!&ndash; Daily log files &ndash;&gt;
+            <maxHistory>7</maxHistory> &lt;!&ndash; Keep logs for the last 7 days &ndash;&gt;
+            <totalSizeCap>100MB</totalSizeCap> &lt;!&ndash; Limit total log size to 100MB &ndash;&gt;
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- Set the logging level and use both console and file appenders -->
+    &lt;!&ndash; Set the logging level and use both console and file appenders &ndash;&gt;
     <root level="info">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="ROLLING_FILE" />
     </root>
 
-    <!-- Logging levels for specific packages (optional) -->
-    <logger name="org.springframework" level="warn" /> <!-- Reduce Spring logs -->
-    <logger name="com.xworkz.userapp" level="debug" /> <!-- More logs for your package -->
+    &lt;!&ndash; Logging levels for specific packages (optional) &ndash;&gt;
+    <logger name="org.springframework" level="warn" /> &lt;!&ndash; Reduce Spring logs &ndash;&gt;
+    <logger name="com.xworkz.userapp" level="debug" /> &lt;!&ndash; More logs for your package &ndash;&gt;
+
+</configuration>
+-->
+
+<configuration>
+
+    <!-- Define a property for the log file path, so you can reuse it easily -->
+    <!-- Set this to your desired absolute path for the main log file -->
+    <property name="LOG_FILE" value="D:/06 GO19ROM Aug19/Project Phase/BikeShowroom Project draft/Yamaha_Showroom_BhoomikaCP/logs/yamaha.log" />
+
+    <!-- Console Appender: prints logs to the console (standard output) -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Pattern defines log message format:
+                 %d = date/time, %-5level = log level padded to 5 chars,
+                 [%thread] = thread name, %logger{36} = logger name max 36 chars,
+                 %msg = log message, %n = new line -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Rolling File Appender: writes logs to a file and rolls over daily -->
+    <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <!-- Main log file location using the property defined above -->
+        <!--        <file>${LOG_FILE}</file>--> <!-- Don't specify <file> to avoid creating a static log file -->
+
+        <!-- Rolling policy controls how and when log files are rotated -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+            <!-- Pattern for the rolled-over log files, adding date suffix -->
+            <!-- Stored in the same folder as the main log file -->
+            <fileNamePattern>D:/06 GO19ROM Aug19/Project Phase/BikeShowroom Project draft/Yamaha_Showroom_BhoomikaCP/logs/yamahaIndiaLogs-%d{yyyy-MM-dd}.log</fileNamePattern>
+
+            <!-- Keep log files for 7 days before deleting old ones -->
+            <maxHistory>7</maxHistory>
+
+            <!-- Limit total size of all archived logs to 100MB -->
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <!-- Same log format as console -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root logger configuration -->
+    <root level="info">
+        <!-- Logs will be output both to the console and the rolling file -->
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ROLLING_FILE" />
+    </root>
+
+    <!-- Package-specific logging levels -->
+    <!-- Reduce logs from Spring framework to WARN level to avoid clutter -->
+    <logger name="org.springframework" level="warn" />
+
+    <!-- Enable DEBUG level logging for your application's package -->
+    <logger name="com.bcp.yamaha" level="debug" />
 
 </configuration>
