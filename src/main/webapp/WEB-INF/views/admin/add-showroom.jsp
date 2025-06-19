@@ -62,7 +62,7 @@
                             <div class="col-md-6">
                                 <label for="showroomEmail" class="form-label">Contact Email</label>
                                 <input type="email" class="form-control" id="showroomEmail" name="showroomEmail"
-                                    placeholder="Enter contact email" oninput="checkEmail('showroomEmail', 'emailError', '/showroom/checkEmailValue/')" required>
+                                    placeholder="Enter contact email" onchange="checkEmail('showroomEmail', 'emailError', '/showroom/checkEmailValue/')" required>
                                 <span id="emailError" class="validation-error"></span>
                             </div>
                             <div class="col-md-12">
