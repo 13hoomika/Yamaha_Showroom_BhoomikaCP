@@ -103,7 +103,7 @@
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
-      <version>1.5</version>
+      <version>1.6.0</version>
     </dependency>
     <!--  SLF4J  API  -->
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
