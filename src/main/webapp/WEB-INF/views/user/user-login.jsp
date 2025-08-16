@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/WEB-INF/views/fragments/home-header.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-login.css">
     <style>
         input[type="submit"] {
-            background-color: var(--blue);
+            background-color: var(--yamaha-blue);
             color: white;
             padding: 12px;
             border: none;
@@ -118,6 +119,7 @@
         </div>
     </div>
 </div>
+<%@ include file="/WEB-INF/views/fragments/home-footer.jsp" %>
 
 <script>
     let currentCaptcha = "";

@@ -44,6 +44,7 @@
         </div>
     </div>
 </div>
+<%@ include file="/WEB-INF/views/fragments/home-footer.jsp" %>
 <script src="${pageContext.request.contextPath}/static/js/uploadAvatar.js"></script>
 
 </body>

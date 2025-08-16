@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/yamaha_icon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin-login.css">
+    <%@ include file="/WEB-INF/views/fragments/home-header.jsp" %>
 </head>
 <body>
 
@@ -47,6 +48,7 @@
         </div>
     </div>
 </div>
+<%@ include file="/WEB-INF/views/fragments/home-footer.jsp" %>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

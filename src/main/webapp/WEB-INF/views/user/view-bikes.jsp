@@ -181,6 +181,8 @@
         </div>
     </div>
 </div>
+<%@ include file="/WEB-INF/views/fragments/home-footer.jsp" %>
+
 <script>
     const contextPath = '${pageContext.request.contextPath}';
 </script>

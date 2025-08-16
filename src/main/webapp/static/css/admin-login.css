@@ -31,14 +31,14 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    color: var(--black);
-    line-height: 1.6;
-    background-color: var(--light);
-    overflow-x: hidden;
     background-image: url("../images/blur-bg.webp");
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Keeps the image fixed during scroll */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px;
 }
 
 /* Container */
