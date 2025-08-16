@@ -1,10 +1,10 @@
 :root {
-    --black: #121212;
-    --blue: #003399;
-    --blue-hover: #030088;
-    --gray: #2d2d2d;
-    --light: #f8f8f8;
-    --chrome: #cccccc;
+    --yamaha-black: #121212;
+    --yamaha-blue: #003399;
+    --yamaha-blue-hover: #030088;
+    --yamaha-red: #e30613;
+    --yamaha-white: #f8f8f8;
+    --yamaha-chrome: #cccccc;
 }
 
 /* General Reset */
@@ -50,7 +50,7 @@ body {
 
 /* Login Box */
 .login-box {
-    background-color: var(--light);
+    background-color: var(--yamaha-white);
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -62,7 +62,7 @@ h2 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2.5rem;
     text-align: center;
-    color: var(--black);
+    color: var(--yamaha-black);
     margin-bottom: 1.5rem;
     letter-spacing: 1px;
 }
@@ -96,25 +96,25 @@ form {
 
 label {
     font-weight: bold;
-    color: var(--black);
+    color: var(--yamaha-black);
 }
 
 input {
     padding: 10px;
     font-size: 1rem;
-    border: 2px solid var(--chrome);
+    border: 2px solid var(--yamaha-chrome);
     border-radius: 4px;
     outline: none;
     transition: border-color 0.3s ease;
 }
 
 input:focus {
-    border-color: var(--blue);
+    border-color: var(--yamaha-blue);
 }
 
 button {
-    background-color: var(--blue);
-    color: white;
+    background-color: var(--yamaha-blue);
+    color: var(--yamaha-white);
     padding: 12px;
     border: none;
     border-radius: 5px;
@@ -126,11 +126,11 @@ button {
 }
 
 button:hover {
-    background-color: var(--blue-hover);
+    background-color: var(--yamaha-blue-hover);
 }
 
 button:disabled {
-    background-color: #cccccc;
+    background-color: var(--yamaha-chrome);
     cursor: not-allowed;
 }
 
@@ -143,7 +143,7 @@ button:disabled {
 #timer {
     font-size: 1rem;
     font-weight: bold;
-    color: #e30613;
+    color: var(--yamaha-red);
 }
 
 .back-home {
@@ -154,7 +154,7 @@ button:disabled {
 .back-link {
 text-align: center;
     margin-top: 20px;
-    color: var(--blue);
+    color: var(--yamaha-blue);
     text-decoration: none;
     font-size: 1rem;
     font-weight: 600;
