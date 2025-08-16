@@ -1,9 +1,8 @@
 :root {
-    --black: #121212;
-    --blue: #003399;       /* Dark Yamaha blue */
-    --blue-hover: #030088; /* Standard Yamaha blue */
-    --gray: #2d2d2d;
-    --light: #f8f8f8;
+    --yamaha-black: #121212;
+    --yamaha-blue: #003399;       /* Dark Yamaha blue */
+    --yamaha-blue-hover: #030088; /* Standard Yamaha blue */
+    --yamaha-white: #f8f8f8;
 }
 
 * {
@@ -14,12 +13,12 @@
 
 body {
     font-family: Montserrat, sans-serif;
-    background-color: var(--light);
+    background-color: var(--yamaha-white);
 }
 
 /* Header Styles */
 header {
-    background-color: var(--light);
+    background-color: var(--yamaha-white);
     color: white;
     padding: 1rem 0;
     position: fixed;
@@ -54,19 +53,19 @@ header {
     display: flex;
     list-style: none;
     gap: 1.5rem;
-    background-color: var(--light);
+    background-color: var(--yamaha-white);
 }
 
 .nav-links li a {
     text-decoration: none;
-    color: var(--black);
+    color: var(--yamaha-black);
     font-size: 1rem;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .nav-links li a:hover {
-    color: var(--blue-hover);
+    color: var(--yamaha-blue-hover);
 }
 
 /* Authentication Buttons */
@@ -84,12 +83,12 @@ header {
 }
 
 .btn-login {
-    background-color: var(--blue);
+    background-color: var(--yamaha-blue);
     color: white;
 }
 
 .btn-login:hover {
-    background-color: var(--blue-hover);
+    background-color: var(--yamaha-blue-hover);
     transform: scale(1.1);
 }
 
@@ -110,7 +109,7 @@ header {
     display: block;
     width: 100%;
     height: 3px;
-    background-color: var(--black);
+    background-color: var(--yamaha-black);
     position: relative;
     transition: all 0.3s ease;
 }
@@ -121,7 +120,7 @@ header {
     position: absolute;
     width: 100%;
     height: 3px;
-    background-color: var(--black);
+    background-color: var(--yamaha-black);
     left: 0;
     transition: all 0.3s ease;
 }
@@ -164,7 +163,7 @@ header {
         display: none;
         flex-direction: column;
         width: 30%;
-        background-color: var(--light);
+        background-color: var(--yamaha-white);
         position: absolute;
         top: 100%;
         left: 0;
@@ -178,7 +177,7 @@ header {
         flex-direction: column;
         width: 30%;
         padding: 1rem;
-        background-color: var(--light);
+        background-color: var(--yamaha-white);
         position: absolute;
         top: calc(100% + 180px); /* Position below nav links */
         left: 0;
