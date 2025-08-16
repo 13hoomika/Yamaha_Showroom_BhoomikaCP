@@ -11,7 +11,7 @@
             <img src="${pageContext.request.contextPath}/static/images/yamaha-logo.png" alt="Yamaha" height="40">
         </a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#" class="active">Home</a></li> <!-- Add 'active' manually here -->
+            <li><a href="${pageContext.request.contextPath}/home" class="active">Home</a></li>
             <li><a href="${pageContext.request.contextPath}/">Bikes</a></li>
             <li><a href="${pageContext.request.contextPath}/">About Us</a></li>
             <!-- <li><a href="${pageContext.request.contextPath}/">Contact</a></li> -->
