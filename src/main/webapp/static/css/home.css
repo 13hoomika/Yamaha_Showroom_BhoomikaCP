@@ -1,8 +1,8 @@
 :root {
-    --black: #121212;
-    --blue: #030088; /* #003399 */
-    --gray: #2d2d2d;
-    --light: #f8f8f8;
+    --yamaha-black: #121212;
+    --yamaha-blue: #030088;
+    --yamaha-gray: #2d2d2d;
+    --yamaha-white: #f8f8f8;
 }
 
 * {
@@ -28,9 +28,9 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    color: var(--black);
+    color: var(--yamaha-black);
     line-height: 1.6;
-    background-color: var(--light);
+    background-color: var(--yamaha-white);
     overflow-x: hidden;
 }
 
@@ -134,7 +134,7 @@ h1, h2, h3 {
 }
 
 .btn-red {
-    background-color: var(--blue);
+    background-color: var(--yamaha-yamaha-blue);
     color: white;
 }
 
@@ -151,7 +151,7 @@ h1, h2, h3 {
 
 .btn-outline:hover {
     background-color: white;
-    color: var(--black);
+    color: var(--yamaha-black);
 }
 
 /* Navigation Arrows */
@@ -167,7 +167,7 @@ h1, h2, h3 {
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-    /* background: var(--blue); */
+    /* background: var(--yamaha-blue); */
      transform: translateY(-3px) scale(1.2); /* 20% size increase + lift */
 }
 
@@ -189,9 +189,9 @@ h1, h2, h3 {
 }
 
 .swiper-pagination-bullet-active {
-    background: var(--blue);
+    background: var(--yamaha-blue);
     opacity: 1;
-    height: 4px;    /* Slightly thicker for active state */
+    height: 4px;    /* Syamaha-whitely thicker for active state */
 }
 
 /* Featured Bikes */
@@ -207,7 +207,7 @@ h1, h2, h3 {
 
 .section-title {
     font-size: clamp(2rem, 5vw, 3rem);
-    color: var(--black);
+    color: var(--yamaha-black);
     position: relative;
     display: inline-block;
     margin-bottom: 1rem;
@@ -218,14 +218,14 @@ h1, h2, h3 {
     position: absolute;
     width: 80px;
     height: 4px;
-    background-color: var(--blue);
+    background-color: var(--yamaha-blue);
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
 }
 
 .section-subtitle {
-    color: var(--gray);
+    color: var(--yamaha-gray);
     max-width: 700px;
     margin: 0 auto;
 }
@@ -255,7 +255,7 @@ h1, h2, h3 {
     position: absolute;
     top: 15px;
     right: 15px;
-    background-color: var(--blue);
+    background-color: var(--yamaha-blue);
     color: white;
     padding: 5px 15px;
     border-radius: 3px;
@@ -289,11 +289,11 @@ h1, h2, h3 {
 .bike-title {
     font-size: 1.4rem;
     margin-bottom: 5px;
-    color: var(--black);
+    color: var(--yamaha-black);
 }
 
 .bike-specs {
-    color: var(--gray);
+    color: var(--yamaha-gray);
     font-size: 0.9rem;
     margin-bottom: 15px;
     display: flex;
@@ -309,7 +309,7 @@ h1, h2, h3 {
 .bike-price {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--blue);
+    color: var(--yamaha-blue);
     margin-bottom: 15px;
 }
 
