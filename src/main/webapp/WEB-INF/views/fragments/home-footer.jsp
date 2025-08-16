@@ -9,6 +9,6 @@
             <li><a href="${pageContext.request.contextPath}/">About</a></li>
             <li><a href="${pageContext.request.contextPath}/">Contact</a></li>
         </ul>
-        <p class="copyright">&copy; 2025 Yamaha Motor Co., Ltd. All rights reserved | <i class="fas fa-bolt" style="color: red;"></i> Revs Your Heart</p>
+        <p class="copyright">Copyright  &copy; 2025 Yamaha Motor Co., Ltd. All rights reserved</p>
     </div>
 </footer>
