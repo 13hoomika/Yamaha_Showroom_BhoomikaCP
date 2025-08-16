@@ -6,8 +6,8 @@
         <ul class="footer-links">
             <li><a href="#">Home</a></li>
             <li><a href="${pageContext.request.contextPath}/allBikes">Bikes</a></li>
-            <li><a href="${pageContext.request.contextPath}/">About</a></li>
-            <li><a href="${pageContext.request.contextPath}/">Contact</a></li>
+            <li><a href="${pageContext.request.contextPath}/">About Us</a></li>
+            <!-- <li><a href="${pageContext.request.contextPath}/">Contact</a></li> -->
         </ul>
         <p class="copyright">Copyright  &copy; 2025 Yamaha Motor Co., Ltd. All rights reserved</p>
     </div>
