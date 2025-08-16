@@ -159,6 +159,14 @@ header {
         display: block;
     }
 
+    .navbar-toggle:hover,
+    .navbar-toggle:focus,
+    .navbar-toggle:active {
+        background-color: transparent !important;
+        outline: none;
+        box-shadow: none;
+    }
+    
     .nav-links {
         display: none;
         flex-direction: column;
